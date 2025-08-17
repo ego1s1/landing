@@ -59,7 +59,7 @@ export function Hero({ img, profile }: HeroProps) {
         </p>
         <div className="w-fit flex items-center justify-center gap-3">
           <Button variant="ghost" size="icon" asChild>
-            <a href="https://github.com/PSxUchiha">
+            <a href="https://github.com/ego1s1">
               <GitHub className="size-6" />
               <span className="sr-only">GitHub Account</span>
             </a>

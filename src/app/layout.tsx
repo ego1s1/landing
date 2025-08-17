@@ -27,8 +27,8 @@ const doto = Doto({
 
 export const metadata: Metadata = {
   title: {
-    default: "psxuchiha.",
-    template: "%s | psxuchiha.",
+    default: "ego1s1.",
+    template: "%s | ego1s1.",
   },
   description: "Where it all begins.",
   metadataBase: new URL(
@@ -38,8 +38,8 @@ export const metadata: Metadata = {
   ),
   openGraph: {
     title: {
-      default: "psxuchiha.",
-      template: "%s | psxuchiha.",
+      default: "ego1s1.",
+      template: "%s | ego1s1.",
     },
     description: "B.Tech student in Electronics and Communications Engineering at MIT Manipal. Winner of IEEE Hacksagon 2025. Passionate about development and collaboration.",
     url: "https://priyanshusharma.dev",
@@ -57,10 +57,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "psxuchiha.",
+    title: "ego1s1.",
     description: "B.Tech student in Electronics and Communications Engineering at MIT Manipal. Winner of IEEE Hacksagon 2025. Passionate about development and collaboration.",
-    site: "@PSxUchiha",
-    creator: "@PSxUchiha",
+    site: "@ego1s1",
+    creator: "@ego1s1",
     images: [
       {
         url: "/twitter-image.png",

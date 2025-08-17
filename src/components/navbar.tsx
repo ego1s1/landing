@@ -34,7 +34,7 @@ export function Navbar() {
           href="/"
           className="text-xl font-bold dark:font-medium text-primary"
         >
-          psxuchiha.
+          ego1s1.
         </Link>
         <div className="flex gap-3 items-center">
           {links.length > 0 &&
@@ -44,7 +44,7 @@ export function Navbar() {
               </FlatNavLink>
             ))}
           <Button variant="ghost" size="icon" asChild>
-            <a href="https://github.com/PSxUchiha/landing" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/ego1s1/landing" target="_blank" rel="noopener noreferrer">
               <GitHub className="size-5" />
               <span className="sr-only">View source code on GitHub</span>
             </a>

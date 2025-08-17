@@ -13,10 +13,10 @@ import HeroImage from "@/assets/img/hero.jpg";
 import HeroProfile from "@/assets/img/profpic-animated.webp";
 
 export const metadata: Metadata = {
-  title: "Landing | psxuchiha.",
+  title: "Landing | ego1s1.",
   description: "Where it all begins.",
   openGraph: {
-    title: "Landing | psxuchiha.",
+    title: "Landing | ego1s1.",
     description: "Where it all begins.",
   },
 };
@@ -109,7 +109,7 @@ export default function Home() {
             </a>
             . The source code is available on{" "}
             <a
-              href="https://github.com/PSxUchiha/landing"
+              href="https://github.com/ego1s1/landing"
               target="_blank"
               rel="noopener noreferrer"
               className="underline underline-offset-2"
