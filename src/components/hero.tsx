@@ -65,7 +65,7 @@ export function Hero({ img, profile }: HeroProps) {
             </a>
           </Button>
           <Button variant="ghost" size="icon" asChild>
-            <a href="https://www.linkedin.com/in/priyanshu-sharma-303969285">
+            <a href="https://www.linkedin.com/in/ego1s1">
               <LinkedIn className="size-6" />
               <span className="sr-only">LinkedIn Account</span>
             </a>
