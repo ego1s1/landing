@@ -8,6 +8,7 @@ import { TextScroll } from "@/components/ui/text-scroll";
 import { TechStack } from "@/components/tech-stack";
 import { ProjectShowcase } from "@/components/project-showcase";
 import AboutMeSection from "@/components/about-me-section";
+import WorkExperienceSection from "@/components/work-experience-section";
 
 import HeroImage from "@/assets/img/hero.jpg";
 import HeroProfile from "@/assets/img/profpic-animated.webp";
@@ -48,6 +49,7 @@ export default function Home() {
       <Container>
         <Hero img={HeroImage} profile={HeroProfile} />
         <AboutMeSection />
+        <WorkExperienceSection />
 
         <div className="w-full bg-background rounded-lg border border-border">
           <h2 className="w-full flex items-center gap-3 text-muted-foreground px-5 py-3 border-b border-border">
