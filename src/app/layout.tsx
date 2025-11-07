@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
-import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Navbar } from "@/components/navbar";
 import Providers from "@/lib/provider/react-query";
 import { Analytics } from "@vercel/analytics/next";
@@ -99,13 +98,11 @@ export default function RootLayout({
           className={`${baseSans.variable} ${displaySerif.variable} ${mono.variable} antialiased scroll-smooth`}
         >
           <GlassFilterDefs />
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-            <Providers>
-              <Navbar />
-              {children}
-              <Footer />
-            </Providers>
-          </ThemeProvider>
+          <Providers>
+            <Navbar />
+            {children}
+            <Footer />
+          </Providers>
           <Analytics />
         </body>
       </html>

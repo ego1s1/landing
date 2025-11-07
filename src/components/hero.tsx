@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <section className="flex w-full flex-wrap items-center justify-between gap-6 rounded-none border-none bg-transparent p-0">
       <div className="flex items-center gap-4">
-        <div className="relative flex size-20 items-center justify-center overflow-hidden rounded-2xl border border-white/30 dark:border-white/15 bg-gradient-to-br from-white/70 to-white/40 dark:from-white/10 dark:to-white/5">
+        <div className="relative flex size-20 items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-white/10 to-white/5">
           <Image src="/avatar.jpeg" alt="Priyanshu Sharma" fill priority className="object-cover" />
         </div>
         <div className="flex flex-col justify-center gap-1">

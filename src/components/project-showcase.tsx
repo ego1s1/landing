@@ -60,7 +60,7 @@ function GlassProjectTile({ project }: { project: Project }) {
             )}
           </div>
           {project.event && (
-            <p className="text-xs text-foreground/70 dark:text-foreground/60">
+            <p className="text-xs text-foreground/60">
               {project.event}
             </p>
           )}

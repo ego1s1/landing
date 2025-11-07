@@ -11,7 +11,7 @@ export default function WorkExperienceSection() {
     <GlassCard
       title="WORK-EXPERIENCE.md"
       icon={<Briefcase className="size-4" />}
-      contentClassName="prose max-w-none dark:prose-invert font-[var(--font-serif)] leading-relaxed prose-headings:font-[var(--font-serif)] prose-strong:font-[var(--font-serif)]"
+      contentClassName="prose max-w-none prose-invert font-[var(--font-serif)] leading-relaxed prose-headings:font-[var(--font-serif)] prose-strong:font-[var(--font-serif)]"
     >
       <ReactMarkdown>{workExperienceContent}</ReactMarkdown>
     </GlassCard>

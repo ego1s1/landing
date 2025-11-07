@@ -2,8 +2,6 @@
 
 @plugin "tailwindcss-animate";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -52,60 +50,6 @@ html {
 }
 
 :root {
-  --background: #f5f5f5;
-  --foreground: #1a1a1a;
-  --card: #f5f5f5;
-  --card-foreground: #1a1a1a;
-  --popover: #f5f5f5;
-  --popover-foreground: #1a1a1a;
-  --primary: #3a3a3a;
-  --primary-foreground: #f5f5f5;
-  --secondary: #e0e0e0;
-  --secondary-foreground: #1a1a1a;
-  --muted: #e5e5e5;
-  --muted-foreground: #303030;
-  --accent: #d9d9d9;
-  --accent-foreground: #1a1a1a;
-  --destructive: #b5b5b5;
-  --destructive-foreground: #1a1a1a;
-  --border: #c9c9c9;
-  --input: #c9c9c9;
-  --ring: #4a4a4a;
-  --chart-1: oklch(0.2 0 0);
-  --chart-2: oklch(0.35 0 0);
-  --chart-3: oklch(0.5 0 0);
-  --chart-4: oklch(0.65 0 0);
-  --chart-5: oklch(0.8 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.95 0 0);
-  --sidebar-foreground: oklch(0.15 0 0);
-  --sidebar-primary: oklch(0.25 0 0);
-  --sidebar-primary-foreground: oklch(0.95 0 0);
-  --sidebar-accent: oklch(0.88 0 0);
-  --sidebar-accent-foreground: oklch(0.22 0 0);
-  --sidebar-border: oklch(0.83 0 0);
-  --sidebar-ring: oklch(0.55 0 0);
-  --moe-accent: oklch(0.6 0 0);
-  --moe-text: oklch(0.25 0 0);
-  --moe-bg: oklch(0.9 0 0);
-  --moe-bg-japanese: oklch(0.94 0 0);
-  --mauve: #202020;
-  --red: #2c2c2c;
-  --maroon: #373737;
-  --peach: #424242;
-  --yellow: #4d4d4d;
-  --green: #595959;
-  --teal: #656565;
-  --sky: #717171;
-  --sapphire: #7d7d7d;
-  --blue: #898989;
-  --lavender: #979797;
-  --rosewater: #a5a5a5;
-  --flamingo: #b3b3b3;
-  --pink: #c1c1c1;
-}
-
-.dark {
   --background: #0f0f0f;
   --foreground: #f4f4f4;
   --card: #0f0f0f;
@@ -130,6 +74,7 @@ html {
   --chart-3: oklch(0.46 0 0);
   --chart-4: oklch(0.6 0 0);
   --chart-5: oklch(0.74 0 0);
+  --radius: 0.625rem;
   --sidebar: oklch(0.2 0 0);
   --sidebar-foreground: oklch(0.99 0 0);
   --sidebar-primary: oklch(0.38 0 0);
@@ -164,15 +109,11 @@ html {
   }
   body {
     @apply bg-background text-foreground;
-  }
-  .dark body {
     background-image: url("/image.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: rgba(0, 0, 0, 0.55);
-    background-blend-mode: multiply;
   }
 }
 
@@ -185,26 +126,20 @@ html {
 }
 
 .glass-card {
-  --bg-color: rgba(255, 255, 255, 0.25);
-  --highlight: rgba(255, 255, 255, 0.75);
-  --text-color: var(--foreground);
+  --bg-color: rgba(0, 0, 0, 0.25);
+  --highlight: rgba(255, 255, 255, 0.15);
+  --text-color: #ffffff;
   position: relative;
   width: 100%;
   border-radius: 1.25rem;
   overflow: hidden;
   background: transparent;
-  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.2);
-}
-.dark .glass-card {
-  --bg-color: rgba(0, 0, 0, 0.25);
-  --highlight: rgba(255, 255, 255, 0.15);
-  --text-color: #ffffff;
   box-shadow: 0 6px 24px rgba(15, 23, 42, 0.35);
 }
 .glass-button {
-  --bg-color: rgba(255, 255, 255, 0.25);
-  --highlight: rgba(255, 255, 255, 0.75);
-  --text-color: var(--foreground);
+  --bg-color: rgba(0, 0, 0, 0.25);
+  --highlight: rgba(255, 255, 255, 0.15);
+  --text-color: #ffffff;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -226,11 +161,6 @@ html {
 }
 .glass-button:active {
   transform: scale(0.95);
-}
-.dark .glass-button {
-  --bg-color: rgba(0, 0, 0, 0.25);
-  --highlight: rgba(255, 255, 255, 0.15);
-  --text-color: #ffffff;
 }
 .glass-filter,
 .glass-overlay,
@@ -279,43 +209,30 @@ html {
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-color);
   margin: -1.5rem -1.5rem 0;
 }
-.dark .glass-card-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
 .glass-nav {
-  --bg-color: rgba(255, 255, 255, 0.25);
-  --highlight: rgba(255, 255, 255, 0.75);
+  --bg-color: rgba(0, 0, 0, 0.25);
+  --highlight: rgba(255, 255, 255, 0.15);
   --text-color: var(--foreground);
   position: relative;
   overflow: hidden;
   border-radius: 1rem;
   background: transparent;
 }
-.dark .glass-nav {
-  --bg-color: rgba(0, 0, 0, 0.25);
-  --highlight: rgba(255, 255, 255, 0.15);
-}
 .glass-nav-floating {
   border-radius: 9999px;
   padding: 0.25rem 0.35rem;
   width: fit-content;
-  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 36px rgba(2, 6, 23, 0.55), inset 0 0 0 1px rgba(148, 163, 184, 0.08);
   backdrop-filter: blur(12px);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 .glass-nav-floating-active {
-  box-shadow: 0 22px 44px rgba(15, 23, 42, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.16);
-  transform: translateY(-2px);
-}
-.dark .glass-nav-floating {
-  box-shadow: 0 18px 36px rgba(2, 6, 23, 0.55), inset 0 0 0 1px rgba(148, 163, 184, 0.08);
-}
-.dark .glass-nav-floating-active {
   box-shadow: 0 26px 48px rgba(2, 6, 23, 0.65), inset 0 0 0 1px rgba(148, 163, 184, 0.12);
+  transform: translateY(-2px);
 }
 .glass-nav .glass-content {
   padding: 0.25rem 0.5rem;
@@ -354,23 +271,13 @@ html {
   height: 2.2rem;
   border-radius: 9999px;
   transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
-  color: rgba(15, 23, 42, 0.75);
+  color: rgba(226, 232, 240, 0.85);
 }
 .glass-nav-icon:hover {
   transform: translateY(-2px);
-  background-color: rgba(255, 255, 255, 0.18);
-}
-.glass-nav-icon-active {
-  background-color: rgba(255, 255, 255, 0.24);
-  color: rgba(15, 23, 42, 0.95);
-}
-.dark .glass-nav-icon {
-  color: rgba(226, 232, 240, 0.85);
-}
-.dark .glass-nav-icon:hover {
   background-color: rgba(148, 163, 184, 0.18);
 }
-.dark .glass-nav-icon-active {
+.glass-nav-icon-active {
   background-color: rgba(148, 163, 184, 0.24);
   color: rgba(226, 232, 240, 0.98);
 }
@@ -380,9 +287,9 @@ html {
   gap: 1.5rem;
 }
 .glass-icon {
-  --bg-color: rgba(255, 255, 255, 0.25);
-  --highlight: rgba(255, 255, 255, 0.75);
-  --icon-color: var(--foreground);
+  --bg-color: rgba(0, 0, 0, 0.25);
+  --highlight: rgba(255, 255, 255, 0.15);
+  --icon-color: #ffffff;
   position: relative;
   width: 64px;
   height: 64px;
@@ -406,13 +313,6 @@ html {
 }
 .glass-icon:hover svg {
   transform: scale(0.9);
-}
-.dark .glass-icon {
-  --bg-color: rgba(0, 0, 0, 0.25);
-  --highlight: rgba(255, 255, 255, 0.15);
-}
-.dark .glass-icon {
-  --icon-color: #ffffff;
 }
 .glass-button .glass-content {
   padding: 0.25rem 0.5rem;
@@ -476,16 +376,10 @@ html {
   font-size: 1rem;
 }
 .glass-grid-card-description {
-  color: rgba(15, 23, 42, 0.75);
+  color: rgba(255, 255, 255, 0.85);
   transition: color 0.3s ease;
 }
-.dark .glass-grid-card-description {
-  color: rgba(255, 255, 255, 0.85);
-}
 .glass-grid-card:hover .glass-grid-card-description {
-  color: rgba(15, 23, 42, 0.9);
-}
-.dark .glass-grid-card:hover .glass-grid-card-description {
   color: rgba(255, 255, 255, 0.95);
 }
 .glass-button-icon {
