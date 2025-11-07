@@ -98,44 +98,44 @@ function GlassProjectTile({ project }: { project: Project }) {
   );
 }
 
-export function ProjectShowcase() {
-  const projects: Project[] = [
-    {
-      name: "Shell Assistant",
-      event: "IEEE Hacksagon 2025, IIITM Gwalior - Overall Software Category Winner",
-      description: "A local application that interprets natural language commands and executes them on a Linux/macos system.",
-      url: "https://github.com/ego1s1/shell-assist",
-      githubUrl: "https://github.com/ego1s1/shell-assist",
-      icon: "󰆍",
-      color: "var(--mauve)",
-    },
-    {
-      name: "Gate Entry",
-      description: "A modern gate entry management system built with Next.js 14, featuring role-based access control and visitor tracking.",
-      url: "https://gate-entry-sigma.vercel.app/",
-      githubUrl: "https://github.com/ego1s1/gate-entry",
-      icon: "󰉋",
-      color: "var(--teal)",
-    },
-    {
-      name: "YatraGPT",
-      event: "finova SoftLaunch Hackathon 2025 - 2nd Prize",
-      description: "An AI powered personalised travel agent that provides intelligent travel recommendations and planning assistance.",
-      url: "https://github.com/vee1e/finova",
-      githubUrl: "https://github.com/vee1e/finova",
-      icon: "󰒋",
-      color: "var(--blue)",
-    },
-    {
-      name: "More to come",
-      description: "Exciting projects in development. Stay tuned for more innovative solutions and collaborations.",
-      url: "https://github.com/ego1s1",
-      githubUrl: "https://github.com/ego1s1",
-      icon: "󰐊",
-      color: "var(--green)",
-    },
-  ];
+const projects: Project[] = [
+  {
+    name: "Shell Assistant",
+    event: "IEEE Hacksagon 2025, IIITM Gwalior - Overall Software Category Winner",
+    description: "A local application that interprets natural language commands and executes them on a Linux/macos system.",
+    url: "https://github.com/ego1s1/shell-assist",
+    githubUrl: "https://github.com/ego1s1/shell-assist",
+    icon: "",
+    color: "var(--mauve)",
+  },
+  {
+    name: "Gate Entry",
+    description: "A modern gate entry management system built with Next.js 14, featuring role-based access control and visitor tracking.",
+    url: "https://gate-entry-sigma.vercel.app/",
+    githubUrl: "https://github.com/ego1s1/gate-entry",
+    icon: "",
+    color: "var(--teal)",
+  },
+  {
+    name: "YatraGPT",
+    event: "finova SoftLaunch Hackathon 2025 - 2nd Prize",
+    description: "An AI powered personalised travel agent that provides intelligent travel recommendations and planning assistance.",
+    url: "https://github.com/vee1e/finova",
+    githubUrl: "https://github.com/vee1e/finova",
+    icon: "",
+    color: "var(--blue)",
+  },
+  {
+    name: "More to come",
+    description: "Exciting projects in development. Stay tuned for more innovative solutions and collaborations.",
+    url: "https://github.com/ego1s1",
+    githubUrl: "https://github.com/ego1s1",
+    icon: "",
+    color: "var(--green)",
+  },
+];
 
+export function ProjectShowcase() {
   return (
     <GlassCard title="PROJECTS.md">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

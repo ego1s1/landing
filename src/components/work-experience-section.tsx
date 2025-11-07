@@ -4,22 +4,16 @@ import { join } from "path";
 import ReactMarkdown from "react-markdown";
 import { GlassCard } from "@/components/ui/glass-card";
 
-function getWorkExperienceContent() {
-  const filePath = join(process.cwd(), "public", "work-experience.md");
-  const content = readFileSync(filePath, "utf8");
-  return content;
-}
+const workExperienceContent = readFileSync(join(process.cwd(), "public", "work-experience.md"), "utf8");
 
 export default function WorkExperienceSection() {
-  const content = getWorkExperienceContent();
-
   return (
     <GlassCard
       title="WORK-EXPERIENCE.md"
       icon={<Briefcase className="size-4" />}
-      contentClassName="prose max-w-none dark:prose-invert"
+      contentClassName="prose max-w-none dark:prose-invert font-[var(--font-serif)] leading-relaxed prose-headings:font-[var(--font-serif)] prose-strong:font-[var(--font-serif)]"
     >
-      <ReactMarkdown>{content}</ReactMarkdown>
+      <ReactMarkdown>{workExperienceContent}</ReactMarkdown>
     </GlassCard>
   );
 }

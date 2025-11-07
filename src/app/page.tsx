@@ -1,4 +1,3 @@
-import React from 'react';
 import Container from "@/components/container";
 import { Metadata } from "next";
 import { Hero } from "@/components/hero";
@@ -11,8 +10,6 @@ import AboutMeSection from "@/components/about-me-section";
 import WorkExperienceSection from "@/components/work-experience-section";
 import { GlassCard } from "@/components/ui/glass-card";
 
-import HeroImage from "@/assets/img/hero.jpg";
-import HeroProfile from "@/assets/img/profpic-animated.webp";
 
 export const metadata: Metadata = {
   title: "Landing | ego1s1.",
@@ -23,33 +20,33 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
-  const jsonLd: WithContext<WebPage> = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: "Priyanshu Sharma",
-    alternateName: "landing.",
-    mainEntityOfPage: "https://priyanshusharma.dev/",
-    description: "Where it all begins.",
-    url: "https://priyanshusharma.dev/",
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Landing",
-          item: "https://priyanshusharma.dev/",
-        }
-      ],
-    },
-  };
+const jsonLd: WithContext<WebPage> = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Priyanshu Sharma",
+  alternateName: "landing.",
+  mainEntityOfPage: "https://priyanshusharma.dev/",
+  description: "Where it all begins.",
+  url: "https://priyanshusharma.dev/",
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Landing",
+        item: "https://priyanshusharma.dev/",
+      }
+    ],
+  },
+};
 
+export default function Home() {
   return (
     <>
       <Container>
         <section id="home" className="w-full scroll-mt-32">
-          <Hero img={HeroImage} profile={HeroProfile} />
+          <Hero />
         </section>
 
         <section id="about" className="w-full scroll-mt-32">

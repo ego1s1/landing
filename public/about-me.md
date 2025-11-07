@@ -1,3 +1,5 @@
+• **Software Developer Intern** at [**Awkward Studio**](https://awkwardstudio.in)
+
 • **B.Tech student** in **Electronics and Communications Engg** at **MIT Manipal** (2027)
 
 • **Winner:** **IEEE Hacksagon 2025**, IIITM Gwalior - **Overall Software Category Winner**
