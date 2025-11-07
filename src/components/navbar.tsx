@@ -24,7 +24,6 @@ export function Navbar() {
 
   const defaultHash = links[0]?.href ?? "#";
   const [activeHash, setActiveHash] = useState<string>(defaultHash);
-  const [isFloating, setIsFloating] = useState(false);
   const { specularRef, handlePointerLeave, handlePointerMove } = useGlassEffect<HTMLDivElement>();
 
   const scrollToHash = useCallback(
@@ -78,17 +77,9 @@ export function Navbar() {
     handleHashChange();
     window.addEventListener("hashchange", handleHashChange);
 
-    const handleScroll = () => {
-      const threshold = 60;
-      setIsFloating(window.scrollY > threshold);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
     return () => {
       observer.disconnect();
       window.removeEventListener("hashchange", handleHashChange);
-      window.removeEventListener("scroll", handleScroll);
     };
   }, [defaultHash, links]);
 
@@ -101,9 +92,9 @@ export function Navbar() {
   };
 
   return (
-    <div className="sticky top-6 z-50 flex justify-center px-5 pb-4">
+    <div className="fixed bottom-6 left-0 right-0 z-50 flex justify-center px-5 pt-4">
       <nav
-        className={`glass-nav glass-nav-floating ${isFloating ? "glass-nav-floating-active" : ""}`}
+        className="glass-nav glass-nav-floating glass-nav-floating-active"
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
       >
