@@ -2,17 +2,18 @@
 
 import { cn } from "@/lib/utils";
 import { useGlassEffect } from "@/components/ui/use-glass-effect";
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 
 interface GlassButtonBaseProps {
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 type GlassButtonButtonProps = GlassButtonBaseProps &
-  React.ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
+  ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
 
 type GlassButtonLinkProps = GlassButtonBaseProps &
-  React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
+  AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
 
 type GlassButtonProps = GlassButtonButtonProps | GlassButtonLinkProps;
 
@@ -44,7 +45,7 @@ export function GlassButton(props: GlassButtonProps) {
     );
   }
 
-  const { className, children, disabled, type, ...buttonProps } = props;
+  const { className, children, disabled, type, ...buttonProps } = props as GlassButtonButtonProps;
 
   return (
     <button
