@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import { Home, User, Briefcase, Layers, FolderOpen } from "lucide-react";
 import { useGlassEffect } from "@/components/ui/use-glass-effect";
 
@@ -91,7 +92,7 @@ export function Navbar() {
     };
   }, [defaultHash, links]);
 
-  const iconMap: Record<string, JSX.Element> = {
+  const iconMap: Record<string, ReactNode> = {
     Home: <Home className="size-4" />,
     About: <User className="size-4" />,
     Experience: <Briefcase className="size-4" />,
