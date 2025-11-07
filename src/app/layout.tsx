@@ -1,28 +1,32 @@
 import type { Metadata, Viewport } from "next";
-import { Doto, Geist, Geist_Mono } from "next/font/google";
+import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Navbar } from "@/components/navbar";
 import Providers from "@/lib/provider/react-query";
 import { Analytics } from "@vercel/analytics/next";
+import { GlassFilterDefs } from "@/components/ui/glass-filter";
 
 import "./globals.css";
 import "./fonts.css";
 import { Footer } from "@/components/footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const baseSans = Inter({
+  variable: "--font-base",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const displaySerif = Playfair_Display({
+  variable: "--font-serif",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const doto = Doto({
-  variable: "--font-doto",
+const mono = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -92,8 +96,9 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} ${doto.variable} antialiased scroll-smooth`}
+          className={`${baseSans.variable} ${displaySerif.variable} ${mono.variable} antialiased scroll-smooth`}
         >
+          <GlassFilterDefs />
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
             <Providers>
               <Navbar />

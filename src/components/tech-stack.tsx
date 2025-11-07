@@ -1,4 +1,5 @@
-import React from 'react';
+import { GlassCard } from "@/components/ui/glass-card";
+import { GlassIcon } from "@/components/ui/glass-icon";
 
 export function TechStack() {
   const sections = [
@@ -38,40 +39,33 @@ export function TechStack() {
   ];
 
   return (
-    <div className="space-y-5 px-4 py-3">
-      {sections.map((section) => (
-        <div key={section.title} className="space-y-2">
-          <h3 className="text-lg font-semibold text-foreground/80">{section.title}</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
-            {section.items.map((item) => (
-              <div
-                key={item.name}
-                className="p-2 rounded-lg border border-border transition-all duration-300 group relative overflow-hidden"
-                style={{ 
-                  '--hover-color': item.color,
-                  position: 'relative',
-                } as React.CSSProperties}
-              >
-                <div className="relative z-10 flex items-center gap-2">
-                  <span 
-                    className="font-['JetBrainsMono_Nerd_Font'] text-lg transition-colors duration-300"
-                    style={{ color: item.color }}
-                  >
-                    {item.icon}
+    <GlassCard title="TECH_STACK.md">
+      <div className="space-y-6">
+        {sections.map((section) => (
+          <div key={section.title} className="space-y-3">
+            <h3 className="text-lg font-semibold text-foreground/80 dark:text-foreground/90">
+              {section.title}
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {section.items.map((item) => (
+                <div key={item.name} className="flex flex-col items-center gap-2">
+                  <GlassIcon className="w-16 h-16" label={item.name}>
+                    <span
+                      className="font-['JetBrainsMono_Nerd_Font'] text-xl"
+                      style={{ color: item.color }}
+                    >
+                      {item.icon}
+                    </span>
+                  </GlassIcon>
+                  <span className="text-xs font-mono text-foreground/80 dark:text-foreground/70">
+                    {item.name}
                   </span>
-                  <span className="font-mono text-xs group-hover:text-foreground transition-colors duration-300">{item.name}</span>
                 </div>
-                <div 
-                  className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
-                  style={{
-                    backgroundColor: item.color,
-                  }}
-                />
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </GlassCard>
   );
 } 

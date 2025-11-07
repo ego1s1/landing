@@ -4,7 +4,7 @@ import React from "react";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { Button } from "@/components/ui/button";
+import { GlassButton } from "@/components/ui/glass-button";
 
 import {
   AnimationStart,
@@ -69,11 +69,9 @@ export default function ThemeToggleButton({
   }, [theme, setTheme]);
 
   return (
-    <Button
+    <GlassButton
       onClick={toggleTheme}
-      variant="ghost"
-      size="icon"
-      className="w-9 p-0 h-9 relative group cursor-pointer transition-colors"
+      className="w-11 h-11 p-0 relative group"
       name="Theme Toggle Button"
     >
       <SunIcon className="size-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -91,6 +89,6 @@ export default function ThemeToggleButton({
           </span>
         </>
       )}
-    </Button>
+    </GlassButton>
   );
 }

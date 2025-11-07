@@ -2,6 +2,7 @@ import { User } from "lucide-react";
 import { readFileSync } from "fs";
 import { join } from "path";
 import ReactMarkdown from "react-markdown";
+import { GlassCard } from "@/components/ui/glass-card";
 
 function getAboutMeContent() {
   const filePath = join(process.cwd(), "public", "about-me.md");
@@ -13,14 +14,12 @@ export default function AboutMeSection() {
   const content = getAboutMeContent();
 
   return (
-    <div className="w-full bg-background rounded-lg border border-border">
-      <h2 className="w-full flex items-center gap-3 text-muted-foreground px-5 py-3 border-b border-border">
-        <User className="size-4" />
-        <span className="text-sm font-mono">ABOUT-ME.md</span>
-      </h2>
-      <div className="prose prose-invert px-5 py-3">
-        <ReactMarkdown>{content}</ReactMarkdown>
-      </div>
-    </div>
+    <GlassCard
+      title="ABOUT-ME.md"
+      icon={<User className="size-4" />}
+      contentClassName="prose max-w-none dark:prose-invert"
+    >
+      <ReactMarkdown>{content}</ReactMarkdown>
+    </GlassCard>
   );
 } 

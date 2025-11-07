@@ -3,12 +3,13 @@ import Container from "@/components/container";
 import { Metadata } from "next";
 import { Hero } from "@/components/hero";
 import type { WebPage, WithContext } from "schema-dts";
-import { Code, GitGraph, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import { TextScroll } from "@/components/ui/text-scroll";
 import { TechStack } from "@/components/tech-stack";
 import { ProjectShowcase } from "@/components/project-showcase";
 import AboutMeSection from "@/components/about-me-section";
 import WorkExperienceSection from "@/components/work-experience-section";
+import { GlassCard } from "@/components/ui/glass-card";
 
 import HeroImage from "@/assets/img/hero.jpg";
 import HeroProfile from "@/assets/img/profpic-animated.webp";
@@ -47,32 +48,32 @@ export default function Home() {
   return (
     <>
       <Container>
-        <Hero img={HeroImage} profile={HeroProfile} />
-        <AboutMeSection />
-        <WorkExperienceSection />
+        <section id="home" className="w-full scroll-mt-32">
+          <Hero img={HeroImage} profile={HeroProfile} />
+        </section>
 
-        <div className="w-full bg-background rounded-lg border border-border">
-          <h2 className="w-full flex items-center gap-3 text-muted-foreground px-5 py-3 border-b border-border">
-            <Code className="size-4" />
-            <span className="text-sm font-mono">TECH_STACK.md</span>
-          </h2>
+        <section id="about" className="w-full scroll-mt-32">
+          <AboutMeSection />
+        </section>
+
+        <section id="experience" className="w-full scroll-mt-32">
+          <WorkExperienceSection />
+        </section>
+
+        <section id="stack" className="w-full scroll-mt-32">
           <TechStack />
-        </div>
+        </section>
 
-        <div className="w-full bg-background rounded-lg border border-border">
-          <h2 className="w-full flex items-center gap-3 text-muted-foreground px-5 py-3 border-b border-border">
-            <GitGraph className="size-4" />
-            <span className="text-sm font-mono">PROJECTS.md</span>
-          </h2>
+        <section id="projects" className="w-full scroll-mt-32">
           <ProjectShowcase />
-        </div>
+        </section>
 
-        <div className="w-full bg-background rounded-lg border border-border">
-          <h2 className="w-full flex items-center gap-3 text-muted-foreground px-5 py-3 border-b border-border">
-            <Info className="size-4" />
-            <span className="text-sm font-mono">ABOUT_SITE.md</span>
-          </h2>
-          <p className="px-5 py-3">
+        <GlassCard
+          title="ABOUT_SITE.md"
+          icon={<Info className="size-4" />}
+          contentClassName="text-sm leading-relaxed space-y-3"
+        >
+          <p>
             This site is built using{" "}
             <a
               href="https://nextjs.org"
@@ -120,7 +121,7 @@ export default function Home() {
             </a>
             .
           </p>
-        </div>
+        </GlassCard>
       </Container>
       <TextScroll
         className="text-5xl md:text-7xl text-muted-foreground/50 dark:font-semibold font-bold py-24 md:space-y-2"
