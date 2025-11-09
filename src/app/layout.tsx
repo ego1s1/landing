@@ -4,7 +4,6 @@ import { ViewTransitions } from "next-view-transitions";
 import { Navbar } from "@/components/navbar";
 import Providers from "@/lib/provider/react-query";
 import { Analytics } from "@vercel/analytics/next";
-import { GlassFilterDefs } from "@/components/ui/glass-filter";
 
 import "./globals.css";
 import "./fonts.css";
@@ -140,7 +139,6 @@ export default function RootLayout({
               `,
             }}
           />
-          <GlassFilterDefs />
           <Providers>
             <Navbar />
             {children}
