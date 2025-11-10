@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { Home, User, Briefcase, Layers, FolderOpen } from "lucide-react";
 import { useGlassEffect } from "@/components/ui/use-glass-effect";
 
-export interface FlatNavLinkData {
+interface FlatNavLinkData {
   href: string;
   text: string;
 }
@@ -24,6 +24,7 @@ export function Navbar() {
 
   const defaultHash = links[0]?.href ?? "#";
   const [activeHash, setActiveHash] = useState<string>(defaultHash);
+  const [isScrolling, setIsScrolling] = useState(false);
   const { specularRef, handlePointerLeave, handlePointerMove } = useGlassEffect<HTMLDivElement>();
 
   const scrollToHash = useCallback(
@@ -39,6 +40,27 @@ export function Navbar() {
     },
     [],
   );
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let scrollTimeout: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      setIsScrolling(true);
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+      }, 150);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -92,7 +114,7 @@ export function Navbar() {
   };
 
   return (
-    <div className="fixed bottom-6 left-0 right-0 z-50 flex justify-center px-5 pt-4">
+    <div className={`fixed bottom-6 left-0 right-0 z-50 flex justify-center px-5 pt-4 transition-all duration-300 ease-in-out ${isScrolling ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"}`}>
       <nav
         className="glass-nav glass-nav-floating glass-nav-floating-active"
         onPointerMove={handlePointerMove}

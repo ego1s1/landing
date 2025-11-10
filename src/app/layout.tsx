@@ -8,7 +8,6 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import "./fonts.css";
 import { Footer } from "@/components/footer";
-import Script from "next/script";
 
 const baseSans = Inter({
   variable: "--font-base",
@@ -97,52 +96,12 @@ export default function RootLayout({
         <body
           className={`${baseSans.variable} ${displaySerif.variable} ${mono.variable} antialiased scroll-smooth`}
         >
-          <Script
-            id="background-image-detector"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                (function() {
-                  function checkJxlSupport() {
-                    if (!document.body) {
-                      setTimeout(checkJxlSupport, 10);
-                      return;
-                    }
-                    const img = new Image();
-                    let supported = false;
-                    const timeout = setTimeout(function() {
-                      if (!supported && document.body) {
-                        document.body.style.backgroundImage = 'url("/image.jpg")';
-                      }
-                    }, 100);
-                    img.onload = function() {
-                      supported = true;
-                      clearTimeout(timeout);
-                      if (document.body) {
-                        document.body.style.backgroundImage = 'url("/image.jxl")';
-                      }
-                    };
-                    img.onerror = function() {
-                      clearTimeout(timeout);
-                      if (document.body) {
-                        document.body.style.backgroundImage = 'url("/image.jpg")';
-                      }
-                    };
-                    img.src = "/image.jxl";
-                  }
-                  if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', checkJxlSupport);
-                  } else {
-                    checkJxlSupport();
-                  }
-                })();
-              `,
-            }}
-          />
           <Providers>
-            <Navbar />
-            {children}
-            <Footer />
+            <div className="relative z-10">
+              <Navbar />
+              {children}
+              <Footer />
+            </div>
           </Providers>
           <Analytics />
         </body>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type FC } from "react";
 import {
   motion,
   useAnimationFrame,
@@ -26,18 +26,18 @@ interface ParallaxProps {
   className?: string;
 }
 
-export const wrap = (min: number, max: number, v: number) => {
+const wrap = (min: number, max: number, v: number) => {
   const rangeSize = max - min;
   return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 };
 
-export const TextScroll: React.FC<TextScrollProps> = ({
+export const TextScroll: FC<TextScrollProps> = ({
   text,
   default_velocity = 5,
   className,
   textClassName,
 }) => {
-  const ParallaxText: React.FC<ParallaxProps> = ({
+  const ParallaxText: FC<ParallaxProps> = ({
     children,
     baseVelocity = 100,
     className,

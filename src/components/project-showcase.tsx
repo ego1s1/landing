@@ -1,10 +1,12 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, type MouseEvent } from "react";
 import { Github } from "lucide-react";
 import { GlassCard } from "@/components/ui/glass-card";
 import { useGlassEffect } from "@/components/ui/use-glass-effect";
 import { GlassButton } from "@/components/ui/glass-button";
+import { useIntersection } from "@/components/ui/use-intersection";
+import { cn } from "@/lib/utils";
 
 interface Project {
   name: string;
@@ -16,10 +18,12 @@ interface Project {
   color: string;
 }
 
-function GlassProjectTile({ project }: { project: Project }) {
+function GlassProjectTile({ project, index }: { project: Project; index: number }) {
   const { specularRef, handlePointerLeave, handlePointerMove } = useGlassEffect<HTMLElement>();
+  const { ref: linkRef, isIntersecting: linkIntersecting } = useIntersection<HTMLAnchorElement>({ threshold: 0.1, rootMargin: "-50px", triggerOnce: false });
+  const { ref: divRef, isIntersecting: divIntersecting } = useIntersection<HTMLDivElement>({ threshold: 0.1, rootMargin: "-50px", triggerOnce: false });
   const handleGithubClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
+    (event: MouseEvent<HTMLButtonElement>): void => {
       event.preventDefault();
       event.stopPropagation();
       if (project.githubUrl) {
@@ -73,25 +77,37 @@ function GlassProjectTile({ project }: { project: Project }) {
   );
 
   if (project.url) {
+    const cardClassName = cn(
+      "glass-card glass-grid-card animate-bubble",
+      linkIntersecting ? "animate-bubble-in-active" : "animate-bubble-out-active",
+    );
     return (
       <a
+        ref={linkRef}
         href={project.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="glass-card glass-grid-card"
+        className={cardClassName}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
+        style={{ animationDelay: `${index * 100}ms` }}
       >
         {content}
       </a>
     );
   }
 
+  const cardClassName = cn(
+    "glass-card glass-grid-card animate-bubble",
+    divIntersecting ? "animate-bubble-in-active" : "animate-bubble-out-active",
+  );
   return (
     <div
-      className="glass-card glass-grid-card"
+      ref={divRef}
+      className={cardClassName}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
+      style={{ animationDelay: `${index * 100}ms` }}
     >
       {content}
     </div>
@@ -137,10 +153,10 @@ const projects: Project[] = [
 
 export function ProjectShowcase() {
   return (
-    <GlassCard title="PROJECTS.md">
+      <GlassCard title="PROJECTS.md">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {projects.map((project) => (
-          <GlassProjectTile key={project.name} project={project} />
+        {projects.map((project, index) => (
+          <GlassProjectTile key={project.name} project={project} index={index} />
         ))}
       </div>
     </GlassCard>

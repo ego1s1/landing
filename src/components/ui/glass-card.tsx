@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useGlassEffect } from "@/components/ui/use-glass-effect";
+import { useIntersection } from "@/components/ui/use-intersection";
 
 interface GlassCardProps {
   title?: string;
@@ -13,10 +14,16 @@ interface GlassCardProps {
 
 export function GlassCard({ title, icon, className, contentClassName, children }: GlassCardProps) {
   const { specularRef, handlePointerLeave, handlePointerMove } = useGlassEffect<HTMLDivElement>();
+  const { ref, isIntersecting } = useIntersection<HTMLDivElement>({ threshold: 0.1, rootMargin: "-50px", triggerOnce: false });
 
   return (
     <div
-      className={cn("glass-card", className)}
+      ref={ref}
+      className={cn(
+        "glass-card animate-bubble",
+        isIntersecting ? "animate-bubble-in-active" : "animate-bubble-out-active",
+        className
+      )}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
     >
