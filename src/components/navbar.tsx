@@ -105,18 +105,21 @@ export function Navbar() {
     };
   }, [defaultHash, links]);
 
-  const iconMap: Record<string, ReactNode> = {
-    Home: <Home className="size-4" />,
-    About: <User className="size-4" />,
-    Experience: <Briefcase className="size-4" />,
-    Stack: <Layers className="size-4" />,
-    Projects: <FolderOpen className="size-4" />,
-  };
+  const iconMap: Record<string, ReactNode> = useMemo(
+    () => ({
+      Home: <Home className="size-4" />,
+      About: <User className="size-4" />,
+      Experience: <Briefcase className="size-4" />,
+      Stack: <Layers className="size-4" />,
+      Projects: <FolderOpen className="size-4" />,
+    }),
+    [],
+  );
 
   return (
-    <div className={`fixed bottom-6 left-0 right-0 z-50 flex justify-center px-5 pt-4 transition-all duration-300 ease-in-out ${isScrolling ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"}`}>
+    <div className={`fixed right-6 top-1/2 -translate-y-1/2 z-50 transition-all duration-300 ease-in-out ${isScrolling ? "opacity-100 translate-x-0 pointer-events-auto" : "opacity-0 translate-x-4 pointer-events-none"}`}>
       <nav
-        className="glass-nav glass-nav-floating glass-nav-floating-active"
+        className="glass-nav glass-nav-vertical glass-nav-floating-active"
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
       >
@@ -125,7 +128,7 @@ export function Navbar() {
         <div className="glass-distortion-overlay" />
         <div ref={specularRef} className="glass-specular" />
         <div className="glass-content flex items-center justify-center">
-          <ul className="glass-nav-list">
+          <ul className="glass-nav-list glass-nav-list-vertical">
             {links.map((link) => (
               <li key={link.href}>
                 <a

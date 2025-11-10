@@ -20,8 +20,6 @@ interface Project {
 
 function GlassProjectTile({ project, index }: { project: Project; index: number }) {
   const { specularRef, handlePointerLeave, handlePointerMove } = useGlassEffect<HTMLElement>();
-  const { ref: linkRef, isIntersecting: linkIntersecting } = useIntersection<HTMLAnchorElement>({ threshold: 0.1, rootMargin: "-50px", triggerOnce: false });
-  const { ref: divRef, isIntersecting: divIntersecting } = useIntersection<HTMLDivElement>({ threshold: 0.1, rootMargin: "-50px", triggerOnce: false });
   const handleGithubClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>): void => {
       event.preventDefault();
@@ -76,18 +74,19 @@ function GlassProjectTile({ project, index }: { project: Project; index: number 
     </>
   );
 
+  const cardClassName = cn(
+    "glass-card glass-grid-card animate-bubble",
+  );
+
   if (project.url) {
-    const cardClassName = cn(
-      "glass-card glass-grid-card animate-bubble",
-      linkIntersecting ? "animate-bubble-in-active" : "animate-bubble-out-active",
-    );
+    const { ref, isIntersecting } = useIntersection<HTMLAnchorElement>({ threshold: 0.1, rootMargin: "-50px", triggerOnce: false });
     return (
       <a
-        ref={linkRef}
+        ref={ref}
         href={project.url}
         target="_blank"
         rel="noopener noreferrer"
-        className={cardClassName}
+        className={cn(cardClassName, isIntersecting ? "animate-bubble-in-active" : "animate-bubble-out-active")}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
         style={{ animationDelay: `${index * 100}ms` }}
@@ -97,14 +96,11 @@ function GlassProjectTile({ project, index }: { project: Project; index: number 
     );
   }
 
-  const cardClassName = cn(
-    "glass-card glass-grid-card animate-bubble",
-    divIntersecting ? "animate-bubble-in-active" : "animate-bubble-out-active",
-  );
+  const { ref, isIntersecting } = useIntersection<HTMLDivElement>({ threshold: 0.1, rootMargin: "-50px", triggerOnce: false });
   return (
     <div
-      ref={divRef}
-      className={cardClassName}
+      ref={ref}
+      className={cn(cardClassName, isIntersecting ? "animate-bubble-in-active" : "animate-bubble-out-active")}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
       style={{ animationDelay: `${index * 100}ms` }}

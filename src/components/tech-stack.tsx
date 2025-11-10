@@ -5,34 +5,34 @@ const sections = [
   {
     title: 'Languages',
     items: [
-      { name: 'C++', icon: '󰙲', color: 'var(--blue)' },
-      { name: 'Java', icon: '󰬷', color: 'var(--red)' },
-      { name: 'Python', icon: '󰌠', color: 'var(--yellow)' },
-      { name: 'TypeScript', icon: '󰛦', color: 'var(--sapphire)' },
-      { name: 'JavaScript', icon: '󰌞', color: 'var(--peach)' },
-      { name: 'HTML/CSS', icon: '󰌝', color: 'var(--mauve)' },
+      { name: 'C++', icon: '󰙲', color: 'var(--blue)', url: 'https://en.cppreference.com/w/' },
+      { name: 'Java', icon: '󰬷', color: 'var(--red)', url: 'https://www.java.com/' },
+      { name: 'Python', icon: '󰌠', color: 'var(--yellow)', url: 'https://www.python.org/' },
+      { name: 'TypeScript', icon: '󰛦', color: 'var(--sapphire)', url: 'https://www.typescriptlang.org/' },
+      { name: 'JavaScript', icon: '󰌞', color: 'var(--peach)', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+      { name: 'HTML/CSS', icon: '󰌝', color: 'var(--mauve)', url: 'https://developer.mozilla.org/en-US/docs/Web' },
     ],
   },
   {
     title: 'Frameworks',
     items: [
-      { name: 'React', icon: '󰜈', color: 'var(--sky)' },
-      { name: 'Next.js', icon: '󰎯', color: 'var(--lavender)' },
-      { name: 'Tailwind CSS', icon: '󱏿', color: 'var(--teal)' },
-      { name: 'tRPC', icon: '󰚲', color: 'var(--pink)' },
-      { name: 'Prisma', icon: '󰄛', color: 'var(--green)' },
-      { name: 'PostgreSQL', icon: '󱤢', color: 'var(--blue)' },
+      { name: 'React', icon: '󰜈', color: 'var(--sky)', url: 'https://react.dev/' },
+      { name: 'Next.js', icon: '󰎯', color: 'var(--lavender)', url: 'https://nextjs.org/' },
+      { name: 'Tailwind CSS', icon: '󱏿', color: 'var(--teal)', url: 'https://tailwindcss.com/' },
+      { name: 'tRPC', icon: '󰚲', color: 'var(--pink)', url: 'https://trpc.io/' },
+      { name: 'Prisma', icon: '󰄛', color: 'var(--green)', url: 'https://www.prisma.io/' },
+      { name: 'PostgreSQL', icon: '󱤢', color: 'var(--blue)', url: 'https://www.postgresql.org/' },
     ],
   },
   {
     title: 'Tools & OS',
     items: [
-      { name: 'Git', icon: '󰊢', color: 'var(--maroon)' },
-      { name: 'Vim', icon: '󰕷', color: 'var(--green)' },
-      { name: 'Linux', icon: '󰌽', color: 'var(--flamingo)' },
-      { name: 'VS Code', icon: '󰨞', color: 'var(--sapphire)' },
-      { name: 'GNU Utils', icon: '󰣖', color: 'var(--yellow)' },
-      { name: 'macOS', icon: '󰀵', color: 'var(--mauve)' },
+      { name: 'Git', icon: '󰊢', color: 'var(--maroon)', url: 'https://git-scm.com/' },
+      { name: 'Vim', icon: '󰕷', color: 'var(--green)', url: 'https://www.vim.org/' },
+      { name: 'Linux', icon: '󰌽', color: 'var(--flamingo)', url: 'https://www.linux.org/' },
+      { name: 'VS Code', icon: '󰨞', color: 'var(--sapphire)', url: 'https://code.visualstudio.com/' },
+      { name: 'GNU Utils', icon: '󰣖', color: 'var(--yellow)', url: 'https://www.gnu.org/software/coreutils/' },
+      { name: 'macOS', icon: '󰀵', color: 'var(--mauve)', url: 'https://www.apple.com/macos/' },
     ],
   },
 ];
@@ -48,7 +48,13 @@ export function TechStack() {
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {section.items.map((item) => (
-                <div key={item.name} className="flex flex-col items-center gap-2">
+                <a
+                  key={item.name}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center gap-2 group cursor-pointer"
+                >
                   <GlassIcon className="w-16 h-16" label={item.name}>
                     <span
                       className="font-['JetBrainsMono_Nerd_Font'] text-xl"
@@ -57,10 +63,10 @@ export function TechStack() {
                       {item.icon}
                     </span>
                   </GlassIcon>
-                  <span className="text-xs font-mono text-foreground/70">
+                  <span className="text-xs font-mono text-foreground/70 group-hover:text-foreground transition-colors">
                     {item.name}
                   </span>
-                </div>
+                </a>
               ))}
             </div>
           </div>

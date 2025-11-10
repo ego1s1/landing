@@ -1,19 +1,33 @@
+"use client";
+
 import { cn } from "@/lib/utils";
+import { useGlassEffect } from "@/components/ui/use-glass-effect";
 
 export function Footer({ className }: { className?: string }) {
+  const { specularRef, handlePointerLeave, handlePointerMove } = useGlassEffect<HTMLElement>();
+
   return (
     <footer
       className={cn(
-        "flex flex-col items-center justify-center gap-3 py-3 relative",
+        "w-full max-w-3xl mx-auto p-5",
         className,
       )}
     >
-      <div className="glass-filter" />
-      <div className="glass-overlay" />
-      <div className="glass-distortion-overlay" />
-      <p className="text-center text-sm text-muted-foreground relative z-10">
-        Built with ❤️ by Priyanshu Sharma
-      </p>
+      <div
+        className="glass-card"
+        onPointerMove={handlePointerMove}
+        onPointerLeave={handlePointerLeave}
+      >
+        <div className="glass-filter" />
+        <div className="glass-overlay" />
+        <div className="glass-distortion-overlay" />
+        <div ref={specularRef} className="glass-specular" />
+        <div className="glass-content">
+          <p className="text-center text-sm text-foreground/70">
+            Built with ❤️ by Priyanshu Sharma
+          </p>
+        </div>
+      </div>
     </footer>
   );
 }

@@ -14,7 +14,7 @@ export function GlassIcon({ className, children, label }: GlassIconProps) {
 
   return (
     <div
-      className={cn("glass-icon", className)}
+      className={cn("glass-icon group", className)}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
       role={label ? "img" : undefined}
