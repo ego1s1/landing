@@ -20,6 +20,7 @@ interface Project {
 
 function GlassProjectTile({ project, index }: { project: Project; index: number }) {
   const { specularRef, handlePointerLeave, handlePointerMove } = useGlassEffect<HTMLElement>();
+  const { ref, isIntersecting } = useIntersection<HTMLElement>({ threshold: 0.1, rootMargin: "-50px", triggerOnce: false });
   const handleGithubClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>): void => {
       event.preventDefault();
@@ -76,17 +77,17 @@ function GlassProjectTile({ project, index }: { project: Project; index: number 
 
   const cardClassName = cn(
     "glass-card glass-grid-card animate-bubble",
+    isIntersecting ? "animate-bubble-in-active" : "animate-bubble-out-active",
   );
 
   if (project.url) {
-    const { ref, isIntersecting } = useIntersection<HTMLAnchorElement>({ threshold: 0.1, rootMargin: "-50px", triggerOnce: false });
     return (
       <a
-        ref={ref}
+        ref={ref as React.RefObject<HTMLAnchorElement>}
         href={project.url}
         target="_blank"
         rel="noopener noreferrer"
-        className={cn(cardClassName, isIntersecting ? "animate-bubble-in-active" : "animate-bubble-out-active")}
+        className={cardClassName}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
         style={{ animationDelay: `${index * 100}ms` }}
@@ -96,11 +97,10 @@ function GlassProjectTile({ project, index }: { project: Project; index: number 
     );
   }
 
-  const { ref, isIntersecting } = useIntersection<HTMLDivElement>({ threshold: 0.1, rootMargin: "-50px", triggerOnce: false });
   return (
     <div
-      ref={ref}
-      className={cn(cardClassName, isIntersecting ? "animate-bubble-in-active" : "animate-bubble-out-active")}
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className={cardClassName}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
       style={{ animationDelay: `${index * 100}ms` }}
