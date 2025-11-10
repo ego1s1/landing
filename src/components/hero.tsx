@@ -10,8 +10,11 @@ export function Hero() {
   return (
     <section className="flex w-full flex-wrap items-center justify-between gap-6 rounded-none border-none bg-transparent p-0">
       <div className="flex items-center gap-4">
-        <div className="relative flex size-20 items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-white/10 to-white/5">
-          <Image src="/avatar.jpeg" alt="Priyanshu Sharma" fill priority className="object-cover" />
+        <div className="relative flex size-20 items-center justify-center overflow-hidden rounded-2xl border border-white/15">
+          <div className="glass-filter" />
+          <div className="glass-overlay" />
+          <div className="glass-distortion-overlay" />
+          <Image src="/avatar.jpeg" alt="Priyanshu Sharma" fill priority className="object-cover relative z-10" />
         </div>
         <div className="flex flex-col justify-center gap-1">
           <h1 className="text-lg font-semibold text-foreground">Priyanshu Sharma</h1>
