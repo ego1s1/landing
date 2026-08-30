@@ -1,9 +1,3 @@
-• **Software Developer Intern** at [**Awkward Studio**](https://awkwardstudio.in)
+Passionate about **embedded systems**, **low-level C/C++ development**, and **hardware-software interfaces**. I enjoy crafting **fast CLI utilities**, trying out **FOSS tools**, playing with the terminal and learning about new technologies.
 
-• **B.Tech student** in **Electronics and Communications Engg** at **MIT Manipal** (2027)
-
-• **Winner:** **IEEE Hacksagon 2025**, IIITM Gwalior - **Overall Software Category Winner**
-
-• Passionate about **development** and **collaboration**
-
-• For inquiries, please reach out via [**Email**](mailto:priyanshusharma1803@outlook.com) 
+When not coding, I'm hitting the **gym**, playing **metal on my guitar**, or watching **anime**.

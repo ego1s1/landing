@@ -9,7 +9,8 @@ import { ProjectShowcase } from "@/components/project-showcase";
 import AboutMeSection from "@/components/about-me-section";
 import WorkExperienceSection from "@/components/work-experience-section";
 import { GlassCard } from "@/components/ui/glass-card";
-
+import { WindowProvider } from "@/components/window-context";
+import { LeftDock } from "@/components/left-dock";
 
 export const metadata: Metadata = {
   title: "Landing | ego1s1.",
@@ -43,7 +44,8 @@ const jsonLd: WithContext<WebPage> = {
 
 export default function Home() {
   return (
-    <>
+    <WindowProvider>
+      <LeftDock />
       <Container>
         <section id="home" className="w-full scroll-mt-32">
           <Hero />
@@ -66,9 +68,12 @@ export default function Home() {
         </section>
 
         <GlassCard
-          title="ABOUT_SITE.md"
+          id="about-site"
+          title="cat ABOUT_SITE.md"
+          shortTitle="SITE"
+          nerdIcon="󰋜"
           icon={<Info className="size-4" />}
-          contentClassName="text-sm leading-relaxed space-y-3"
+          contentClassName="text-xs font-mono leading-relaxed space-y-3 text-[#a9b1d6]"
         >
           <p>
             This site is built using{" "}
@@ -76,7 +81,7 @@ export default function Home() {
               href="https://nextjs.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2"
+              className="text-[#7aa2f7] hover:text-[#7dcfff] underline underline-offset-2"
             >
               Next.js
             </a>
@@ -85,7 +90,7 @@ export default function Home() {
               href="https://tailwindcss.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2"
+              className="text-[#7aa2f7] hover:text-[#7dcfff] underline underline-offset-2"
             >
               TailwindCSS
             </a>
@@ -94,7 +99,7 @@ export default function Home() {
               href="https://ui.shadcn.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2"
+              className="text-[#7aa2f7] hover:text-[#7dcfff] underline underline-offset-2"
             >
               shadcn/ui
             </a>
@@ -103,7 +108,7 @@ export default function Home() {
               href="https://tanstack.com/query"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2"
+              className="text-[#7aa2f7] hover:text-[#7dcfff] underline underline-offset-2"
             >
               Tanstack Query
             </a>
@@ -112,7 +117,7 @@ export default function Home() {
               href="https://github.com/ego1s1/landing"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2"
+              className="text-[#7aa2f7] hover:text-[#7dcfff] underline underline-offset-2"
             >
               GitHub
             </a>
@@ -121,15 +126,12 @@ export default function Home() {
         </GlassCard>
       </Container>
       <TextScroll
-        className="text-5xl md:text-7xl text-muted-foreground/50 font-bold py-24 md:space-y-2"
-        textClassName="py-1 md:py-3 font-doto"
-        default_velocity={0.66}
-        text="Hard work is worthless for those that don't believe in themselves.  "
+        text="Hard work is worthless for those that don't believe in themselves."
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-    </>
+    </WindowProvider>
   );
 }

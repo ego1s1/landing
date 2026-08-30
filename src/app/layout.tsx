@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import Providers from "@/lib/provider/react-query";
 import { Analytics } from "@vercel/analytics/next";
@@ -7,18 +7,6 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import "./fonts.css";
 import { Footer } from "@/components/footer";
-
-const baseSans = Inter({
-  variable: "--font-base",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const displaySerif = Playfair_Display({
-  variable: "--font-serif",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 const mono = JetBrains_Mono({
   variable: "--font-mono",
@@ -79,7 +67,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#1a1b26",
   initialScale: 1,
   width: "device-width",
 };
@@ -91,12 +79,12 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning className="bg-[#1a1b26] text-[#c0caf5]">
         <body
-          className={`${baseSans.variable} ${displaySerif.variable} ${mono.variable} antialiased scroll-smooth`}
+          className={`${mono.variable} antialiased bg-[#1a1b26] text-[#c0caf5] selection:bg-[#3b4261] selection:text-[#7dcfff]`}
         >
           <Providers>
-            <div className="relative z-10">
+            <div className="relative z-10 min-h-screen bg-[#1a1b26]">
               {children}
               <Footer />
             </div>

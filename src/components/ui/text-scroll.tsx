@@ -1,16 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState, type FC } from "react";
-import {
-  motion,
-  useAnimationFrame,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-  useVelocity,
-} from "framer-motion";
-
 import { cn } from "@/lib/utils";
 
 interface TextScrollProps {
@@ -20,101 +9,23 @@ interface TextScrollProps {
   textClassName?: string;
 }
 
-interface ParallaxProps {
-  children: string;
-  baseVelocity: number;
-  className?: string;
-}
-
-const wrap = (min: number, max: number, v: number) => {
-  const rangeSize = max - min;
-  return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
-};
-
-export const TextScroll: FC<TextScrollProps> = ({
+export function TextScroll({
   text,
-  default_velocity = 5,
   className,
   textClassName,
-}) => {
-  const ParallaxText: FC<ParallaxProps> = ({
-    children,
-    baseVelocity = 100,
-    className,
-  }) => {
-    const baseX = useMotionValue(0);
-    const { scrollY } = useScroll();
-    const scrollVelocity = useVelocity(scrollY);
-    const smoothVelocity = useSpring(scrollVelocity, {
-      damping: 50,
-      stiffness: 400,
-    });
-
-    const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
-      clamp: false,
-    });
-
-    const [repetitions, setRepetitions] = useState(1);
-    const containerRef = useRef<HTMLDivElement>(null);
-    const textRef = useRef<HTMLSpanElement>(null);
-
-    useEffect(() => {
-      const calculateRepetitions = () => {
-        if (containerRef.current && textRef.current) {
-          const containerWidth = containerRef.current.offsetWidth;
-          const textWidth = textRef.current.offsetWidth;
-          const newRepetitions = Math.ceil(containerWidth / textWidth) + 2;
-          setRepetitions(newRepetitions);
-        }
-      };
-
-      calculateRepetitions();
-
-      window.addEventListener("resize", calculateRepetitions);
-      return () => window.removeEventListener("resize", calculateRepetitions);
-    }, [children]);
-
-    const x = useTransform(baseX, (v) => `${wrap(-100 / repetitions, 0, v)}%`);
-
-    const directionFactor = useRef<number>(1);
-    useAnimationFrame((t, delta) => {
-      let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
-
-      if (velocityFactor.get() < 0) {
-        directionFactor.current = -1;
-      } else if (velocityFactor.get() > 0) {
-        directionFactor.current = 1;
-      }
-
-      moveBy += directionFactor.current * moveBy * velocityFactor.get();
-
-      baseX.set(baseX.get() + moveBy);
-    });
-
-    return (
-      <div
-        className="w-full overflow-hidden whitespace-nowrap"
-        ref={containerRef}
-      >
-        <motion.div className={cn("inline-block", className)} style={{ x }}>
-          {Array.from({ length: repetitions }).map((_, i) => (
-            <span key={i} ref={i === 0 ? textRef : null}>
-              {children}{" "}
-            </span>
-          ))}
-        </motion.div>
-      </div>
-    );
-  };
-
+}: TextScrollProps) {
   return (
-    <section className={cn("relative z-20 w-full", className)}>
-      <ParallaxText baseVelocity={default_velocity} className={textClassName}>
-        {text}
-      </ParallaxText>
-      <ParallaxText baseVelocity={-default_velocity} className={textClassName}>
-        {text}
-      </ParallaxText>
+    <section className={cn("w-full py-8 px-4 font-mono select-none", className)}>
+      <div className="max-w-3xl mx-auto border border-[#414868] bg-[#1f2335] shadow-[3px_3px_0px_#101014] rounded-[4px] p-4 text-center">
+        <div className="flex items-center justify-center gap-2 text-xs text-[#565f89] mb-2 uppercase tracking-widest">
+          <span className="text-[#7dcfff]">❯</span>
+          <span>SYSTEM_QUOTE.LOG</span>
+          <span className="text-[#7dcfff]">❮</span>
+        </div>
+        <p className={cn("text-[#c0caf5] font-mono text-base md:text-lg font-medium leading-relaxed", textClassName)}>
+          &quot;{text.trim()}&quot;
+        </p>
+      </div>
     </section>
   );
-};
+}

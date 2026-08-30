@@ -9,9 +9,12 @@ const workExperienceContent = readFileSync(join(process.cwd(), "public", "work-e
 export default function WorkExperienceSection() {
   return (
     <GlassCard
-      title="WORK-EXPERIENCE.md"
+      id="experience"
+      title="cat WORK-EXPERIENCE.md"
+      shortTitle="EXP"
+      nerdIcon="󰌢"
       icon={<Briefcase className="size-4" />}
-      contentClassName="prose max-w-none prose-invert font-[var(--font-serif)] leading-relaxed prose-headings:font-[var(--font-serif)] prose-strong:font-[var(--font-serif)]"
+      contentClassName="prose max-w-none font-mono text-[#c0caf5]"
     >
       <ReactMarkdown>{workExperienceContent}</ReactMarkdown>
     </GlassCard>
