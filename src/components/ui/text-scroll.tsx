@@ -4,27 +4,118 @@ import { cn } from "@/lib/utils";
 
 interface TextScrollProps {
   text: string;
-  default_velocity?: number;
   className?: string;
   textClassName?: string;
 }
 
-export function TextScroll({
-  text,
-  className,
-  textClassName,
-}: TextScrollProps) {
+/**
+ * Word-wrap text to a given column width (like real cowsay does).
+ * Returns an array of lines, each at most `maxWidth` chars.
+ */
+function wordWrap(text: string, maxWidth: number): string[] {
+  const words = text.split(" ");
+  const lines: string[] = [];
+  let current = "";
+
+  for (const word of words) {
+    if (current.length === 0) {
+      current = word;
+    } else if (current.length + 1 + word.length <= maxWidth) {
+      current += " " + word;
+    } else {
+      lines.push(current);
+      current = word;
+    }
+  }
+  if (current) lines.push(current);
+  return lines;
+}
+
+/**
+ * CowsayQuote — renders the site quote in a proper cowsay terminal card.
+ * Text is word-wrapped at 55 chars so it always fits inside the speech bubble.
+ */
+export function TextScroll({ text, className, textClassName }: TextScrollProps) {
+  const trimmed = text.trim();
+  const WRAP_AT = 55;
+
+  const lines = wordWrap(trimmed, WRAP_AT);
+  // Box width = longest line length
+  const maxLen = Math.max(...lines.map((l) => l.length));
+  const innerWidth = maxLen + 4; // 2 spaces padding each side
+  const topBar    = "─".repeat(innerWidth);
+  const bottomBar = "─".repeat(innerWidth);
+
+  const buildLine = (line: string) => {
+    const padded = line + " ".repeat(maxLen - line.length);
+    return ` │  ${padded}  │`;
+  };
+
+  const isMultiLine = lines.length > 1;
+  const bubbleLines = lines.map((line, i) => {
+    if (!isMultiLine) return ` < ${line.padEnd(maxLen)} >`;
+    const padded = line + " ".repeat(maxLen - line.length);
+    if (i === 0)                   return ` ╭  ${padded}  ╮`;
+    if (i === lines.length - 1)    return ` ╰  ${padded}  ╯`;
+    return                                ` │  ${padded}  │`;
+  });
+
+  // For single line, re-do the top/bottom bars with < >
+  const topLine    = isMultiLine ? ` ╭${topBar}╮`    : ` ╭${topBar}╮`;
+  const bottomLine = isMultiLine ? ` ╰${bottomBar}╯` : ` ╰${bottomBar}╯`;
+
+  // Use standard cowsay box for any number of lines
+  const boxLines = [
+    ` ┌${topBar}┐`,
+    ...lines.map(buildLine),
+    ` └${bottomBar}┘`,
+  ].join("\n");
+
+  const cow = `        \\   ^__^
+         \\  (oo)\\_______
+            (__)\\       )\\/\\
+                ||----w |
+                ||     ||`;
+
   return (
-    <section className={cn("w-full py-8 px-4 font-mono select-none", className)}>
-      <div className="max-w-3xl mx-auto border border-[#414868] bg-[#1f2335] shadow-[3px_3px_0px_#101014] rounded-[4px] p-4 text-center">
-        <div className="flex items-center justify-center gap-2 text-xs text-[#565f89] mb-2 uppercase tracking-widest">
-          <span className="text-[#7dcfff]">❯</span>
-          <span>SYSTEM_QUOTE.LOG</span>
-          <span className="text-[#7dcfff]">❮</span>
+    <section
+      className={cn("w-full font-mono", className)}
+      aria-label="System quote (cowsay)"
+    >
+      {/* Card — same style as other GlassCards, inherits CSS var theming */}
+      <div className="w-full bg-[var(--th-surface,#1f2335)] border border-[var(--th-border,#414868)] shadow-[3px_3px_0px_var(--th-shadow,#101014)] rounded-[4px] overflow-hidden">
+
+        {/* Titlebar */}
+        <div className="bg-[var(--th-surface-alt,#24283b)] border-b border-[var(--th-border,#414868)] px-3.5 py-2 flex items-center gap-2 text-xs select-none">
+          <span className="flex items-center gap-1.5 mr-1 shrink-0">
+            <span className="size-3 rounded-full bg-[var(--th-red,#f7768e)] border border-[var(--th-red,#f7768e)]/40 opacity-60" />
+            <span className="size-3 rounded-full bg-[var(--th-yellow,#e0af68)] border border-[var(--th-yellow,#e0af68)]/40 opacity-60" />
+            <span className="size-3 rounded-full bg-[var(--th-green,#9ece6a)] border border-[var(--th-green,#9ece6a)]/40 opacity-60" />
+          </span>
+          <span className="text-[var(--th-text-dim,#565f89)]">user@ego1s1:</span>
+          <span className="text-[var(--th-accent,#7aa2f7)] font-semibold">cowsay</span>
+          <span className="text-[var(--th-yellow,#e0af68)] truncate max-w-[40ch]">
+            &quot;{trimmed.slice(0, 48)}{trimmed.length > 48 ? "…" : ""}&quot;
+          </span>
         </div>
-        <p className={cn("text-[#c0caf5] font-mono text-base md:text-lg font-medium leading-relaxed", textClassName)}>
-          &quot;{text.trim()}&quot;
-        </p>
+
+        {/* Cowsay output body */}
+        <div className="p-5 overflow-x-auto">
+          <pre
+            className={cn(
+              "font-mono text-xs md:text-sm leading-relaxed text-[var(--th-text,#c0caf5)] whitespace-pre",
+              textClassName
+            )}
+          >
+{boxLines}
+{cow}
+          </pre>
+          <div className="mt-3 border-t border-[var(--th-border-subtle,#3b4261)] pt-2 text-[10px] text-[var(--th-text-dim,#565f89)] flex items-center gap-2">
+            <span className="text-[var(--th-cyan,#7dcfff)]">❯</span>
+            <span>cowsay completed — exit 0</span>
+          </div>
+        </div>
+
       </div>
     </section>
   );

@@ -80,72 +80,83 @@
   --pink: #bb9af7;
 }
 
-/* Global Reset & Pure TokyoNight Background */
+/* CSS Custom Properties for dynamic theming — defaults to TokyoNight Storm */
+/* Fluid color transitions are applied globally here so theme switches animate smoothly */
 *, ::before, ::after {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #1a1b26;
-  color: #c0caf5;
+  background-color: var(--th-bg, #1a1b26);
+  color: var(--th-text, #c0caf5);
   font-family: 'Iosevka Nerd Font', 'Iosevka_Nerd_Font', 'Iosevka', monospace !important;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body {
-  background-color: #1a1b26;
-  background-image: radial-gradient(#292e42 1px, transparent 1px);
+  background-color: var(--th-bg, #1a1b26);
+  background-image: radial-gradient(var(--th-dot, #292e42) 1px, transparent 1px);
   background-size: 24px 24px;
-  color: #c0caf5;
+  color: var(--th-text, #c0caf5);
   font-family: 'Iosevka Nerd Font', 'Iosevka_Nerd_Font', 'Iosevka', monospace !important;
   margin: 0;
   padding: 0;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body::before {
   display: none !important;
 }
 
-/* Y2K Flat Terminal Cards */
+/* ============================================================
+   Y2K Flat Terminal Cards
+   All colors use --th-* vars so theme switching works globally.
+   transition ensures smooth color swaps when theme changes.
+   ============================================================ */
 .terminal-card,
 .glass-card {
-  background-color: #1f2335;
-  border: 1px solid #414868;
-  box-shadow: 3px 3px 0px #101014;
+  background-color: var(--th-surface, #1f2335);
+  border: 1px solid var(--th-border, #414868);
+  box-shadow: 3px 3px 0px var(--th-shadow, #101014);
   border-radius: 4px;
   position: relative;
   overflow: hidden;
   width: 100%;
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .terminal-card-header,
 .glass-card-header {
-  background-color: #24283b;
-  border-bottom: 1px solid #414868;
+  background-color: var(--th-surface-alt, #24283b);
+  border-bottom: 1px solid var(--th-border, #414868);
   padding: 0.55rem 0.9rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 .terminal-card-title,
 .glass-card-title {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #7aa2f7;
+  color: var(--th-accent, #7aa2f7);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-family: 'Iosevka Nerd Font', 'Iosevka_Nerd_Font', 'Iosevka', monospace;
+  transition: color 0.4s ease;
 }
 
 .glass-card-icon {
-  color: #7dcfff;
+  color: var(--th-cyan, #7dcfff);
   display: inline-flex;
   align-items: center;
+  transition: color 0.4s ease;
 }
 
 .terminal-card-content,
@@ -162,29 +173,29 @@ body::before {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #24283b;
-  border: 1px solid #414868;
-  box-shadow: 2px 2px 0px #101014;
+  background-color: var(--th-surface-alt, #24283b);
+  border: 1px solid var(--th-border, #414868);
+  box-shadow: 2px 2px 0px var(--th-shadow, #101014);
   border-radius: 4px;
-  color: #c0caf5;
+  color: var(--th-text, #c0caf5);
   padding: 0.4rem 0.75rem;
   font-size: 0.85rem;
   font-family: 'Iosevka Nerd Font', 'Iosevka_Nerd_Font', 'Iosevka', monospace;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.4s ease;
 }
 
 .terminal-button:hover,
 .glass-button:hover {
-  background-color: #292e42;
-  border-color: #7aa2f7;
-  color: #7dcfff;
+  background-color: var(--th-surface, #1f2335);
+  border-color: var(--th-accent, #7aa2f7);
+  color: var(--th-cyan, #7dcfff);
 }
 
 .terminal-button:active,
 .glass-button:active {
-  box-shadow: 0px 0px 0px #101014;
+  box-shadow: 0px 0px 0px var(--th-shadow, #101014);
   transform: translate(1px, 1px);
 }
 
@@ -200,25 +211,27 @@ body::before {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #24283b;
-  border: 1px solid #414868;
-  box-shadow: 2px 2px 0px #101014;
+  background-color: var(--th-surface-alt, #24283b);
+  border: 1px solid var(--th-border, #414868);
+  box-shadow: 2px 2px 0px var(--th-shadow, #101014);
   border-radius: 4px;
   width: 3.5rem;
   height: 3.5rem;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 .terminal-icon:hover,
 .glass-icon:hover {
-  border-color: #7aa2f7;
-  background-color: #292e42;
+  border-color: var(--th-accent, #7aa2f7);
+  background-color: var(--th-surface, #1f2335);
 }
 
 /* Markdown Styling */
 .prose {
-  color: #a9b1d6;
+  color: var(--th-text-muted, #a9b1d6);
   max-width: none;
   font-family: 'Iosevka Nerd Font', 'Iosevka_Nerd_Font', 'Iosevka', monospace !important;
+  transition: color 0.4s ease;
 }
 
 .prose p {
@@ -245,24 +258,24 @@ body::before {
   content: "❯";
   position: absolute;
   left: 0;
-  color: #7dcfff;
+  color: var(--th-cyan, #7dcfff);
   font-weight: bold;
 }
 
 .prose a {
-  color: #7aa2f7;
+  color: var(--th-accent, #7aa2f7);
   text-decoration: none;
-  border-bottom: 1px dashed #7aa2f7;
+  border-bottom: 1px dashed var(--th-accent, #7aa2f7);
 }
 
 .prose a:hover {
-  color: #7dcfff;
-  border-bottom: 1px solid #7dcfff;
-  background-color: rgba(122, 162, 247, 0.15);
+  color: var(--th-cyan, #7dcfff);
+  border-bottom: 1px solid var(--th-cyan, #7dcfff);
+  background-color: color-mix(in srgb, var(--th-accent, #7aa2f7) 15%, transparent);
 }
 
 .prose strong {
-  color: #bb9af7;
+  color: var(--th-purple, #bb9af7);
   font-weight: 700;
 }
 
@@ -273,14 +286,14 @@ body::before {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1b26;
+  background: var(--th-bg, #1a1b26);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #414868;
+  background: var(--th-border, #414868);
   border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7aa2f7;
+  background: var(--th-accent, #7aa2f7);
 }
