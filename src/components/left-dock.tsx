@@ -27,16 +27,16 @@ export function LeftDock() {
     <aside
       aria-label="Docked windows"
       className="
-        fixed z-50 select-none font-mono text-xs
-        /* Mobile: bottom-right, slides up from below */
-        right-3 bottom-4
+        fixed z-50 select-none font-mono text-[11px] sm:text-xs
+        /* Mobile: bottom-right, compact */
+        right-2 bottom-2 sm:right-3 sm:bottom-4
         /* Desktop: left-center, original position */
         md:right-auto md:bottom-auto md:left-3 md:top-1/2 md:-translate-y-1/2
-        flex flex-col gap-2
+        flex flex-col gap-1.5 sm:gap-2
         transition-all duration-300 ease-out
       "
     >
-      <div className="bg-[var(--th-surface)] border border-[var(--th-border)] shadow-[4px_4px_0px_var(--th-shadow)] rounded-[4px] p-2 flex flex-col gap-2 min-w-[130px] max-w-[160px]">
+      <div className="bg-[var(--th-surface)] border border-[var(--th-border)] shadow-[4px_4px_0px_var(--th-shadow)] rounded-[4px] p-1.5 sm:p-2 flex flex-col gap-1.5 sm:gap-2 min-w-[110px] max-w-[130px] sm:min-w-[130px] sm:max-w-[160px]">
         {/* Dock header */}
         <div className="flex items-center justify-between gap-1 border-b border-[var(--th-border-subtle)] pb-1.5 px-1 text-[10px] text-[var(--th-text-dim)]">
           <span className="text-[var(--th-cyan)] font-bold">DOCK [{closedEntries.length}]</span>
@@ -77,7 +77,7 @@ export function LeftDock() {
                   /* Desktop: nudge right on hover */
                   md:active:translate-y-0 md:active:translate-x-[1px]
                   md:hover:translate-x-1
-                  rounded-[4px] px-2.5 py-1.5 text-left text-xs cursor-pointer
+                  rounded-[4px] px-2 py-1 sm:px-2.5 sm:py-1.5 text-left text-[11px] sm:text-xs cursor-pointer
                   group transition-all duration-200
                 "
               >
