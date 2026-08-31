@@ -49,7 +49,7 @@ export function TechStack() {
       <div className="space-y-6 font-mono">
         {sections.map((section) => (
           <div key={section.title} className="space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#7dcfff] tracking-wider">
+            <div className="flex items-center gap-2 text-xs font-bold text-[var(--th-cyan)] tracking-wider">
               <span>❯</span>
               <span>{section.title}</span>
             </div>
@@ -60,7 +60,7 @@ export function TechStack() {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-col items-center justify-center p-3 bg-[#24283b] hover:bg-[#292e42] border border-[#414868] hover:border-[#7aa2f7] shadow-[2px_2px_0px_#101014] rounded-[4px] group text-center select-none"
+                  className="flex flex-col items-center justify-center p-3 bg-[var(--th-surface-alt)] hover:bg-[var(--th-surface)] border border-[var(--th-border)] hover:border-[var(--th-accent)] shadow-[2px_2px_0px_var(--th-shadow)] rounded-[4px] group text-center select-none"
                 >
                   <span
                     className="font-['Iosevka_Nerd_Font','Iosevka_Nerd_Font','Iosevka',monospace] text-2xl mb-1.5 leading-none flex items-center justify-center"
@@ -68,7 +68,7 @@ export function TechStack() {
                   >
                     {item.icon}
                   </span>
-                  <span className="text-xs font-mono text-[#a9b1d6] group-hover:text-[#7dcfff] truncate w-full">
+                  <span className="text-xs font-mono text-[var(--th-text-muted)] group-hover:text-[var(--th-cyan)] truncate w-full">
                     {item.name}
                   </span>
                 </a>

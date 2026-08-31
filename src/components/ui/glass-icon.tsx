@@ -12,7 +12,7 @@ export function GlassIcon({ className, children, label }: GlassIconProps) {
   return (
     <div
       className={cn(
-        "inline-flex items-center justify-center bg-[#24283b] border border-[#414868] hover:border-[#7aa2f7] hover:bg-[#292e42] shadow-[2px_2px_0px_#101014] rounded-[4px] p-2",
+        "inline-flex items-center justify-center bg-[var(--th-surface-alt)] border border-[var(--th-border)] hover:border-[var(--th-accent)] hover:bg-[var(--th-surface)] shadow-[2px_2px_0px_var(--th-shadow)] rounded-[4px] p-2",
         className
       )}
       role={label ? "img" : undefined}
