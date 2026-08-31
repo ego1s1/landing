@@ -109,7 +109,14 @@ html {
   background-color: var(--th-bg);
   color: var(--th-text);
   font-family: 'Iosevka Nerd Font', 'Iosevka_Nerd_Font', 'Iosevka', monospace !important;
+  font-size: 17px;
   transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 17.5px;
+  }
 }
 
 body {
