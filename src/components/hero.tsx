@@ -4,17 +4,12 @@ import { GitHub } from "./logos/github";
 import { LinkedIn } from "./logos/linkedin";
 import { Gmail } from "./logos/gmail";
 import { GlassButton } from "@/components/ui/glass-button";
+import { GitHubContributions } from "@/components/github-contributions";
 import Image from "next/image";
 import { useWindowContext } from "@/components/window-context";
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { SITE_CONFIG } from "@/lib/site";
-
-const RABBIT_ASCII = `   (\\_/)
-  ( •.• )
-  (>  < )
-   /   \\
-  (_____)`;
 
 export function Hero() {
   const windowCtx = useWindowContext();
@@ -100,9 +95,9 @@ export function Hero() {
       </div>
 
       {!isMinimized && (
-        <div className="p-5 md:p-6 space-y-5">
-          {/* Hero identity block — clean, minimal */}
-          <div className="flex flex-wrap items-center justify-between gap-6 pb-4 border-b border-[var(--th-border-subtle)]/10">
+        <div className="p-4 md:p-5 space-y-4">
+          {/* Hero identity block — cozy, compact */}
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-[var(--th-border-subtle)]/10">
             <div className="flex items-center gap-4">
               {/* Avatar — clean */}
               <div className="size-20 md:size-24 shrink-0 overflow-hidden rounded-[4px] border border-[var(--th-border-subtle)]/30 bg-[var(--th-bg)] shadow-[2px_2px_0px_var(--th-shadow)]/50">
@@ -162,20 +157,15 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Neofetch panel — cleaner, fewer borders */}
-          <div className="bg-[var(--th-surface)]/50 rounded-[4px] p-1.5 font-mono grid grid-cols-1 lg:grid-cols-12 gap-2 items-stretch">
-            {/* ASCII viewport — minimal, no extra border */}
-            <div className="lg:col-span-4 xl:col-span-4 flex items-center justify-center select-none p-1.5 bg-[var(--th-bg)] rounded-[3px] overflow-hidden h-full min-h-[96px] self-stretch w-full max-w-[200px] mx-auto lg:mx-0 lg:max-w-none">
-              <pre
-                aria-hidden="true"
-                className="text-[10px] sm:text-[11px] lg:text-[12px] leading-[1.05] tracking-tight text-[var(--th-cyan)] font-mono whitespace-pre select-none"
-              >
-                {RABBIT_ASCII}
-              </pre>
+          {/* Neofetch panel — cozy, compact */}
+          <div className="bg-[var(--th-surface)]/40 rounded-[4px] p-1.5 font-mono grid grid-cols-1 lg:grid-cols-12 gap-2 items-stretch">
+            {/* GitHub contributions — half width, taller to fit more */}
+            <div className="lg:col-span-6 flex flex-col select-none p-1 bg-[var(--th-bg)] rounded-[3px] overflow-hidden h-full min-h-[140px] self-stretch w-full max-w-[360px] mx-auto lg:mx-0 lg:max-w-none border border-[var(--th-border-subtle)]/15">
+              <GitHubContributions />
             </div>
 
             {/* System info fields — scaled down for balance */}
-            <div className="lg:col-span-8 xl:col-span-8 space-y-1 text-[11px] lg:text-xs text-[var(--th-text-muted)] flex flex-col justify-center">
+            <div className="lg:col-span-6 space-y-1 text-[11px] lg:text-xs text-[var(--th-text-muted)] flex flex-col justify-center">
               <div className="text-[var(--th-accent)] font-bold border-b border-[var(--th-border-subtle)] pb-1 flex justify-between text-[11px]">
                 <span>
                   {SITE_CONFIG.shortName.toLowerCase()}@{SITE_CONFIG.username}
@@ -185,6 +175,10 @@ export function Hero() {
               <div className="flex gap-2 items-baseline">
                 <span className="text-[var(--th-yellow)] w-14 sm:w-16 shrink-0 font-bold">OS:</span>
                 <span className="text-[var(--th-text)] leading-tight">Arch Linux / macOS</span>
+              </div>
+              <div className="flex gap-2 items-baseline">
+                <span className="text-[var(--th-purple)] w-14 sm:w-16 shrink-0 font-bold">DEVICE:</span>
+                <span className="text-[var(--th-text)] leading-tight">Apple MacBook Air M2</span>
               </div>
               <div className="flex gap-2 items-baseline">
                 <span className="text-[var(--th-green)] w-14 sm:w-16 shrink-0 font-bold">HOST:</span>
