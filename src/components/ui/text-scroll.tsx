@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { SITE_CONFIG } from "@/lib/site";
 
 interface TextScrollProps {
   text: string;
@@ -43,33 +44,21 @@ export function TextScroll({ text, className, textClassName }: TextScrollProps) 
   // Box width = longest line length
   const maxLen = Math.max(...lines.map((l) => l.length));
   const innerWidth = maxLen + 4; // 2 spaces padding each side
-  const topBar    = "─".repeat(innerWidth);
+  const topBar = "─".repeat(innerWidth);
   const bottomBar = "─".repeat(innerWidth);
 
-  const buildLine = (line: string) => {
+  const isMultiLine = lines.length > 1;
+  const bubbleLines = lines.map((line) => {
+    if (!isMultiLine) return ` <  ${line.padEnd(maxLen)}  >`;
     const padded = line + " ".repeat(maxLen - line.length);
     return ` │  ${padded}  │`;
-  };
-
-  const isMultiLine = lines.length > 1;
-  const bubbleLines = lines.map((line, i) => {
-    if (!isMultiLine) return ` < ${line.padEnd(maxLen)} >`;
-    const padded = line + " ".repeat(maxLen - line.length);
-    if (i === 0)                   return ` ╭  ${padded}  ╮`;
-    if (i === lines.length - 1)    return ` ╰  ${padded}  ╯`;
-    return                                ` │  ${padded}  │`;
   });
 
-  // For single line, re-do the top/bottom bars with < >
-  const topLine    = isMultiLine ? ` ╭${topBar}╮`    : ` ╭${topBar}╮`;
-  const bottomLine = isMultiLine ? ` ╰${bottomBar}╯` : ` ╰${bottomBar}╯`;
+  const topLine = ` ╭${topBar}╮`;
+  const bottomLine = ` ╰${bottomBar}╯`;
 
-  // Use standard cowsay box for any number of lines
-  const boxLines = [
-    ` ┌${topBar}┐`,
-    ...lines.map(buildLine),
-    ` └${bottomBar}┘`,
-  ].join("\n");
+  // Proper cowsay bubble: rounded top/bottom + bubble lines (single uses < >, multi uses │)
+  const boxLines = [topLine, ...bubbleLines, bottomLine].join("\n");
 
   const cow = `        \\   ^__^
          \\  (oo)\\_______
@@ -83,18 +72,18 @@ export function TextScroll({ text, className, textClassName }: TextScrollProps) 
       aria-label="System quote (cowsay)"
     >
       {/* Card — same style as other GlassCards, inherits CSS var theming */}
-      <div className="w-full bg-[var(--th-surface,#1f2335)] border border-[var(--th-border,#414868)] shadow-[3px_3px_0px_var(--th-shadow,#101014)] rounded-[4px] overflow-hidden">
+      <div className="w-full bg-[var(--th-surface)] border border-[var(--th-border)] shadow-[3px_3px_0px_var(--th-shadow)] rounded-[4px] overflow-hidden">
 
         {/* Titlebar */}
-        <div className="bg-[var(--th-surface-alt,#24283b)] border-b border-[var(--th-border,#414868)] px-3.5 py-2 flex items-center gap-2 text-xs select-none">
+        <div className="bg-[var(--th-surface-alt)] border-b border-[var(--th-border)] px-3.5 py-2 flex items-center gap-2 text-xs select-none">
           <span className="flex items-center gap-1.5 mr-1 shrink-0">
-            <span className="size-3 rounded-full bg-[var(--th-red,#f7768e)] border border-[var(--th-red,#f7768e)]/40 opacity-60" />
-            <span className="size-3 rounded-full bg-[var(--th-yellow,#e0af68)] border border-[var(--th-yellow,#e0af68)]/40 opacity-60" />
-            <span className="size-3 rounded-full bg-[var(--th-green,#9ece6a)] border border-[var(--th-green,#9ece6a)]/40 opacity-60" />
+            <span className="size-3 rounded-full bg-[var(--th-red)] border border-[var(--th-red)]/40 opacity-60" />
+            <span className="size-3 rounded-full bg-[var(--th-yellow)] border border-[var(--th-yellow)]/40 opacity-60" />
+            <span className="size-3 rounded-full bg-[var(--th-green)] border border-[var(--th-green)]/40 opacity-60" />
           </span>
-          <span className="text-[var(--th-text-dim,#565f89)]">user@ego1s1:</span>
-          <span className="text-[var(--th-accent,#7aa2f7)] font-semibold">cowsay</span>
-          <span className="text-[var(--th-yellow,#e0af68)] truncate max-w-[40ch]">
+          <span className="text-[var(--th-text-dim)]">user@{SITE_CONFIG.username}:</span>
+          <span className="text-[var(--th-accent)] font-semibold">cowsay</span>
+          <span className="text-[var(--th-yellow)] truncate max-w-[40ch]">
             &quot;{trimmed.slice(0, 48)}{trimmed.length > 48 ? "…" : ""}&quot;
           </span>
         </div>
@@ -103,15 +92,14 @@ export function TextScroll({ text, className, textClassName }: TextScrollProps) 
         <div className="p-5 overflow-x-auto">
           <pre
             className={cn(
-              "font-mono text-xs md:text-sm leading-relaxed text-[var(--th-text,#c0caf5)] whitespace-pre",
+              "font-mono text-xs md:text-sm leading-relaxed text-[var(--th-text)] whitespace-pre",
               textClassName
             )}
           >
-{boxLines}
-{cow}
+            {`${boxLines}\n${cow}`}
           </pre>
-          <div className="mt-3 border-t border-[var(--th-border-subtle,#3b4261)] pt-2 text-[10px] text-[var(--th-text-dim,#565f89)] flex items-center gap-2">
-            <span className="text-[var(--th-cyan,#7dcfff)]">❯</span>
+          <div className="mt-3 border-t border-[var(--th-border-subtle)] pt-2 text-[10px] text-[var(--th-text-dim)] flex items-center gap-2">
+            <span className="text-[var(--th-cyan)]">❯</span>
             <span>cowsay completed — exit 0</span>
           </div>
         </div>

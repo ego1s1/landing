@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { SITE_CONFIG } from "@/lib/site";
 
 // ---------------------------------------------------------------------------
 // Theme definitions — 10 popular terminal color schemes
@@ -266,7 +267,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
 const DEFAULT_THEME_ID = "tokyonight";
-const STORAGE_KEY = "ego1s1-theme";
+const STORAGE_KEY = SITE_CONFIG.themeStorageKey;
 
 /** Apply CSS custom properties to <html> for fluid transitions */
 function applyThemeVars(colors: ThemeColors) {

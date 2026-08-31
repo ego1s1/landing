@@ -4,6 +4,7 @@ import { useCallback, type MouseEvent } from "react";
 import { Github, FolderGit2, ExternalLink } from "lucide-react";
 import { GlassCard } from "@/components/ui/glass-card";
 import { GlassButton } from "@/components/ui/glass-button";
+import { SITE_CONFIG } from "@/lib/site";
 
 interface Project {
   name: string;
@@ -47,7 +48,7 @@ function ProjectTile({ project }: { project: Project }) {
           </div>
           <div className="flex items-center gap-1 shrink-0">
             {project.url && (
-              <span className="text-[#565f89] text-xs font-mono group-hover:text-[#7dcfff]">
+              <span className="text-[var(--th-text-dim)] text-xs font-mono group-hover:text-[var(--th-cyan)]">
                 <ExternalLink className="size-3.5" />
               </span>
             )}
@@ -59,24 +60,24 @@ function ProjectTile({ project }: { project: Project }) {
           </div>
         </div>
         {project.event && (
-          <p className="text-[11px] text-[#e0af68] font-mono bg-[#1a1b26] border border-[#3b4261] px-2 py-0.5 rounded-none mb-2 w-fit">
+          <p className="text-[11px] text-[var(--th-yellow)] font-mono bg-[var(--th-bg)] border border-[var(--th-border-subtle)] px-2 py-0.5 rounded-none mb-2 w-fit">
             [{project.event}]
           </p>
         )}
-        <p className="text-xs text-[#a9b1d6] font-mono leading-relaxed">
+        <p className="text-xs text-[var(--th-text-muted)] font-mono leading-relaxed">
           {project.description}
         </p>
       </div>
 
-      <div className="flex items-center justify-between text-[10px] text-[#565f89] font-mono border-t border-[#3b4261]/50 pt-2">
+      <div className="flex items-center justify-between text-[10px] text-[var(--th-text-dim)] font-mono border-t border-[var(--th-border-subtle)]/50 pt-2">
         <span>STATUS: 200 OK</span>
-        <span className="text-[#7dcfff]">READ_MORE ❯</span>
+        <span className="text-[var(--th-cyan)]">READ_MORE ❯</span>
       </div>
     </div>
   );
 
   const tileClasses =
-    "block p-4 bg-[#24283b] hover:bg-[#292e42] border border-[#414868] hover:border-[#7aa2f7] shadow-[2px_2px_0px_#101014] rounded-[4px] font-mono transition-none cursor-pointer group text-left h-full";
+    "block p-4 bg-[var(--th-surface-alt)] hover:bg-[var(--th-surface)] border border-[var(--th-border)] hover:border-[var(--th-accent)] shadow-[2px_2px_0px_var(--th-shadow)] rounded-[4px] font-mono transition-none cursor-pointer group text-left h-full";
 
   if (project.url) {
     return (
@@ -99,8 +100,8 @@ const projects: Project[] = [
     name: "File Repo",
     event: "Kotak Life Insurance Project",
     description: "Secure full-stack document repository using Next.js, Flask, Docker, PostgreSQL, and an AI vector search querying pipeline with Redis/RQ.",
-    url: "https://github.com/ego1s1",
-    githubUrl: "https://github.com/ego1s1",
+    url: SITE_CONFIG.github,
+    githubUrl: SITE_CONFIG.github,
     icon: "",
     color: "#7dcfff",
   },
@@ -108,8 +109,8 @@ const projects: Project[] = [
     name: "Shell Assist",
     event: "IEEE Hacksagon '25 Winner",
     description: "AI-powered application translating natural language into validated, secure shell commands with execution validation using Python & Ollama.",
-    url: "https://github.com/ego1s1/shell-assist",
-    githubUrl: "https://github.com/ego1s1/shell-assist",
+    url: `${SITE_CONFIG.github}/shell-assist`,
+    githubUrl: `${SITE_CONFIG.github}/shell-assist`,
     icon: "",
     color: "#bb9af7",
   },
@@ -118,7 +119,7 @@ const projects: Project[] = [
     event: "RDCIS, SAIL Project",
     description: "Employee access management application with secure database-backed authentication and movement tracking workflows.",
     url: "https://gate-entry-sigma.vercel.app/",
-    githubUrl: "https://github.com/ego1s1/gate-entry",
+    githubUrl: `${SITE_CONFIG.github}/gate-entry`,
     icon: "",
     color: "#9ece6a",
   },

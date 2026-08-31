@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import "./fonts.css";
 import { Footer } from "@/components/footer";
+import { SITE_CONFIG } from "@/lib/site";
 
 const mono = JetBrains_Mono({
   variable: "--font-mono",
@@ -16,46 +17,44 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "ego1s1.",
-    template: "%s | ego1s1.",
+    default: SITE_CONFIG.title,
+    template: SITE_CONFIG.titleTemplate,
   },
-  description: "Where it all begins.",
+  description: SITE_CONFIG.description,
   metadataBase: new URL(
-    process.env.NODE_ENV === "production"
-      ? "https://priyanshusharma.dev"
-      : "http://localhost:3000",
+    process.env.NODE_ENV === "production" ? SITE_CONFIG.siteUrl : SITE_CONFIG.siteUrlDev,
   ),
   openGraph: {
     title: {
-      default: "ego1s1.",
-      template: "%s | ego1s1.",
+      default: SITE_CONFIG.title,
+      template: SITE_CONFIG.titleTemplate,
     },
-    description: "B.Tech student in Electronics and Communications Engineering at MIT Manipal. Winner of IEEE Hacksagon 2025. Passionate about development and collaboration.",
-    url: "https://priyanshusharma.dev",
-    siteName: "Priyanshu Sharma - Portfolio",
+    description: SITE_CONFIG.ogDescription,
+    url: SITE_CONFIG.siteUrl,
+    siteName: SITE_CONFIG.siteName,
     images: [
       {
-        url: "/og-image.png",
+        url: SITE_CONFIG.ogImage,
         width: 1536,
         height: 1024,
-        alt: "Priyanshu Sharma - Developer & Student Portfolio",
+        alt: `${SITE_CONFIG.displayName} - Developer & Student Portfolio`,
       },
     ],
     type: "website",
-    locale: "en_US",
+    locale: SITE_CONFIG.locale,
   },
   twitter: {
     card: "summary_large_image",
-    title: "ego1s1.",
-    description: "B.Tech student in Electronics and Communications Engineering at MIT Manipal. Winner of IEEE Hacksagon 2025. Passionate about development and collaboration.",
-    site: "@ego1s1",
-    creator: "@ego1s1",
+    title: SITE_CONFIG.title,
+    description: SITE_CONFIG.ogDescription,
+    site: SITE_CONFIG.handle,
+    creator: SITE_CONFIG.handle,
     images: [
       {
-        url: "/twitter-image.png",
+        url: SITE_CONFIG.twitterImage,
         width: 1536,
         height: 1024,
-        alt: "Priyanshu Sharma - Developer & Student Portfolio",
+        alt: `${SITE_CONFIG.displayName} - Developer & Student Portfolio`,
       },
     ],
   },
@@ -84,12 +83,16 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" suppressHydrationWarning className="bg-[#1a1b26] text-[#c0caf5]">
+      <html
+        lang="en"
+        suppressHydrationWarning
+        className="bg-[var(--th-bg)] text-[var(--th-text)]"
+      >
         <body
-          className={`${mono.variable} antialiased bg-[#1a1b26] text-[#c0caf5] selection:bg-[#3b4261] selection:text-[#7dcfff]`}
+          className={`${mono.variable} antialiased bg-[var(--th-bg)] text-[var(--th-text)] selection:bg-[var(--th-border-subtle)] selection:text-[var(--th-cyan)]`}
         >
           <Providers>
-            <div className="relative z-10 min-h-screen bg-[#1a1b26]">
+            <div className="relative z-10 min-h-screen bg-[var(--th-bg)]">
               {children}
               <Footer />
             </div>

@@ -14,7 +14,7 @@ export default function WorkExperienceSection() {
       shortTitle="EXP"
       nerdIcon="󰌢"
       icon={<Briefcase className="size-4" />}
-      contentClassName="prose max-w-none font-mono text-[#c0caf5]"
+      contentClassName="prose max-w-none font-mono text-[var(--th-text)]"
     >
       <ReactMarkdown>{workExperienceContent}</ReactMarkdown>
     </GlassCard>

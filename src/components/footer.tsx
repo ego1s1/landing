@@ -1,16 +1,17 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { SITE_CONFIG } from "@/lib/site";
 
 export function Footer({ className }: { className?: string }) {
   return (
     <footer className={cn("w-full max-w-3xl mx-auto p-5 font-mono", className)}>
-      <div className="bg-[#1f2335] border border-[#414868] shadow-[3px_3px_0px_#101014] rounded-[4px] p-4 text-center">
-        <div className="flex items-center justify-center gap-2 text-xs text-[#a9b1d6]">
-          <span className="text-[#7dcfff]">user@ego1s1:~$</span>
-          <span>Built with ❤️ by Priyanshu Sharma</span>
+      <div className="bg-[var(--th-surface)] border border-[var(--th-border)] shadow-[3px_3px_0px_var(--th-shadow)] rounded-[4px] p-4 text-center">
+        <div className="flex items-center justify-center gap-2 text-xs text-[var(--th-text-muted)]">
+          <span className="text-[var(--th-cyan)]">user@{SITE_CONFIG.username}:~$</span>
+          <span>Built with ❤️ by {SITE_CONFIG.displayName}</span>
         </div>
-        <div className="mt-2 text-[10px] text-[#565f89] flex items-center justify-center gap-3">
+        <div className="mt-2 text-[10px] text-[var(--th-text-dim)] flex items-center justify-center gap-3">
           <span>PROCESS: EXIT 0</span>
           <span>•</span>
           <span>TTY: /dev/pts/0</span>

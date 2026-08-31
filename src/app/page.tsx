@@ -13,24 +13,25 @@ import { WindowProvider } from "@/components/window-context";
 import { LeftDock } from "@/components/left-dock";
 import { ThemeProvider } from "@/components/theme-context";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { SITE_CONFIG } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Landing | ego1s1.",
-  description: "Where it all begins.",
+  title: `Landing | ${SITE_CONFIG.title}`,
+  description: SITE_CONFIG.description,
   openGraph: {
-    title: "Landing | ego1s1.",
-    description: "Where it all begins.",
+    title: `Landing | ${SITE_CONFIG.title}`,
+    description: SITE_CONFIG.description,
   },
 };
 
 const jsonLd: WithContext<WebPage> = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Priyanshu Sharma",
+  name: SITE_CONFIG.displayName,
   alternateName: "landing.",
-  mainEntityOfPage: "https://priyanshusharma.dev/",
-  description: "Where it all begins.",
-  url: "https://priyanshusharma.dev/",
+  mainEntityOfPage: `${SITE_CONFIG.siteUrl}/`,
+  description: SITE_CONFIG.description,
+  url: `${SITE_CONFIG.siteUrl}/`,
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
@@ -38,7 +39,7 @@ const jsonLd: WithContext<WebPage> = {
         "@type": "ListItem",
         position: 1,
         name: "Landing",
-        item: "https://priyanshusharma.dev/",
+        item: `${SITE_CONFIG.siteUrl}/`,
       },
     ],
   },
@@ -79,7 +80,7 @@ export default function Home() {
             shortTitle="SITE"
             nerdIcon="󰋜"
             icon={<Info className="size-4" />}
-            contentClassName="text-xs font-mono leading-relaxed space-y-3 text-[#a9b1d6]"
+            contentClassName="text-xs font-mono leading-relaxed space-y-3 text-[var(--th-text-muted)]"
           >
             <p>
               This site is built using{" "}
@@ -87,7 +88,7 @@ export default function Home() {
                 href="https://nextjs.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#7aa2f7] hover:text-[#7dcfff] underline underline-offset-2"
+                className="text-[var(--th-accent)] hover:text-[var(--th-cyan)] underline underline-offset-2"
               >
                 Next.js
               </a>
@@ -96,7 +97,7 @@ export default function Home() {
                 href="https://tailwindcss.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#7aa2f7] hover:text-[#7dcfff] underline underline-offset-2"
+                className="text-[var(--th-accent)] hover:text-[var(--th-cyan)] underline underline-offset-2"
               >
                 TailwindCSS
               </a>
@@ -105,7 +106,7 @@ export default function Home() {
                 href="https://ui.shadcn.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#7aa2f7] hover:text-[#7dcfff] underline underline-offset-2"
+                className="text-[var(--th-accent)] hover:text-[var(--th-cyan)] underline underline-offset-2"
               >
                 shadcn/ui
               </a>
@@ -114,16 +115,16 @@ export default function Home() {
                 href="https://tanstack.com/query"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#7aa2f7] hover:text-[#7dcfff] underline underline-offset-2"
+                className="text-[var(--th-accent)] hover:text-[var(--th-cyan)] underline underline-offset-2"
               >
                 Tanstack Query
               </a>
               . The source code is available on{" "}
               <a
-                href="https://github.com/ego1s1/landing"
+                href={`${SITE_CONFIG.github}/landing`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#7aa2f7] hover:text-[#7dcfff] underline underline-offset-2"
+                className="text-[var(--th-accent)] hover:text-[var(--th-cyan)] underline underline-offset-2"
               >
                 GitHub
               </a>
