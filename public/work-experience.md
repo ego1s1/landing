@@ -1,13 +1,22 @@
-• **Upcoming Embedded Software Intern** at **Honeywell Aerospace**
+# experience.log — where i've been
 
-• **IT Intern** at **Kotak Life Insurance**, Mumbai (On-site) — _Dec 2025 – Feb 2026_
-  
-  Working in the IT Application division developing secure enterprise document management solutions with REST APIs, PostgreSQL, Docker, and role-based access workflows.
+### upcoming → embedded software intern @ **Honeywell Aerospace**
+> can't wait to dive into high-reliability firmware where every byte counts!
 
-• **Software Engineer Intern** at [Awkward Studio](https://awkwardstudio.in), Mumbai (Remote) — _Oct 2025 – Jan 2026_
-  
-  Developed features across multiple client software projects and contributed to both frontend and backend development workflows.
+---
 
-• **Training Intern** at **RDCIS, SAIL** (C&IT Division), Ranchi (On-site) — _May 2025 – Jun 2025_
-  
-  Developed a secure employee gate-entry management system with centralized database integration and automated movement tracking.
+### IT Intern @ **Kotak Life Insurance** — Mumbai (on-site) · *Dec 2025 – Feb 2026*
+
+helping the IT Apps team build a **secure, snappy document vault** — **Next.js + Flask + PostgreSQL + Docker**, with **Redis/RQ** for AI search. learned a ton about **RBAC**, clean APIs, and shipping enterprise-grade stuff securely
+
+---
+
+### Software Engineer Intern @ [Awkward Studio](https://awkwardstudio.in) — Remote · *Oct 2025 – Jan 2026*
+
+wore many hats across **client projects** — frontend polish, backend logic, and everything in-between. loved the chaos of **shipping fast** and iterating with real users
+
+---
+
+### Training Intern @ **RDCIS, SAIL (C&IT)** — Ranchi · *May – Jun 2025*
+
+built a **gate-entry system** for employees — **centralized DB + auto movement tracking**. my first taste of **real-world infra** where reliability > cleverness

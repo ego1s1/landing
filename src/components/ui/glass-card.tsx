@@ -55,7 +55,7 @@ export function GlassCard({
       )}
     >
       {title && (
-        <div className="terminal-card-header bg-[var(--th-surface-alt)] border-b border-[var(--th-border)] px-3.5 py-2 flex items-center justify-between gap-2 text-xs font-mono select-none">
+        <div className="terminal-card-header bg-[var(--th-surface-alt)] border-b border-[var(--th-border-subtle)]/20 px-3.5 py-2 flex items-center justify-between gap-2 text-xs font-mono select-none">
           <div className="flex items-center gap-2 min-w-0">
             {/* Functional Y2K Traffic Lights */}
             <span className="flex items-center gap-1.5 mr-1 shrink-0">

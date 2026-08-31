@@ -266,7 +266,7 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
-const DEFAULT_THEME_ID = "tokyonight";
+const DEFAULT_THEME_ID = "everforest";
 const STORAGE_KEY = SITE_CONFIG.themeStorageKey;
 
 /** Apply CSS custom properties to <html> for fluid transitions */

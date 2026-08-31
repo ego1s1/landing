@@ -8,7 +8,13 @@ import Image from "next/image";
 import { useWindowContext } from "@/components/window-context";
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { SITE_CONFIG, getUserAtHost } from "@/lib/site";
+import { SITE_CONFIG } from "@/lib/site";
+
+const RABBIT_ASCII = `   (\\_/)
+  ( •.• )
+  (>  < )
+   /   \\
+  (_____)`;
 
 export function Hero() {
   const windowCtx = useWindowContext();
@@ -39,8 +45,8 @@ export function Hero() {
           : "max-h-[2500px] opacity-100 translate-x-0 scale-100"
       )}
     >
-      {/* Terminal Header Bar */}
-      <div className="bg-[var(--th-surface-alt)] border-b border-[var(--th-border)] px-3.5 py-2 flex items-center justify-between gap-2 text-xs select-none">
+      {/* Terminal Header Bar — simplified, subtle border */}
+      <div className="bg-[var(--th-surface-alt)] border-b border-[var(--th-border-subtle)]/20 px-3.5 py-2 flex items-center justify-between gap-2 text-xs select-none">
         <div className="flex items-center gap-2 min-w-0">
           {/* Traffic lights — the only touch targets in the titlebar */}
           <span className="flex items-center gap-1.5 mr-1 shrink-0">
@@ -95,11 +101,11 @@ export function Hero() {
 
       {!isMinimized && (
         <div className="p-5 md:p-6 space-y-5">
-          {/* Hero identity block — clean, no unnecessary boxes */}
-          <div className="flex flex-wrap items-center justify-between gap-6 pb-4 border-b border-[var(--th-border-subtle)]/50">
+          {/* Hero identity block — clean, minimal */}
+          <div className="flex flex-wrap items-center justify-between gap-6 pb-4 border-b border-[var(--th-border-subtle)]/10">
             <div className="flex items-center gap-4">
-              {/* Avatar — explicit width/height avoids fill-mode hydration mismatch */}
-              <div className="size-20 md:size-24 shrink-0 overflow-hidden rounded-[4px] border border-[var(--th-border)] bg-[var(--th-bg)] shadow-[2px_2px_0px_var(--th-shadow)]">
+              {/* Avatar — clean */}
+              <div className="size-20 md:size-24 shrink-0 overflow-hidden rounded-[4px] border border-[var(--th-border-subtle)]/30 bg-[var(--th-bg)] shadow-[2px_2px_0px_var(--th-shadow)]/50">
                 <Image
                   src={SITE_CONFIG.avatar}
                   alt={SITE_CONFIG.displayName}
@@ -120,11 +126,6 @@ export function Hero() {
                 <p className="text-xs font-semibold text-[var(--th-cyan)] tracking-wide">
                   Upcoming Embedded Software Intern @ Honeywell Aerospace
                 </p>
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-0.5 text-[11px] text-[var(--th-text-dim)]">
-                  <span>ECE @ MIT Manipal &apos;27</span>
-                  <span className="text-[var(--th-border-subtle)]">·</span>
-                  <span className="text-[var(--th-yellow)]">IEEE Hacksagon &apos;25 Winner</span>
-                </div>
               </div>
             </div>
 
@@ -161,59 +162,55 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Neofetch panel — ASCII rabbit + system info */}
-          <div className="bg-[var(--th-bg)] border border-[var(--th-border-subtle)] rounded-[4px] p-4 font-mono grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-            {/* ASCII Rabbit mascot */}
-            <div className="sm:col-span-5 flex flex-col items-center justify-center select-none py-3 bg-[var(--th-surface)]/60 border border-[var(--th-border-subtle)]/50 rounded-[3px]">
-              <pre className="text-sm text-[var(--th-cyan)] leading-tight font-mono">
-{`   (\\_/)
-  ( •.• )
- (>  < )
-  /   \\
- (_____)`}
+          {/* Neofetch panel — cleaner, fewer borders */}
+          <div className="bg-[var(--th-surface)]/50 rounded-[4px] p-1.5 font-mono grid grid-cols-1 lg:grid-cols-12 gap-2 items-stretch">
+            {/* ASCII viewport — minimal, no extra border */}
+            <div className="lg:col-span-4 xl:col-span-4 flex items-center justify-center select-none p-1.5 bg-[var(--th-bg)] rounded-[3px] overflow-hidden h-full min-h-[96px] self-stretch w-full max-w-[200px] mx-auto lg:mx-0 lg:max-w-none">
+              <pre
+                aria-hidden="true"
+                className="text-[10px] sm:text-[11px] lg:text-[12px] leading-[1.05] tracking-tight text-[var(--th-cyan)] font-mono whitespace-pre select-none"
+              >
+                {RABBIT_ASCII}
               </pre>
-              <span className="text-[11px] text-[var(--th-text-dim)] mt-2.5 tracking-wider font-bold">
-                {getUserAtHost("macos")}
-              </span>
             </div>
 
-            {/* System info fields */}
-            <div className="sm:col-span-7 space-y-1.5 text-xs text-[var(--th-text-muted)]">
-              <div className="text-[var(--th-accent)] font-bold border-b border-[var(--th-border-subtle)] pb-1 flex justify-between">
+            {/* System info fields — scaled down for balance */}
+            <div className="lg:col-span-8 xl:col-span-8 space-y-1 text-[11px] lg:text-xs text-[var(--th-text-muted)] flex flex-col justify-center">
+              <div className="text-[var(--th-accent)] font-bold border-b border-[var(--th-border-subtle)] pb-1 flex justify-between text-[11px]">
                 <span>
                   {SITE_CONFIG.shortName.toLowerCase()}@{SITE_CONFIG.username}
                 </span>
                 <span className="text-[var(--th-cyan)]">──────────────────</span>
               </div>
-              <div className="flex gap-2">
-                <span className="text-[var(--th-yellow)] w-20 shrink-0 font-bold">OS:</span>
-                <span className="text-[var(--th-text)]">Arch Linux / macOS</span>
+              <div className="flex gap-2 items-baseline">
+                <span className="text-[var(--th-yellow)] w-14 sm:w-16 shrink-0 font-bold">OS:</span>
+                <span className="text-[var(--th-text)] leading-tight">Arch Linux / macOS</span>
               </div>
-              <div className="flex gap-2">
-                <span className="text-[var(--th-green)] w-20 shrink-0 font-bold">HOST:</span>
-                <span className="text-[var(--th-text)]">MIT Manipal ECE &apos;27 — CGPA 7.33</span>
+              <div className="flex gap-2 items-baseline">
+                <span className="text-[var(--th-green)] w-14 sm:w-16 shrink-0 font-bold">HOST:</span>
+                <span className="text-[var(--th-text)] leading-tight">MIT Manipal ECE &apos;27 — CGPA 7.33</span>
               </div>
-              <div className="flex gap-2">
-                <span className="text-[var(--th-cyan)] w-20 shrink-0 font-bold">ROLE:</span>
-                <span className="text-[var(--th-green)] font-semibold">
+              <div className="flex gap-2 items-baseline">
+                <span className="text-[var(--th-cyan)] w-14 sm:w-16 shrink-0 font-bold">ROLE:</span>
+                <span className="text-[var(--th-green)] font-semibold leading-tight">
                   Upcoming Embedded Intern @ Honeywell Aerospace
                 </span>
               </div>
-              <div className="flex gap-2">
-                <span className="text-[var(--th-purple)] w-20 shrink-0 font-bold">PREV:</span>
-                <span className="text-[var(--th-text)]">
+              <div className="flex gap-2 items-baseline">
+                <span className="text-[var(--th-purple)] w-14 sm:w-16 shrink-0 font-bold">PREV:</span>
+                <span className="text-[var(--th-text)] leading-tight">
                   IT Intern @ Kotak Life · SWE Intern @ Awkward Studio
                 </span>
               </div>
-              <div className="flex gap-2">
-                <span className="text-[var(--th-red)] w-20 shrink-0 font-bold">HONORS:</span>
-                <span className="text-[var(--th-yellow)]">IEEE Hacksagon &apos;25 Winner</span>
+              <div className="flex gap-2 items-baseline">
+                <span className="text-[var(--th-red)] w-14 sm:w-16 shrink-0 font-bold">HONORS:</span>
+                <span className="text-[var(--th-yellow)] leading-tight">IEEE Hacksagon &apos;25 Winner</span>
               </div>
             </div>
           </div>
 
-          {/* Vim mode status bar footer */}
-          <div className="bg-[var(--th-surface-alt)] border border-[var(--th-border-subtle)] px-3.5 py-1.5 flex items-center justify-between text-[11px] text-[var(--th-text-dim)] rounded-[2px]">
+          {/* Vim mode status bar footer — minimal */}
+          <div className="bg-[var(--th-surface-alt)]/80 px-3.5 py-1.5 flex items-center justify-between text-[11px] text-[var(--th-text-dim)] rounded-[2px]">
             <div className="flex items-center gap-3">
               <span className="bg-[var(--th-accent)] text-[var(--th-bg)] px-1.5 font-bold">NORMAL</span>
               <span className="text-[var(--th-cyan)]">hero.zsh</span>

@@ -16,7 +16,7 @@ export function Footer({ className }: { className?: string }) {
           <span>•</span>
           <span>TTY: /dev/pts/0</span>
           <span>•</span>
-          <span>TOKYONIGHT STORM</span>
+          <span>EVERFOREST</span>
         </div>
       </div>
     </footer>

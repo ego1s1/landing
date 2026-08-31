@@ -41,23 +41,23 @@
 }
 
 :root {
-  /* Dynamic theming defaults — single source, all components use --th-* */
-  --th-bg: #1a1b26;
-  --th-surface: #1f2335;
-  --th-surface-alt: #24283b;
-  --th-border: #414868;
-  --th-border-subtle: #3b4261;
-  --th-text: #c0caf5;
-  --th-text-muted: #a9b1d6;
-  --th-text-dim: #565f89;
-  --th-accent: #7aa2f7;
-  --th-cyan: #7dcfff;
-  --th-purple: #bb9af7;
-  --th-green: #9ece6a;
-  --th-yellow: #e0af68;
-  --th-red: #f7768e;
-  --th-dot: #292e42;
-  --th-shadow: #101014;
+  /* Dynamic theming defaults — Everforest Dark (default) — single source, all components use --th-* */
+  --th-bg: #272e33;
+  --th-surface: #2e383c;
+  --th-surface-alt: #374145;
+  --th-border: #4a555b;
+  --th-border-subtle: #374145;
+  --th-text: #d3c6aa;
+  --th-text-muted: #9da9a0;
+  --th-text-dim: #5c6a72;
+  --th-accent: #7fbbb3;
+  --th-cyan: #83c092;
+  --th-purple: #d699b6;
+  --th-green: #a7c080;
+  --th-yellow: #dbbc7f;
+  --th-red: #e67e80;
+  --th-dot: #374145;
+  --th-shadow: #1a2124;
 
   /* Aliases for Tailwind/shadcn (unified — reflect --th-*) */
   --background: var(--th-bg);

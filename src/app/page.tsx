@@ -71,9 +71,6 @@ export default function Home() {
             <ProjectShowcase />
           </section>
 
-          {/* Theme Switcher — collapsed by default, sits above About Site */}
-          <ThemeSwitcher />
-
           <GlassCard
             id="about-site"
             title="cat ABOUT_SITE.md"
@@ -136,6 +133,9 @@ export default function Home() {
           <TextScroll
             text="Hard work is worthless for those that don't believe in themselves."
           />
+
+          {/* Theme Switcher — moved below cowsay per request */}
+          <ThemeSwitcher />
         </Container>
         <script
           type="application/ld+json"
