@@ -59,7 +59,7 @@ export function WindowFrame({
               type="button"
               onClick={() => windowCtx.closeWindow(id)}
               title="Close — dock to sidebar"
-              className="size-3 rounded-full bg-[var(--th-red)] hover:bg-[#ff5555] active:scale-90 border border-[var(--th-red)]/40 flex items-center justify-center cursor-pointer text-[8px] text-[var(--th-bg)] font-bold opacity-90 hover:opacity-100 group"
+              className="size-3 rounded-full bg-[var(--th-red)] hover:brightness-110 active:scale-90 border border-[var(--th-red)]/40 flex items-center justify-center cursor-pointer text-[8px] text-[var(--th-bg)] font-bold opacity-90 hover:opacity-100 group"
             >
               <span className="opacity-0 group-hover:opacity-100">✕</span>
             </button>
@@ -67,7 +67,7 @@ export function WindowFrame({
               type="button"
               onClick={() => windowCtx.minimizeWindow(id)}
               title="Minimise"
-              className="size-3 rounded-full bg-[var(--th-yellow)] hover:bg-[#ffb86c] active:scale-90 border border-[var(--th-yellow)]/40 flex items-center justify-center cursor-pointer text-[8px] text-[var(--th-bg)] font-bold opacity-90 hover:opacity-100 group"
+              className="size-3 rounded-full bg-[var(--th-yellow)] hover:brightness-110 active:scale-90 border border-[var(--th-yellow)]/40 flex items-center justify-center cursor-pointer text-[8px] text-[var(--th-bg)] font-bold opacity-90 hover:opacity-100 group"
             >
               <span className="opacity-0 group-hover:opacity-100">─</span>
             </button>
@@ -75,7 +75,7 @@ export function WindowFrame({
               type="button"
               onClick={() => windowCtx.restoreWindow(id)}
               title="Expand"
-              className="size-3 rounded-full bg-[var(--th-green)] hover:bg-[#50fa7b] active:scale-90 border border-[var(--th-green)]/40 flex items-center justify-center cursor-pointer text-[8px] text-[var(--th-bg)] font-bold opacity-90 hover:opacity-100 group"
+              className="size-3 rounded-full bg-[var(--th-green)] hover:brightness-110 active:scale-90 border border-[var(--th-green)]/40 flex items-center justify-center cursor-pointer text-[8px] text-[var(--th-bg)] font-bold opacity-90 hover:opacity-100 group"
             >
               <span className="opacity-0 group-hover:opacity-100">┼</span>
             </button>

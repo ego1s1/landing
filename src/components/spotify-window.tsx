@@ -138,7 +138,7 @@ export function SpotifyWindow({ className }: { className?: string }) {
               type="button"
               onClick={() => windowCtx.closeWindow("spotify")}
               title="Close"
-              className="size-3 rounded-full bg-[var(--th-red)] hover:bg-[#ff5555] border border-[var(--th-red)]/40 flex items-center justify-center cursor-pointer text-[7px] text-[var(--th-bg)] font-bold opacity-80 hover:opacity-100"
+              className="size-3 rounded-full bg-[var(--th-red)] hover:brightness-110 border border-[var(--th-red)]/40 flex items-center justify-center cursor-pointer text-[7px] text-[var(--th-bg)] font-bold opacity-80 hover:opacity-100"
             >
               ✕
             </button>
@@ -146,7 +146,7 @@ export function SpotifyWindow({ className }: { className?: string }) {
               type="button"
               onClick={() => windowCtx.minimizeWindow("spotify")}
               title="Minimise"
-              className="size-3 rounded-full bg-[var(--th-yellow)] hover:bg-[#ffb86c] border border-[var(--th-yellow)]/40 flex items-center justify-center cursor-pointer text-[7px] text-[var(--th-bg)] font-bold opacity-80 hover:opacity-100"
+              className="size-3 rounded-full bg-[var(--th-yellow)] hover:brightness-110 border border-[var(--th-yellow)]/40 flex items-center justify-center cursor-pointer text-[7px] text-[var(--th-bg)] font-bold opacity-80 hover:opacity-100"
             >
               ─
             </button>
@@ -154,7 +154,7 @@ export function SpotifyWindow({ className }: { className?: string }) {
               type="button"
               onClick={() => windowCtx.restoreWindow("spotify")}
               title="Expand"
-              className="size-3 rounded-full bg-[var(--th-green)] hover:bg-[#50fa7b] border border-[var(--th-green)]/40 flex items-center justify-center cursor-pointer text-[7px] text-[var(--th-bg)] font-bold opacity-80 hover:opacity-100"
+              className="size-3 rounded-full bg-[var(--th-green)] hover:brightness-110 border border-[var(--th-green)]/40 flex items-center justify-center cursor-pointer text-[7px] text-[var(--th-bg)] font-bold opacity-80 hover:opacity-100"
             >
               ┼
             </button>
@@ -171,7 +171,7 @@ export function SpotifyWindow({ className }: { className?: string }) {
         </div>
 
         {!isMinimized && (
-          <div className="bg-[#1a1b26] sm:bg-[var(--th-bg)]">
+          <div className="bg-[var(--th-bg)]">
             {loading && !tracks ? (
               <div className="p-6 flex flex-col gap-2 animate-pulse">
                 {Array.from({ length: 7 }).map((_, i) => (
