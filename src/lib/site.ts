@@ -18,10 +18,10 @@ export const SITE_CONFIG = {
   linkedin: "https://www.linkedin.com/in/ego1s1",
   linkedinUsername: "ego1s1",
 
-  // Site / Domain
-  siteUrl: "https://priyanshusharma.dev",
-  siteUrlDev: "http://localhost:3000",
-  domain: "priyanshusharma.dev",
+  // Site / Domain — Vercel: ego1s1.vercel.app (no custom domain)
+  siteUrl: "https://ego1s1.vercel.app",
+  siteUrlDev: "http://127.0.0.1:3000",
+  domain: "ego1s1.vercel.app",
 
   // SEO / Metadata
   title: "ego1s1.",

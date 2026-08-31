@@ -109,11 +109,23 @@ html {
   background-color: var(--th-bg);
   color: var(--th-text);
   font-family: 'Iosevka Nerd Font', 'Iosevka_Nerd_Font', 'Iosevka', monospace !important;
-  font-size: 17px;
+  font-size: 15.5px;
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+@media (min-width: 640px) {
+  html {
+    font-size: 16px;
+  }
+}
+
 @media (min-width: 768px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1024px) {
   html {
     font-size: 17.5px;
   }
@@ -141,8 +153,7 @@ body::before {
    All colors use --th-* vars so theme switching works globally.
    transition ensures smooth color swaps when theme changes.
    ============================================================ */
-.terminal-card,
-.glass-card {
+.terminal-card {
   background-color: var(--th-surface);
   border: 1px solid var(--th-border);
   box-shadow: 3px 3px 0px var(--th-shadow);
@@ -153,8 +164,7 @@ body::before {
   transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.terminal-card-header,
-.glass-card-header {
+.terminal-card-header {
   background-color: var(--th-surface-alt);
   border-bottom: 1px solid var(--th-border);
   padding: 0.55rem 0.9rem;
@@ -165,8 +175,7 @@ body::before {
   transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
-.terminal-card-title,
-.glass-card-title {
+.terminal-card-title {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--th-accent);
@@ -177,15 +186,7 @@ body::before {
   transition: color 0.4s ease;
 }
 
-.glass-card-icon {
-  color: var(--th-cyan);
-  display: inline-flex;
-  align-items: center;
-  transition: color 0.4s ease;
-}
-
-.terminal-card-content,
-.glass-card-content {
+.terminal-card-content {
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -193,8 +194,7 @@ body::before {
 }
 
 /* Flat Terminal Buttons */
-.terminal-button,
-.glass-button {
+.terminal-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -211,28 +211,19 @@ body::before {
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.4s ease;
 }
 
-.terminal-button:hover,
-.glass-button:hover {
+.terminal-button:hover {
   background-color: var(--th-surface);
   border-color: var(--th-accent);
   color: var(--th-cyan);
 }
 
-.terminal-button:active,
-.glass-button:active {
+.terminal-button:active {
   box-shadow: 0px 0px 0px var(--th-shadow);
   transform: translate(1px, 1px);
 }
 
-.glass-button-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
 /* Flat Terminal Icon Tiles */
-.terminal-icon,
-.glass-icon {
+.terminal-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -245,8 +236,7 @@ body::before {
   transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
-.terminal-icon:hover,
-.glass-icon:hover {
+.terminal-icon:hover {
   border-color: var(--th-accent);
   background-color: var(--th-surface);
 }

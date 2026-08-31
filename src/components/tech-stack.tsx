@@ -1,5 +1,5 @@
 import { Cpu } from "lucide-react";
-import { GlassCard } from "@/components/ui/glass-card";
+import { Card } from "@/components/ui/card";
 
 const sections = [
   {
@@ -39,7 +39,7 @@ const sections = [
 
 export function TechStack() {
   return (
-    <GlassCard
+    <Card
       id="stack"
       title="ls -la ~/TECH_STACK/"
       shortTitle="STACK"
@@ -77,6 +77,6 @@ export function TechStack() {
           </div>
         ))}
       </div>
-    </GlassCard>
+    </Card>
   );
 }

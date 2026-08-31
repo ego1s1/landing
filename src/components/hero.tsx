@@ -3,7 +3,7 @@
 import { GitHub } from "./logos/github";
 import { LinkedIn } from "./logos/linkedin";
 import { Gmail } from "./logos/gmail";
-import { GlassButton } from "@/components/ui/glass-button";
+import { Button } from "@/components/ui/button";
 import { GitHubContributions } from "@/components/github-contributions";
 import Image from "next/image";
 import { useWindowContext } from "@/components/window-context";
@@ -95,12 +95,12 @@ export function Hero() {
       </div>
 
       {!isMinimized && (
-        <div className="p-4 md:p-5 space-y-4">
-          {/* Hero identity block — cozy, compact */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-[var(--th-border-subtle)]/10">
-            <div className="flex items-center gap-4">
-              {/* Avatar — clean */}
-              <div className="size-20 md:size-24 shrink-0 overflow-hidden rounded-[4px] border border-[var(--th-border-subtle)]/30 bg-[var(--th-bg)] shadow-[2px_2px_0px_var(--th-shadow)]/50">
+        <div className="p-3 sm:p-4 md:p-5 space-y-3 sm:space-y-4">
+          {/* Hero identity block — cozy, compact, mobile-optimized */}
+          <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pb-3 border-b border-[var(--th-border-subtle)]/10">
+            <div className="flex items-center gap-3 sm:gap-4">
+              {/* Avatar — responsive */}
+              <div className="size-16 sm:size-20 md:size-24 shrink-0 overflow-hidden rounded-[4px] border border-[var(--th-border-subtle)]/30 bg-[var(--th-bg)] shadow-[2px_2px_0px_var(--th-shadow)]/50">
                 <Image
                   src={SITE_CONFIG.avatar}
                   alt={SITE_CONFIG.displayName}
@@ -110,57 +110,57 @@ export function Hero() {
                   className="object-cover w-full h-full"
                 />
               </div>
-              {/* Name & role text — plain, no decorative borders */}
-              <div className="flex flex-col justify-center gap-1">
+              {/* Name & role text — responsive */}
+              <div className="flex flex-col justify-center gap-0.5 sm:gap-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-[var(--th-cyan)] font-bold">❯</span>
-                  <h1 className="text-xl md:text-2xl font-extrabold text-[var(--th-text)] tracking-tight">
+                  <span className="text-[var(--th-cyan)] font-bold text-sm sm:text-base">❯</span>
+                  <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-[var(--th-text)] tracking-tight">
                     {SITE_CONFIG.displayName}
                   </h1>
                 </div>
-                <p className="text-xs font-semibold text-[var(--th-cyan)] tracking-wide">
+                <p className="text-[11px] sm:text-xs font-semibold text-[var(--th-cyan)] tracking-wide leading-tight">
                   Upcoming Embedded Software Intern @ Honeywell Aerospace
                 </p>
               </div>
             </div>
 
-            {/* Social action buttons — boxed because they ARE touch targets */}
-            <div className="flex items-center gap-2">
-              <GlassButton
+            {/* Social action buttons — compact on mobile */}
+            <div className="flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto justify-end">
+              <Button
                 href={SITE_CONFIG.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 p-0"
+                className="w-8 h-8 sm:w-9 sm:h-9 p-0"
                 title="GitHub Profile"
               >
-                <GitHub className="size-4" />
+                <GitHub className="size-3.5 sm:size-4" />
                 <span className="sr-only">GitHub</span>
-              </GlassButton>
-              <GlassButton
+              </Button>
+              <Button
                 href={SITE_CONFIG.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 p-0"
+                className="w-8 h-8 sm:w-9 sm:h-9 p-0"
                 title="LinkedIn Profile"
               >
-                <LinkedIn className="size-4" />
+                <LinkedIn className="size-3.5 sm:size-4" />
                 <span className="sr-only">LinkedIn</span>
-              </GlassButton>
-              <GlassButton
+              </Button>
+              <Button
                 href={`mailto:${SITE_CONFIG.email}`}
-                className="w-9 h-9 p-0"
+                className="w-8 h-8 sm:w-9 sm:h-9 p-0"
                 title="Send Email"
               >
-                <Gmail className="size-4" />
+                <Gmail className="size-3.5 sm:size-4" />
                 <span className="sr-only">Email</span>
-              </GlassButton>
+              </Button>
             </div>
           </div>
 
           {/* Neofetch panel — cozy, compact */}
           <div className="bg-[var(--th-surface)]/40 rounded-[4px] p-1.5 font-mono grid grid-cols-1 lg:grid-cols-12 gap-2 items-stretch">
-            {/* GitHub contributions — half width, taller to fit more */}
-            <div className="lg:col-span-6 flex flex-col select-none p-1 bg-[var(--th-bg)] rounded-[3px] overflow-hidden h-full min-h-[140px] self-stretch w-full max-w-[360px] mx-auto lg:mx-0 lg:max-w-none border border-[var(--th-border-subtle)]/15">
+            {/* GitHub contributions — half width, taller to fit more info */}
+            <div className="lg:col-span-6 flex flex-col select-none p-1 bg-[var(--th-bg)] rounded-[3px] overflow-hidden h-full min-h-[180px] self-stretch w-full max-w-[420px] mx-auto lg:mx-0 lg:max-w-none border border-[var(--th-border-subtle)]/15">
               <GitHubContributions />
             </div>
 

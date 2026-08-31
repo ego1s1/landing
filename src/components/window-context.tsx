@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback, useMemo } from "react";
+import { WINDOW_ID_REGEX, WINDOW_MAX_CLOSED } from "@/lib/constants";
 
 export interface WindowState {
   isMinimized: boolean;
@@ -30,12 +31,15 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
   const [metaMap, setMetaMap] = useState<Record<string, WindowMeta>>({});
 
   const registerWindow = useCallback((id: string, meta: WindowMeta) => {
+    if (!WINDOW_ID_REGEX.test(id)) return;
     setMetaMap((prev) => {
       if (prev[id]) return prev;
+      if (Object.keys(prev).length >= WINDOW_MAX_CLOSED) return prev;
       return { ...prev, [id]: meta };
     });
     setWindows((prev) => {
       if (prev[id]) return prev;
+      if (Object.keys(prev).length >= WINDOW_MAX_CLOSED) return prev;
       return { ...prev, [id]: { isMinimized: false, isClosed: false } };
     });
   }, []);
@@ -74,21 +78,20 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  return (
-    <WindowContext.Provider
-      value={{
-        windows,
-        metaMap,
-        registerWindow,
-        closeWindow,
-        minimizeWindow,
-        restoreWindow,
-        restoreAll,
-      }}
-    >
-      {children}
-    </WindowContext.Provider>
+  const value = useMemo(
+    () => ({
+      windows,
+      metaMap,
+      registerWindow,
+      closeWindow,
+      minimizeWindow,
+      restoreWindow,
+      restoreAll,
+    }),
+    [windows, metaMap, registerWindow, closeWindow, minimizeWindow, restoreWindow, restoreAll]
   );
+
+  return <WindowContext.Provider value={value}>{children}</WindowContext.Provider>;
 }
 
 export function useWindowContext() {

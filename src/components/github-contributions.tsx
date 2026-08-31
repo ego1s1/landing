@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { SITE_CONFIG } from "@/lib/site";
+import { GH_CACHE_TTL_MS, GH_CACHE_STALE_MS, GH_CONTRIB_WEEKS } from "@/lib/constants";
 
 interface ContributionDay {
   date: string;
@@ -15,7 +16,6 @@ interface ContributionsData {
 }
 
 const CACHE_KEY = `gh-contribs-${SITE_CONFIG.githubUsername}`;
-const CACHE_TTL_MS = 1000 * 60 * 60 * 6; // 6 hours
 
 // Theme-aware level colors — uses --th-green with opacity steps
 function levelClass(level: number): string {
@@ -35,11 +35,11 @@ function levelClass(level: number): string {
   }
 }
 
-// Fallback mock — last 26 weeks (half width, taller)
+// Fallback mock — last N weeks (compact, cozy)
 function generateMock(): ContributionDay[] {
   const days: ContributionDay[] = [];
   const today = new Date();
-  for (let i = 26 * 7 - 1; i >= 0; i--) {
+  for (let i = GH_CONTRIB_WEEKS * 7 - 1; i >= 0; i--) {
     const d = new Date(today);
     d.setDate(today.getDate() - i);
     // pseudo-random but deterministic by date for stable mock
@@ -62,35 +62,39 @@ export function GitHubContributions() {
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const parsed = JSON.parse(cached) as { data: ContributionsData; ts: number };
-        if (Date.now() - parsed.ts < CACHE_TTL_MS && parsed.data?.contributions?.length) {
-          const lastWeeks = parsed.data.contributions.slice(-26 * 7);
+        if (Date.now() - parsed.ts < GH_CACHE_TTL_MS && parsed.data?.contributions?.length) {
+          const lastWeeks = parsed.data.contributions.slice(-GH_CONTRIB_WEEKS * 7);
           setDays(lastWeeks);
           const t = typeof parsed.data.total === "number" ? parsed.data.total : Object.values(parsed.data.total as Record<string, number>).reduce((a, b) => a + b, 0);
           setTotal(t);
           setLoading(false);
-          if (Date.now() - parsed.ts < 1000 * 60 * 60) return;
+          if (Date.now() - parsed.ts < GH_CACHE_STALE_MS) return;
         }
       }
     } catch {
       // ignore cache parse errors
     }
 
-    // 2. Fetch fresh — try primary API, fallback to mock
+    // 2. Fetch fresh via same-origin proxy (ISR cached, zod-validated), fallback to direct + mock
     try {
-      const username = SITE_CONFIG.githubUsername;
-      // Primary: jogruber.de — CORS enabled, no auth
-      const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`, {
+      const res = await fetch(`/api/contributions`, {
         headers: { Accept: "application/json" },
+        signal: AbortSignal.timeout(5000),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = (await res.json()) as ContributionsData;
+      if ((data as { error?: string }).error) throw new Error("proxy error");
       const contribs = data.contributions;
       if (!contribs?.length) throw new Error("empty");
-      const lastWeeks = contribs.slice(-26 * 7);
+      const lastWeeks = contribs.slice(-GH_CONTRIB_WEEKS * 7);
       setDays(lastWeeks);
       const t = typeof data.total === "number" ? data.total : Object.values(data.total as Record<string, number>).reduce((a, b) => a + b, 0);
       setTotal(t);
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ data, ts: Date.now() }));
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ data, ts: Date.now() }));
+      } catch {
+        // QuotaExceededError — ignore, cache is best-effort
+      }
     } catch {
       // Fallback to mock for offline / API down — keeps UI cozy and fast
       const mock = generateMock();
@@ -105,24 +109,25 @@ export function GitHubContributions() {
     load();
   }, [load]);
 
-  // Cozy viewport — 26 weeks, 7 rows, tiny squares, no scrollbars
+  // Cap DOM DoS — attacker could poison cache with 10k items
+  const cappedDays = days ? days.slice(0, 400) : null;
   const weeks: ContributionDay[][] = [];
-  if (days) {
-    for (let i = 0; i < days.length; i += 7) {
-      weeks.push(days.slice(i, i + 7));
+  if (cappedDays) {
+    for (let i = 0; i < cappedDays.length; i += 7) {
+      weeks.push(cappedDays.slice(i, i + 7));
     }
   }
 
-  const totalLabel = total !== null ? `${total.toLocaleString()} contributions` : "—";
+  const totalLabel = total !== null ? `${Math.min(total, 99999).toLocaleString()} contributions` : "—";
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      {/* Header — half width, slightly larger */}
+      {/* Header — compact */}
       <div className="flex items-center justify-between px-1.5 py-1 text-[11px] font-mono shrink-0">
         <span className="flex items-center gap-1 text-[var(--th-text)] font-semibold truncate">
           <span className="text-[var(--th-green)] text-[12px]">▣</span>
           <span className="truncate">{totalLabel}</span>
-          <span className="hidden sm:inline text-[var(--th-text-dim)] font-normal">· 26w</span>
+          <span className="hidden sm:inline text-[var(--th-text-dim)] font-normal">· 1y</span>
         </span>
         <a
           href={SITE_CONFIG.github}
@@ -134,11 +139,11 @@ export function GitHubContributions() {
         </a>
       </div>
 
-      {/* Grid — half width, taller, larger squares */}
-      <div className="flex-1 flex items-center justify-center px-1.5 py-1 overflow-hidden">
+      {/* Grid — horizontally scrollable, 52w, starts at 1y ago — scrollbar hidden by default */}
+      <div className="flex-1 flex items-center px-1 py-1 overflow-x-auto overflow-y-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {loading && !days ? (
-          <div className="flex gap-1 w-fit max-w-full opacity-60 animate-pulse justify-center">
-            {Array.from({ length: 26 }).map((_, wi) => (
+          <div className="flex gap-1 w-max opacity-60 animate-pulse">
+            {Array.from({ length: 52 }).map((_, wi) => (
               <div key={wi} className="flex flex-col gap-1">
                 {Array.from({ length: 7 }).map((_, i) => (
                   <div key={i} className="size-2 rounded-[1px] bg-[var(--th-surface-alt)] border border-[var(--th-border-subtle)]/20" />
@@ -147,9 +152,9 @@ export function GitHubContributions() {
             ))}
           </div>
         ) : (
-          <div className="flex gap-1 w-fit max-w-full justify-center overflow-hidden mx-auto">
+          <div className="flex gap-1 w-max">
             {weeks.map((week, wi) => (
-              <div key={wi} className="flex flex-col gap-1">
+              <div key={wi} className="flex flex-col gap-1 shrink-0">
                 {week.map((day) => (
                   <div
                     key={day.date}
@@ -167,19 +172,20 @@ export function GitHubContributions() {
         )}
       </div>
 
-      {/* Footer — legend */}
+      {/* Footer — legend, no cached text */}
       <div className="flex items-center justify-between px-1.5 py-1 text-[10px] font-mono text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15 shrink-0">
-        <span className="flex items-center gap-0.5">
-          <span className={`size-2.5 rounded-[1px] ${levelClass(0)}`} />
-          <span className={`size-2.5 rounded-[1px] ${levelClass(1)}`} />
-          <span className={`size-2.5 rounded-[1px] ${levelClass(2)}`} />
-          <span className={`size-2.5 rounded-[1px] ${levelClass(3)}`} />
-          <span className={`size-2.5 rounded-[1px] ${levelClass(4)}`} />
+        <span className="flex items-center gap-1 text-[9px]">
+          Less
+          <span className="flex items-center gap-0.5 ml-1">
+            <span className={`size-2 rounded-[1px] ${levelClass(0)}`} />
+            <span className={`size-2 rounded-[1px] ${levelClass(1)}`} />
+            <span className={`size-2 rounded-[1px] ${levelClass(2)}`} />
+            <span className={`size-2 rounded-[1px] ${levelClass(3)}`} />
+            <span className={`size-2 rounded-[1px] ${levelClass(4)}`} />
+          </span>
+          <span className="ml-0.5">More</span>
         </span>
-        <span className="ml-auto hidden sm:inline-flex items-center gap-1 text-[var(--th-text-dim)]/60 text-[10px]">
-          <span className="size-1.5 rounded-full bg-[var(--th-green)] animate-pulse" />
-          cached
-        </span>
+        <span className="text-[9px] hidden sm:inline">scroll →</span>
       </div>
     </div>
   );
