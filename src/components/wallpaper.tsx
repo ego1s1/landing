@@ -11,26 +11,32 @@ export function Wallpaper() {
   // We still render a subtle themed wash so layout stays consistent
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         {wallpaper ? (
           <motion.div
             key={wallpaper}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 1.04, filter: "blur(12px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, scale: 1.02, filter: "blur(8px)" }}
+            transition={{
+              opacity: { duration: 0.9, ease: [0.4, 0, 0.2, 1] },
+              scale: { duration: 1.1, ease: [0.4, 0, 0.2, 1] },
+              filter: { duration: 0.9, ease: [0.4, 0, 0.2, 1] },
+            }}
+            className="absolute inset-0 will-change-transform"
           >
-            {/* Image layer — subtle blur + scale to hide blur edges */}
-            <div
+            {/* Image layer — subtle blur + scale to hide blur edges, now animated via parent */}
+            <motion.div
               className="absolute inset-0"
+              initial={{ scale: 1.06 }}
+              animate={{ scale: 1.04 }}
+              transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
               style={{
                 backgroundImage: `url(${wallpaper})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 filter: "blur(6px) brightness(0.92) saturate(1.02)",
-                transform: "scale(1.04)",
-                willChange: "filter, transform",
+                willChange: "transform",
               }}
             />
             {/* Theme tint — washes wallpaper in current colorscheme so it feels native, not pasted — kept subtle */}
@@ -67,10 +73,10 @@ export function Wallpaper() {
         ) : (
           <motion.div
             key="solid"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0, scale: 1.02 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
             className="absolute inset-0"
             style={{ backgroundColor: "var(--th-bg)" }}
           >

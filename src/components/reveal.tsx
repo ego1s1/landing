@@ -13,7 +13,7 @@ interface RevealProps {
   as?: "div" | "section";
 }
 
-export function Reveal({ children, delay = 0, y = 12, duration = 0.42, className, as = "div" }: RevealProps) {
+export function Reveal({ children, delay = 0, y = 16, duration = 0.55, className, as = "div" }: RevealProps) {
   const shouldReduce = useReducedMotion();
   if (shouldReduce) {
     const Tag = as;
@@ -24,13 +24,13 @@ export function Reveal({ children, delay = 0, y = 12, duration = 0.42, className
 
   return (
     <Tag
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1, margin: "0px" }}
+      initial={{ opacity: 0, y, filter: "blur(4px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, amount: 0.22, margin: "0px 0px -10% 0px" }}
       transition={{
         duration,
         delay,
-        ease: [0.25, 0.1, 0.25, 1],
+        ease: [0.22, 1, 0.36, 1],
       }}
       className={className}
     >
@@ -53,10 +53,10 @@ export function Stagger({ children, stagger = 0.06, className }: StaggerProps) {
     <motion.div
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.1 }}
+      viewport={{ once: true, amount: 0.15 }}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: stagger, delayChildren: 0.04 } },
+        show: { transition: { staggerChildren: stagger, delayChildren: 0.06 } },
       }}
       className={className}
     >
@@ -64,8 +64,8 @@ export function Stagger({ children, stagger = 0.06, className }: StaggerProps) {
         <motion.div
           key={i}
           variants={{
-            hidden: { opacity: 0, y: 10 },
-            show: { opacity: 1, y: 0, transition: { duration: 0.38, ease: [0.25, 0.1, 0.25, 1] } },
+            hidden: { opacity: 0, y: 14, filter: "blur(4px)" },
+            show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.48, ease: [0.22, 1, 0.36, 1] } },
           }}
         >
           {child}
