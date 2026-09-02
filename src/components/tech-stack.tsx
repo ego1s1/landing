@@ -63,50 +63,49 @@ export function TechStack() {
       icon={<Cpu className="size-4" />}
       contentClassName="!p-0 font-mono overflow-hidden bg-[var(--th-bg)]"
     >
-      {/* btop header — compact */}
-      <div className="bg-[var(--th-surface)] border-b border-[var(--th-border-subtle)]/15 px-3 py-1.5 flex items-center justify-between text-[10px] tracking-wide">
+      {/* btop header — minimal */}
+      <div className="bg-[var(--th-surface)] border-b border-[var(--th-border-subtle)]/15 px-3 py-2 flex items-center justify-between text-[10px] tracking-wide">
         <span className="flex items-center gap-2">
-          <span className="bg-[var(--th-green)] text-[var(--th-bg)] px-1 py-0.5 font-bold leading-none">STACK</span>
-          <span className="text-[var(--th-text-dim)] hidden sm:inline">btop • {sections.reduce((a, s) => a + s.items.length, 0)} procs</span>
+          <span className="bg-[var(--th-green)] text-[var(--th-bg)] px-1.5 py-0.5 font-bold leading-none">STACK</span>
+          <span className="text-[var(--th-text-dim)]">— {sections.reduce((a, s) => a + s.items.length, 0)} skills</span>
         </span>
-        <span className="flex items-center gap-1.5 text-[var(--th-text-dim)]">
-          <span className="size-1 h-4 bg-[var(--th-green)]/60 hidden sm:block" />
-          <span className="size-1 h-3 bg-[var(--th-cyan)]/60 hidden sm:block" />
-          <span className="size-1 h-2 bg-[var(--th-yellow)]/60 hidden sm:block" />
-          <span className="ml-1 text-[var(--th-green)] hidden sm:inline">● run</span>
-        </span>
+        <span className="text-[var(--th-text-dim)] hidden sm:inline text-[10px]">sorted by freq • q: quit</span>
       </div>
 
-      <div className="p-2 sm:p-3 space-y-3">
+      <div className="p-3 sm:p-4 space-y-5">
         {sections.map((section) => (
-          <div key={section.title} className="space-y-1.5">
-            {/* prompt + title — single line, no extra header rows */}
-            <div className="flex items-center gap-2 text-[11px] leading-none">
-              <span className="text-[var(--th-green)] font-bold">❯</span>
-              <span className="text-[var(--th-cyan)] truncate text-[11px]">{section.prompt}</span>
-              <span className="hidden sm:inline-flex ml-auto text-[9px] tracking-widest font-bold text-[var(--th-text-dim)] border border-[var(--th-border-subtle)]/25 bg-[var(--th-surface)]/40 px-1.5 py-0.5 rounded-[1px]">
-                {section.title} • {section.items.length}
-              </span>
+          <div key={section.title} className="space-y-2.5">
+            <div className="flex items-baseline gap-2 border-b border-[var(--th-border-subtle)]/10 pb-1">
+              <span className="text-[11px] font-bold tracking-widest text-[var(--th-cyan)]">{section.title}</span>
+              <span className="text-[10px] text-[var(--th-text-dim)]/70 truncate hidden sm:inline">— {section.prompt}</span>
+              <span className="ml-auto text-[10px] tabular-nums text-[var(--th-text-dim)]/60">{section.items.length}</span>
             </div>
 
-            {/* compact ls-style grid — vertical efficient like previous */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
               {section.items.map((item) => (
                 <a
                   key={item.name}
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-1.5 px-2 py-1.5 bg-[var(--th-surface-alt)] hover:bg-[var(--th-surface)] border border-[var(--th-border)] hover:border-[var(--th-accent)] rounded-[3px] transition-colors"
+                  className="group flex items-center gap-3 px-3 py-2.5 bg-[var(--th-surface)] hover:bg-[var(--th-surface-alt)] border border-[var(--th-border-subtle)]/20 hover:border-[var(--th-cyan)]/30 rounded-[4px] transition-all hover:translate-y-[-1px] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)]"
                 >
-                  <span className="text-[13px] leading-none shrink-0" style={{ color: item.color }}>
+                  <span
+                    className="size-8 rounded-[4px] bg-[var(--th-bg)] border border-[var(--th-border-subtle)]/15 flex items-center justify-center text-[15px] leading-none shrink-0 group-hover:border-[var(--th-cyan)]/20 transition-colors"
+                    style={{ color: item.color }}
+                  >
                     {item.icon}
                   </span>
-                  <span className="text-[11px] font-medium text-[var(--th-text)] group-hover:text-[var(--th-cyan)] truncate leading-none">
-                    {item.name}
+                  <span className="flex-1 min-w-0">
+                    <span className="block text-[12px] font-semibold leading-none text-[var(--th-text)] group-hover:text-[var(--th-cyan)] truncate">
+                      {item.name}
+                    </span>
+                    <span className="block text-[10px] leading-none text-[var(--th-text-dim)] mt-1 tracking-wide">
+                      {item.tag} • {item.name.toLowerCase().replace(/[^a-z]/g, "").slice(0, 8)}
+                    </span>
                   </span>
-                  <span className="ml-auto hidden sm:inline text-[8px] font-bold tracking-wide text-[var(--th-text-dim)]/70 group-hover:text-[var(--th-cyan)]/80 shrink-0">
-                    {item.tag}
+                  <span className="text-[var(--th-text-dim)]/40 group-hover:text-[var(--th-cyan)] group-hover:translate-x-0.5 transition-all text-[11px] shrink-0">
+                    ↗
                   </span>
                 </a>
               ))}
@@ -115,11 +114,9 @@ export function TechStack() {
         ))}
       </div>
 
-      {/* footer — minimal, single line */}
-      <div className="bg-[var(--th-surface-alt)]/70 px-3 py-1 flex items-center justify-between text-[10px] text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15 leading-none">
-        <span className="hidden sm:inline">Tasks: {sections.reduce((a, s) => a + s.items.length, 0)} • q: quit • /: filter</span>
-        <span className="sm:hidden">btop • {sections.reduce((a, s) => a + s.items.length, 0)} tasks</span>
-        <span className="text-[var(--th-green)]">up 2d</span>
+      <div className="bg-[var(--th-surface)] px-3 py-2 flex items-center justify-between text-[10px] text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15">
+        <span>— {sections.reduce((a, s) => a + s.items.length, 0)} skills indexed</span>
+        <span className="text-[var(--th-cyan)]/70">∴ btop</span>
       </div>
     </Card>
   );

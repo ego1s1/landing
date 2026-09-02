@@ -77,7 +77,9 @@ export function WindowShell({
       id={id}
       aria-label={title}
       className={cn(
-        "w-full bg-[var(--th-surface)] border border-[var(--th-border)] shadow-[3px_3px_0px_var(--th-shadow)] rounded-[4px] overflow-hidden font-mono transition-all duration-300 ease-out origin-left",
+        "w-full bg-[var(--th-surface)] border border-[var(--th-border)] rounded-[4px] overflow-hidden font-mono transition-all duration-300 ease-out origin-left",
+        // softer, diffused shadow to complement wallpaper blur — not the old hard pixel 3px
+        "shadow-[0_10px_30px_rgba(0,0,0,0.32),0_2px_8px_rgba(0,0,0,0.22),0_0_0_1px_color-mix(in_srgb,var(--th-border)_12%,transparent)]",
         isClosed
           ? "opacity-0 -translate-x-16 scale-95 max-h-0 border-transparent shadow-none pointer-events-none p-0 m-0"
           : isMinimized

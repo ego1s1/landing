@@ -122,20 +122,11 @@ export function Wallpaper() {
                 backgroundColor: "color-mix(in srgb, var(--th-surfaceAlt) 10%, transparent)",
               }}
             />
-            {/* Dot grid retained over wallpaper — uses theme dot color */}
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: "radial-gradient(var(--th-dot) 1px, transparent 1px)",
-                backgroundSize: "24px 24px",
-                opacity: 0.35,
-              }}
-            />
             {/* Vignette to keep cards readable at edges — very subtle */}
             <div
               className="absolute inset-0"
               style={{
-                background: `radial-gradient(ellipse at center, transparent 65%, color-mix(in srgb, var(--th-bg) 35%, transparent) 100%)`,
+                background: `radial-gradient(ellipse at center, transparent 68%, color-mix(in srgb, var(--th-bg) 40%, transparent) 100%)`,
               }}
             />
           </motion.div>
