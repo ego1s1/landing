@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     reactCompiler: false,
     webpackMemoryOptimizations: true,
     serverSourceMaps: false,
+    optimizePackageImports: ["framer-motion", "lucide-react"],
   },
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
