@@ -184,6 +184,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#2c313a",
       shadow: "#191c22",
     },
+    wallpaper: "/wallpapers/onedark.webp",
   },
   {
     id: "monokai",
@@ -229,6 +230,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#26233a",
       shadow: "#0f0e17",
     },
+    wallpaper: "/wallpapers/rose-pine.webp",
   },
   {
     id: "everforest",
