@@ -44,10 +44,15 @@ function applyThemeVars(colors: ThemeColors) {
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
-    // Read persisted theme synchronously on client to avoid mismatch
-    // between themeInitScript (which already applied gruvbox vars) and React state (which would be everforest)
-    if (typeof window !== "undefined") {
+    // Read from inline script's dataset first (set before hydration), then localStorage fallback
+    // This ensures the first React render matches the already-painted wallpaper/colors (no flash)
+    if (typeof document !== "undefined") {
       try {
+        const themedId = document.documentElement.dataset.theme;
+        if (themedId) {
+          const found = THEMES.find((t) => t.id === themedId);
+          if (found) return found;
+        }
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
           const found = THEMES.find((t) => t.id === saved);
@@ -96,6 +101,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     applyThemeVars(found.colors);
     try {
       localStorage.setItem(STORAGE_KEY, id);
+      document.documentElement.dataset.theme = id;
+      document.documentElement.dataset.wallpaper = found.wallpaper || "";
     } catch {
       // QuotaExceededError or SecurityError — ignore, theme still applies for session
     }
