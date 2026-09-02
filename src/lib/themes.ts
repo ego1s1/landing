@@ -46,7 +46,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#292e42",
       shadow: "#101014",
     },
-    wallpaper: "/wallpapers/tokyonight.png",
+    wallpaper: "/wallpapers/tokyonight.webp",
   },
   {
     id: "nord",
@@ -69,6 +69,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#3b4252",
       shadow: "#191c24",
     },
+    wallpaper: "/wallpapers/nord.webp",
   },
   {
     id: "catppuccin-mocha",
@@ -113,7 +114,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#3c3836",
       shadow: "#1d2021",
     },
-    wallpaper: "/wallpapers/gruvbox.jpg",
+    wallpaper: "/wallpapers/gruvbox.webp",
   },
   {
     id: "dracula",
@@ -246,7 +247,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#374145",
       shadow: "#1a2124",
     },
-    wallpaper: "/wallpapers/everforest.png",
+    wallpaper: "/wallpapers/everforest.webp",
   },
 ];
 

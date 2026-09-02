@@ -8,8 +8,21 @@ const nextConfig: NextConfig = {
   },
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
+  // Optimize wallpaper delivery
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   async headers() {
     return [
+      {
+        source: "/wallpapers/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
       {
         source: "/(.*)",
         headers: [

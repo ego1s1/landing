@@ -1,11 +1,33 @@
 "use client";
 
+import { useEffect } from "react";
 import { useTheme } from "@/components/theme-context";
+import { THEMES } from "@/lib/themes";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 export function Wallpaper() {
   const { theme } = useTheme();
   const wallpaper = theme.wallpaper;
+
+  // Preload other wallpapers after idle for instant theme switching (common folder is small ~315KB total)
+  useEffect(() => {
+    const idle = (cb: () => void) => {
+      if ("requestIdleCallback" in window) (window as unknown as { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(cb);
+      else setTimeout(cb, 1200);
+    };
+    idle(() => {
+      THEMES.forEach((t) => {
+        if (t.wallpaper && t.wallpaper !== wallpaper) {
+          const img = new window.Image();
+          img.decoding = "async";
+          // Use low priority fetch
+          (img as unknown as { fetchPriority?: string }).fetchPriority = "low";
+          img.src = t.wallpaper;
+        }
+      });
+    });
+  }, [wallpaper]);
 
   // No wallpaper for this theme -> just let body bg + dot grid show
   // We still render a subtle themed wash so layout stays consistent
@@ -25,20 +47,29 @@ export function Wallpaper() {
             }}
             className="absolute inset-0 will-change-transform"
           >
-            {/* Image layer — subtle blur + scale to hide blur edges, now animated via parent */}
+            {/* Image layer — Next Image for optimized fast loading (priority + WebP) */}
             <motion.div
-              className="absolute inset-0"
+              className="absolute inset-0 overflow-hidden"
               initial={{ scale: 1.06 }}
               animate={{ scale: 1.04 }}
               transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
-              style={{
-                backgroundImage: `url(${wallpaper})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                filter: "blur(6px) brightness(0.92) saturate(1.02)",
-                willChange: "transform",
-              }}
-            />
+              style={{ willChange: "transform" }}
+            >
+              <Image
+                src={wallpaper}
+                alt=""
+                fill
+                priority
+                fetchPriority="high"
+                sizes="100vw"
+                quality={75}
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  filter: "blur(6px) brightness(0.92) saturate(1.02)",
+                }}
+              />
+            </motion.div>
             {/* Theme tint — washes wallpaper in current colorscheme so it feels native, not pasted — kept subtle */}
             <div
               className="absolute inset-0 transition-colors duration-400"
