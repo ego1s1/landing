@@ -19,6 +19,7 @@ import { SITE_CONFIG } from "@/lib/site";
 import { Suspense } from "react";
 import { GitHubContributionsServer } from "@/components/github-contributions-server";
 import { GitHubContributionsSkeleton } from "@/components/github-contributions";
+import { Reveal } from "@/components/reveal";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { Wallpaper } from "@/components/wallpaper";
 
@@ -60,45 +61,58 @@ export default function Home() {
         <ScrollProgress />
         <LeftDock />
         <Container>
-          <section id="home" className="w-full scroll-mt-32">
-            <Hero
-              contributionsSlot={
-                <Suspense fallback={<GitHubContributionsSkeleton />}>
-                  <GitHubContributionsServer />
-                </Suspense>
-              }
-            />
-          </section>
+          <Reveal y={8} duration={0.4}>
+            <section id="home" className="w-full scroll-mt-32">
+              <Hero
+                contributionsSlot={
+                  <Suspense fallback={<GitHubContributionsSkeleton />}>
+                    <GitHubContributionsServer />
+                  </Suspense>
+                }
+              />
+            </section>
+          </Reveal>
 
-          <section id="about" className="w-full scroll-mt-32">
-            <AboutMeSection />
-          </section>
+          <Reveal delay={0.03}>
+            <section id="about" className="w-full scroll-mt-32">
+              <AboutMeSection />
+            </section>
+          </Reveal>
 
-          <section id="experience" className="w-full scroll-mt-32">
-            <WorkExperienceSection />
-          </section>
+          <Reveal delay={0.02}>
+            <section id="experience" className="w-full scroll-mt-32">
+              <WorkExperienceSection />
+            </section>
+          </Reveal>
 
-          <section id="stack" className="w-full scroll-mt-32">
-            <TechStack />
-          </section>
+          <Reveal delay={0.02}>
+            <section id="stack" className="w-full scroll-mt-32">
+              <TechStack />
+            </section>
+          </Reveal>
 
-          <section id="projects" className="w-full scroll-mt-32">
-            <ProjectShowcase />
-          </section>
+          <Reveal delay={0.02}>
+            <section id="projects" className="w-full scroll-mt-32">
+              <ProjectShowcase />
+            </section>
+          </Reveal>
 
           {/* Spotify — last played, now SSR cached 60s + Suspense skeleton on first visit */}
-          <Suspense fallback={<SpotifyWindowSkeleton />}>
-            <SpotifyWindowServer />
-          </Suspense>
+          <Reveal>
+            <Suspense fallback={<SpotifyWindowSkeleton />}>
+              <SpotifyWindowServer />
+            </Suspense>
+          </Reveal>
 
-          <Card
-            id="about-site"
-            title="cat ABOUT_SITE.md"
-            shortTitle="SITE"
-            nerdIcon="󰋜"
-            icon={<Info className="size-4" />}
-            contentClassName="text-xs font-mono leading-relaxed space-y-3 text-[var(--th-text-muted)]"
-          >
+          <Reveal>
+            <Card
+              id="about-site"
+              title="cat ABOUT_SITE.md"
+              shortTitle="SITE"
+              nerdIcon="󰋜"
+              icon={<Info className="size-4" />}
+              contentClassName="text-xs font-mono leading-relaxed space-y-3 text-[var(--th-text-muted)]"
+            >
             <p>
               Crafted with{" "}
               <a
@@ -179,11 +193,16 @@ export default function Home() {
               <span className="text-[var(--th-cyan)]">❯</span> bun run build · next-view-transitions · rehype-sanitize · zod · sharp
             </p>
           </Card>
+          </Reveal>
 
-          <ThemeSwitcher />
+          <Reveal>
+            <ThemeSwitcher />
+          </Reveal>
 
           {/* Bad Apple — ASCII cinema, starts on unminimise (below colorscheme) */}
-          <BadAppleWindow />
+          <Reveal>
+            <BadAppleWindow />
+          </Reveal>
         </Container>
         <script
           type="application/ld+json"
