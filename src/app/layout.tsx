@@ -77,22 +77,51 @@ export const viewport: Viewport = {
 };
 
 const themeMap = Object.fromEntries(THEMES.map((t) => [t.id, { colors: t.colors, wallpaper: t.wallpaper, name: t.name }]));
-const themeInitScript = `(function(){try{var k='${SITE_CONFIG.themeStorageKey}';var d='${DEFAULT_THEME_ID}';var m=document.cookie.match(/(?:^|; )${SITE_CONFIG.themeStorageKey}=([^;]*)/);var c=m?decodeURIComponent(m[1]):null;var s=localStorage.getItem(k);var i=c||s||d;var t=${JSON.stringify(themeMap)};var e=t[i]||t[d];if(e&&e.colors){var co=e.colors;var r=document.documentElement;r.dataset.theme=i;r.dataset.wallpaper=e.wallpaper||'';r.style.setProperty('--th-bg',co.background);r.style.setProperty('--th-surface',co.surface);r.style.setProperty('--th-surface-alt',co.surfaceAlt);r.style.setProperty('--th-border',co.border);r.style.setProperty('--th-border-subtle',co.borderSubtle);r.style.setProperty('--th-text',co.text);r.style.setProperty('--th-text-muted',co.textMuted);r.style.setProperty('--th-text-dim',co.textDim);r.style.setProperty('--th-accent',co.accent);r.style.setProperty('--th-cyan',co.accentCyan);r.style.setProperty('--th-purple',co.accentPurple);r.style.setProperty('--th-green',co.accentGreen);r.style.setProperty('--th-yellow',co.accentYellow);r.style.setProperty('--th-red',co.accentRed);r.style.setProperty('--th-dot',co.dotGrid);r.style.setProperty('--th-shadow',co.shadow);if(e.wallpaper){var l=document.createElement('link');l.rel='preload';l.as='image';l.href=e.wallpaper;l.fetchPriority='high';document.head.appendChild(l);r.style.setProperty('--th-wallpaper','url('+e.wallpaper+')');}else{r.style.setProperty('--th-wallpaper','none');}var n=document.querySelector('[data-theme-name]');if(n&&e.name)n.textContent=e.name;if(c!==i&&s){document.cookie=k+'='+encodeURIComponent(s)+'; path=/; max-age=31536000; SameSite=Lax';}}catch(e){}})();`;
+const themeInitScript = `(function(){try{var k='${SITE_CONFIG.themeStorageKey}';var d='${DEFAULT_THEME_ID}';var m=document.cookie.match(/(?:^|; )${SITE_CONFIG.themeStorageKey}=([^;]*)/);var c=m?decodeURIComponent(m[1]):null;var s=localStorage.getItem(k);var i=c||s||d;var t=${JSON.stringify(themeMap)};var e=t[i]||t[d];if(e&&e.colors){var co=e.colors;var r=document.documentElement;r.dataset.theme=i;r.dataset.wallpaper=e.wallpaper||'';r.style.setProperty('--th-bg',co.background);r.style.setProperty('--th-surface',co.surface);r.style.setProperty('--th-surface-alt',co.surfaceAlt);r.style.setProperty('--th-border',co.border);r.style.setProperty('--th-border-subtle',co.borderSubtle);r.style.setProperty('--th-text',co.text);r.style.setProperty('--th-text-muted',co.textMuted);r.style.setProperty('--th-text-dim',co.textDim);r.style.setProperty('--th-accent',co.accent);r.style.setProperty('--th-cyan',co.accentCyan);r.style.setProperty('--th-purple',co.accentPurple);r.style.setProperty('--th-green',co.accentGreen);r.style.setProperty('--th-yellow',co.accentYellow);r.style.setProperty('--th-red',co.accentRed);r.style.setProperty('--th-dot',co.dotGrid);r.style.setProperty('--th-shadow',co.shadow);r.style.setProperty('--th-wallpaper',e.wallpaper?'url('+e.wallpaper+')':'none');var n=document.querySelector('[data-theme-name]');if(n&&e.name)n.textContent=e.name;if(c!==i&&s){document.cookie=k+'='+encodeURIComponent(s)+'; path=/; max-age=31536000; SameSite=Lax';}}catch(e){}})();`;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Cookie-first SSR: first paint is already the saved theme's blank color, never Everforest unless no cookie
+  const { cookies } = await import("next/headers");
+  const cookieStore = await cookies();
+  const raw = cookieStore.get(SITE_CONFIG.themeStorageKey)?.value;
+  const themeId = raw && THEMES.some((t) => t.id === raw) ? raw : DEFAULT_THEME_ID;
+  const theme = THEMES.find((t) => t.id === themeId)!;
+  const htmlStyle = {
+    "--th-bg": theme.colors.background,
+    "--th-surface": theme.colors.surface,
+    "--th-surface-alt": theme.colors.surfaceAlt,
+    "--th-border": theme.colors.border,
+    "--th-border-subtle": theme.colors.borderSubtle,
+    "--th-text": theme.colors.text,
+    "--th-text-muted": theme.colors.textMuted,
+    "--th-text-dim": theme.colors.textDim,
+    "--th-accent": theme.colors.accent,
+    "--th-cyan": theme.colors.accentCyan,
+    "--th-purple": theme.colors.accentPurple,
+    "--th-green": theme.colors.accentGreen,
+    "--th-yellow": theme.colors.accentYellow,
+    "--th-red": theme.colors.accentRed,
+    "--th-dot": theme.colors.dotGrid,
+    "--th-shadow": theme.colors.shadow,
+    "--th-wallpaper": theme.wallpaper ? `url(${theme.wallpaper})` : "none",
+  } as React.CSSProperties;
   return (
     <ViewTransitions>
       <html
         lang="en"
         suppressHydrationWarning
+        data-theme={themeId}
+        data-wallpaper={theme.wallpaper || ""}
+        style={htmlStyle}
         className="bg-[var(--th-bg)] text-[var(--th-text)]"
       >
         <head>
           <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+          {theme.wallpaper && <link rel="preload" as="image" href={theme.wallpaper} fetchPriority="high" />}
         </head>
         <body
           className={`${mono.variable} antialiased bg-transparent text-[var(--th-text)] selection:bg-[var(--th-border-subtle)] selection:text-[var(--th-cyan)]`}

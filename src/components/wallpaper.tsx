@@ -10,10 +10,22 @@ export function Wallpaper() {
   const { theme } = useTheme();
   const wallpaper = theme.wallpaper;
   const [hasMounted, setHasMounted] = useState(false);
+  const [showWallpaper, setShowWallpaper] = useState(false);
 
   useEffect(() => {
     setHasMounted(true);
+    // Delay wallpaper to let solid color paint first — blank color for selected theme is already correct via cookie
+    const t = setTimeout(() => setShowWallpaper(true), 350);
+    return () => clearTimeout(t);
   }, []);
+
+  // After theme changes, also delay slightly so solid shows briefly before new wallpaper
+  useEffect(() => {
+    if (!hasMounted) return;
+    setShowWallpaper(false);
+    const t = setTimeout(() => setShowWallpaper(true), 80);
+    return () => clearTimeout(t);
+  }, [wallpaper, hasMounted]);
 
   // Preload other wallpapers after idle for instant theme switching (common folder is small ~315KB total)
   useEffect(() => {
@@ -35,37 +47,14 @@ export function Wallpaper() {
     });
   }, [wallpaper, hasMounted]);
 
-  // First paint (server + hydration) — render without AnimatePresence to avoid flash
-  // of Everforest -> saved theme. After mount, AnimatePresence handles smooth crossfades.
-  if (!hasMounted) {
+  // First paint — solid blank color for selected theme (via cookie), no wallpaper flash.
+  // Wallpaper fades in after mount (showWallpaper), subsequent switches crossfade.
+  if (!hasMounted || !showWallpaper) {
     return (
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        {wallpaper ? (
-          <div className="absolute inset-0">
-            <Image
-              src={wallpaper}
-              alt=""
-              fill
-              priority
-              fetchPriority="high"
-              sizes="100vw"
-              quality={75}
-              style={{
-                objectFit: "cover",
-                objectPosition: "center",
-                filter: "blur(6px) brightness(0.92) saturate(1.02)",
-              }}
-            />
-            <div className="absolute inset-0" style={{ backgroundColor: "color-mix(in srgb, var(--th-bg) 58%, transparent)" }} />
-            <div className="absolute inset-0" style={{ backgroundColor: "color-mix(in srgb, var(--th-surfaceAlt) 10%, transparent)" }} />
-            <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(var(--th-dot) 1px, transparent 1px)", backgroundSize: "24px 24px", opacity: 0.35 }} />
-            <div className="absolute inset-0" style={{ background: `radial-gradient(ellipse at center, transparent 65%, color-mix(in srgb, var(--th-bg) 35%, transparent) 100%)` }} />
-          </div>
-        ) : (
-          <div className="absolute inset-0" style={{ backgroundColor: "var(--th-bg)" }}>
-            <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(var(--th-dot) 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
-          </div>
-        )}
+        <div className="absolute inset-0" style={{ backgroundColor: "var(--th-bg)" }}>
+          <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(var(--th-dot) 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
+        </div>
       </div>
     );
   }
@@ -75,7 +64,7 @@ export function Wallpaper() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       <AnimatePresence mode="wait" initial={false}>
-        {wallpaper ? (
+        {wallpaper && showWallpaper ? (
           <motion.div
             key={wallpaper}
             initial={{ opacity: 0, scale: 1.04, filter: "blur(12px)" }}
