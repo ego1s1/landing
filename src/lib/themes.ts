@@ -161,6 +161,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#073642",
       shadow: "#00141a",
     },
+    wallpaper: "/wallpapers/solarized.webp",
   },
   {
     id: "one-dark",
@@ -205,6 +206,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#2d2e2b",
       shadow: "#151510",
     },
+    wallpaper: "/wallpapers/monokai.webp",
   },
   {
     id: "rose-pine",
