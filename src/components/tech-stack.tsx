@@ -72,18 +72,17 @@ export function TechStack() {
         <span className="text-[10px] text-[var(--th-text-dim)]/60 hidden sm:inline">hover • click → docs</span>
       </div>
 
-      {/* analog board — dense icon-only, like a keycap palette / ls -1 */}
-      <div className="p-2 sm:p-3 space-y-3">
+      <div className="p-3 sm:p-4 space-y-4">
         {sections.map((section) => (
-          <div key={section.title} className="space-y-1.5">
+          <div key={section.title} className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold tracking-[0.14em] text-[var(--th-cyan)]/90">{section.title}</span>
+              <span className="text-[11px] font-bold tracking-[0.14em] text-[var(--th-cyan)]/90">{section.title}</span>
               <span className="h-px flex-1 bg-[var(--th-border-subtle)]/15 hidden sm:block" />
               <span className="text-[10px] text-[var(--th-text-dim)]/50 hidden sm:inline truncate">{section.prompt}</span>
             </div>
 
-            {/* icon-only grid — fits ~12 per row on lg, vertical efficient */}
-            <div className="flex flex-wrap gap-1.5">
+            {/* icon-only — bigger boxes, full-width */}
+            <div className="flex flex-wrap gap-2">
               {section.items.map((item) => (
                 <a
                   key={item.name}
@@ -92,16 +91,15 @@ export function TechStack() {
                   rel="noopener noreferrer"
                   aria-label={item.name}
                   title={`${item.name} → ${item.url}`}
-                  className="group relative flex items-center justify-center size-9 sm:size-10 bg-[var(--th-surface)] hover:bg-[var(--th-surface-alt)] border border-[var(--th-border-subtle)]/20 hover:border-[var(--th-cyan)]/40 rounded-[4px] transition-all hover:-translate-y-px hover:shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                  className="group relative flex items-center justify-center size-11 sm:size-12 bg-[var(--th-surface)] hover:bg-[var(--th-surface-alt)] border border-[var(--th-border-subtle)]/20 hover:border-[var(--th-cyan)]/40 rounded-[5px] transition-all hover:-translate-y-px hover:shadow-[0_6px_14px_rgba(0,0,0,0.18)]"
                 >
                   <span
-                    className="text-[16px] sm:text-[17px] leading-none transition-transform group-hover:scale-110 group-active:scale-95"
+                    className="text-[18px] sm:text-[20px] leading-none transition-transform group-hover:scale-110 group-active:scale-95"
                     style={{ color: item.color }}
                     aria-hidden
                   >
                     {item.icon}
                   </span>
-                  {/* tooltip — keeps readability without text clutter */}
                   <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[var(--th-surface-alt)] text-[var(--th-text)] text-[10px] font-medium px-1.5 py-0.5 rounded-[3px] border border-[var(--th-border)] shadow-[0_4px_12px_rgba(0,0,0,0.22)] opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity translate-y-0.5 group-hover:translate-y-0">
                     {item.name}
                   </span>

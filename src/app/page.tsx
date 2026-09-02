@@ -163,8 +163,7 @@ export default function Home() {
               >
                 Vercel Analytics
               </a>{" "}
-              — themed{" "}
-              <span className="text-[var(--th-green)] font-semibold">Everforest</span> · deployed on Vercel. Source on{" "}
+              · deployed on Vercel. Source on{" "}
               <a
                 href={`${SITE_CONFIG.github}/landing`}
                 target="_blank"
