@@ -16,7 +16,10 @@ function loadMarkdown(filename: string, fallback = ""): string {
 }
 
 export function getAboutMe(): string {
-  return loadMarkdown("about-me.md", "# hey — i'm priyanshu!\n\ncontent unavailable.");
+  // Primary: whoami.txt (editable, matches NvimWindow fileName). Fallback to legacy about-me.md
+  const whoami = loadMarkdown("whoami.txt", "");
+  if (whoami) return whoami;
+  return loadMarkdown("about-me.md", "# hey, i'm priyanshu!\n\ncontent unavailable.");
 }
 
 export function getWorkExperience(): string {
