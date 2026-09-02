@@ -138,6 +138,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#343746",
       shadow: "#191a21",
     },
+    wallpaper: "/wallpapers/dracula.webp",
   },
   {
     id: "solarized-dark",
