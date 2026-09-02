@@ -8,11 +8,11 @@ const sections = [
     items: [
       { name: "Embedded C", icon: "", color: "#7dcfff", url: "https://en.cppreference.com/w/c" },
       { name: "Embedded C++", icon: "", color: "#7aa2f7", url: "https://en.cppreference.com/w/cpp" },
-      { name: "ARM & MCUs", icon: "", color: "#e0af68", url: "https://www.arm.com/" },
-      { name: "ARM Assembly", icon: "", color: "#ff9e64", url: "https://developer.arm.com/documentation/dui0473/m/overview-of-arm-assembly-language" },
+      { name: "ARM & MCUs", icon: "", color: "#e0af68", url: "https://www.arm.com/" },
+      { name: "ARM Assembly", icon: "", color: "#ff9e64", url: "https://developer.arm.com/documentation/dui0473/m/overview-of-arm-assembly-language" },
       { name: "SPI / I2C / CAN", icon: "󰒋", color: "#9ece6a", url: "https://www.can-cia.org/" },
       { name: "RTOS & Linux", icon: "", color: "#ff9e64", url: "https://www.freertos.org/" },
-      { name: "GDB & Debug", icon: "", color: "#bb9af7", url: "https://www.sourceware.org/gdb/" },
+      { name: "GDB & Debug", icon: "", color: "#bb9af7", url: "https://www.sourceware.org/gdb/" },
     ],
   },
   {
@@ -46,9 +46,9 @@ const sections = [
     prompt: "which bash vim",
     items: [
       { name: "Vim / Neovim", icon: "", color: "#9ece6a", url: "https://www.vim.org/" },
-      { name: "Linux Shell", icon: "", color: "#e0af68", url: "https://www.gnu.org/software/coreutils/" },
+      { name: "Linux Shell", icon: "", color: "#e0af68", url: "https://www.gnu.org/software/coreutils/" },
       { name: "Bash", icon: "", color: "#9ece6a", url: "https://www.gnu.org/software/bash/" },
-      { name: "GDB & Debug", icon: "", color: "#bb9af7", url: "https://www.sourceware.org/gdb/" },
+      { name: "GDB & Debug", icon: "", color: "#bb9af7", url: "https://www.sourceware.org/gdb/" },
     ],
   },
 ];
