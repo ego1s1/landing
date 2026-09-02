@@ -33,7 +33,7 @@ export function ThemeSwitcher() {
           <Palette className="size-3.5 shrink-0" />
           <span className="font-bold tracking-wide">COLORSCHEME</span>
           <span className="text-[var(--th-text-dim,#565f89)]">::</span>
-          <span className="text-[var(--th-cyan,#7dcfff)]">{theme.name}</span>
+          <span data-theme-name className="text-[var(--th-cyan,#7dcfff)]">{theme.name}</span>
         </span>
         <span className="flex items-center gap-2">
           <ThemeSwatch colors={theme.colors} />

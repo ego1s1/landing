@@ -43,21 +43,60 @@ function applyThemeVars(colors: ThemeColors) {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(
-    () => THEMES.find((t) => t.id === DEFAULT_THEME_ID) ?? THEMES[0]
-  );
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Read from inline script's dataset first (set before hydration), then cookie, then localStorage
+    // Ensures first React render matches already-painted wallpaper/colors (no flash) and SSR cookie
+    if (typeof document !== "undefined") {
+      try {
+        const themedId = document.documentElement.dataset.theme;
+        if (themedId) {
+          const found = THEMES.find((t) => t.id === themedId);
+          if (found) return found;
+        }
+        // Cookie fallback (for SSR case where dataset not yet set on first render)
+        const cookieMatch = document.cookie.match(new RegExp("(?:^|; )" + STORAGE_KEY + "=([^;]*)"));
+        if (cookieMatch) {
+          const decoded = decodeURIComponent(cookieMatch[1]);
+          const found = THEMES.find((t) => t.id === decoded);
+          if (found) return found;
+        }
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const found = THEMES.find((t) => t.id === saved);
+          if (found) return found;
+        }
+      } catch {}
+    }
+    return THEMES.find((t) => t.id === DEFAULT_THEME_ID) ?? THEMES[0];
+  });
 
-  // On mount, load persisted theme with error handling for private mode / quota
+  // On mount, ensure persisted theme is applied and heal cookie if missing
   useEffect(() => {
     try {
+      // Prefer dataset (from inline script / SSR cookie), then cookie, then localStorage
+      const themedId = document.documentElement.dataset.theme;
+      const cookieMatch = document.cookie.match(new RegExp("(?:^|; )" + STORAGE_KEY + "=([^;]*)"));
+      const cookieVal = cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const found = THEMES.find((t) => t.id === saved);
-        if (found) {
+      const candidate = themedId || cookieVal || saved;
+      if (candidate) {
+        const found = THEMES.find((t) => t.id === candidate);
+        if (found && found.id !== theme.id) {
           setTheme(found);
           applyThemeVars(found.colors);
-          return;
+        } else {
+          applyThemeVars(theme.colors);
         }
+        // Heal cookie if missing but localStorage has it
+        if (saved && !cookieVal) {
+          document.cookie = `${STORAGE_KEY}=${encodeURIComponent(saved)}; path=/; max-age=31536000; SameSite=Lax`;
+        }
+        // Ensure dataset matches
+        if (found) {
+          document.documentElement.dataset.theme = found.id;
+          document.documentElement.dataset.wallpaper = found.wallpaper || "";
+        }
+        return;
       }
       applyThemeVars(theme.colors);
     } catch {
@@ -71,6 +110,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       if (found) {
         setTheme(found);
         applyThemeVars(found.colors);
+        try {
+          document.cookie = `${STORAGE_KEY}=${encodeURIComponent(e.newValue)}; path=/; max-age=31536000; SameSite=Lax`;
+          document.documentElement.dataset.theme = e.newValue;
+          document.documentElement.dataset.wallpaper = found.wallpaper || "";
+        } catch {}
       }
     };
     window.addEventListener("storage", onStorage);
@@ -85,6 +129,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     applyThemeVars(found.colors);
     try {
       localStorage.setItem(STORAGE_KEY, id);
+      document.documentElement.dataset.theme = id;
+      document.documentElement.dataset.wallpaper = found.wallpaper || "";
+      // Cookie for SSR — so next request's server renders correct theme without flash
+      document.cookie = `${STORAGE_KEY}=${encodeURIComponent(id)}; path=/; max-age=31536000; SameSite=Lax`;
     } catch {
       // QuotaExceededError or SecurityError — ignore, theme still applies for session
     }

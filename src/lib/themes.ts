@@ -21,6 +21,7 @@ export interface Theme {
   id: string;
   name: string;
   colors: ThemeColors;
+  wallpaper?: string; // public path, e.g. /wallpapers/gruvbox.jpg
 }
 
 export const THEMES: Theme[] = [
@@ -45,6 +46,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#292e42",
       shadow: "#101014",
     },
+    wallpaper: "/wallpapers/tokyonight.webp",
   },
   {
     id: "nord",
@@ -67,6 +69,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#3b4252",
       shadow: "#191c24",
     },
+    wallpaper: "/wallpapers/nord.webp",
   },
   {
     id: "catppuccin-mocha",
@@ -89,6 +92,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#313244",
       shadow: "#11111b",
     },
+    wallpaper: "/wallpapers/catppuccin.webp",
   },
   {
     id: "gruvbox",
@@ -111,6 +115,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#3c3836",
       shadow: "#1d2021",
     },
+    wallpaper: "/wallpapers/gruvbox.webp",
   },
   {
     id: "dracula",
@@ -133,6 +138,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#343746",
       shadow: "#191a21",
     },
+    wallpaper: "/wallpapers/dracula.webp",
   },
   {
     id: "solarized-dark",
@@ -155,6 +161,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#073642",
       shadow: "#00141a",
     },
+    wallpaper: "/wallpapers/solarized.webp",
   },
   {
     id: "one-dark",
@@ -177,6 +184,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#2c313a",
       shadow: "#191c22",
     },
+    wallpaper: "/wallpapers/onedark.webp",
   },
   {
     id: "monokai",
@@ -199,6 +207,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#2d2e2b",
       shadow: "#151510",
     },
+    wallpaper: "/wallpapers/monokai.webp",
   },
   {
     id: "rose-pine",
@@ -221,6 +230,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#26233a",
       shadow: "#0f0e17",
     },
+    wallpaper: "/wallpapers/rose-pine.webp",
   },
   {
     id: "everforest",
@@ -243,6 +253,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#374145",
       shadow: "#1a2124",
     },
+    wallpaper: "/wallpapers/everforest.webp",
   },
 ];
 

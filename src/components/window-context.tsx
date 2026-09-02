@@ -17,7 +17,7 @@ interface WindowMeta {
 interface WindowContextType {
   windows: Record<string, WindowState>;
   metaMap: Record<string, WindowMeta>;
-  registerWindow: (id: string, meta: WindowMeta) => void;
+  registerWindow: (id: string, meta: WindowMeta, initial?: Partial<WindowState>) => void;
   closeWindow: (id: string) => void;
   minimizeWindow: (id: string) => void;
   restoreWindow: (id: string) => void;
@@ -30,7 +30,7 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
   const [windows, setWindows] = useState<Record<string, WindowState>>({});
   const [metaMap, setMetaMap] = useState<Record<string, WindowMeta>>({});
 
-  const registerWindow = useCallback((id: string, meta: WindowMeta) => {
+  const registerWindow = useCallback((id: string, meta: WindowMeta, initial?: Partial<WindowState>) => {
     if (!WINDOW_ID_REGEX.test(id)) return;
     setMetaMap((prev) => {
       if (prev[id]) return prev;
@@ -40,7 +40,7 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
     setWindows((prev) => {
       if (prev[id]) return prev;
       if (Object.keys(prev).length >= WINDOW_MAX_CLOSED) return prev;
-      return { ...prev, [id]: { isMinimized: false, isClosed: false } };
+      return { ...prev, [id]: { isMinimized: initial?.isMinimized ?? false, isClosed: initial?.isClosed ?? false } };
     });
   }, []);
 

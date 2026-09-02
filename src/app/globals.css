@@ -132,9 +132,7 @@ html {
 }
 
 body {
-  background-color: var(--th-bg);
-  background-image: radial-gradient(var(--th-dot) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-color: transparent;
   color: var(--th-text);
   font-family: 'Iosevka Nerd Font', 'Iosevka_Nerd_Font', 'Iosevka', monospace !important;
   margin: 0;
@@ -294,21 +292,18 @@ body::before {
   font-weight: 700;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Scrollbar — hidden but scroll remains (overlay, no layout shift) */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-
-::-webkit-scrollbar-track {
-  background: var(--th-bg);
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-
-::-webkit-scrollbar-thumb {
-  background: var(--th-border);
-  border-radius: 0px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--th-accent);
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
