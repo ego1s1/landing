@@ -292,22 +292,18 @@ body::before {
   font-weight: 700;
 }
 
-/* Scrollbar — hidden but scroll remains */
-html,
-body,
-* {
+/* Scrollbar — hidden but scroll remains (overlay, no layout shift) */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+body {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-*::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-html,
-body {
-  overflow-y: auto;
-  overscroll-behavior-y: none;
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }

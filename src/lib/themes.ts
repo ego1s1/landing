@@ -92,6 +92,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#313244",
       shadow: "#11111b",
     },
+    wallpaper: "/wallpapers/catppuccin.webp",
   },
   {
     id: "gruvbox",
