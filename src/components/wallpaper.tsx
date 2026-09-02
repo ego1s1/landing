@@ -11,6 +11,7 @@ export function Wallpaper() {
   const wallpaper = theme.wallpaper;
   const [hasMounted, setHasMounted] = useState(false);
   const [showWallpaper, setShowWallpaper] = useState(false);
+  const [loadedMap, setLoadedMap] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     setHasMounted(true);
@@ -22,10 +23,15 @@ export function Wallpaper() {
   // After theme changes, also delay slightly so solid shows briefly before new wallpaper
   useEffect(() => {
     if (!hasMounted) return;
+    // Keep solid until new image is actually loaded, then crossfade
+    if (wallpaper && loadedMap[wallpaper]) {
+      setShowWallpaper(true);
+      return;
+    }
     setShowWallpaper(false);
     const t = setTimeout(() => setShowWallpaper(true), 80);
     return () => clearTimeout(t);
-  }, [wallpaper, hasMounted]);
+  }, [wallpaper, hasMounted, loadedMap]);
 
   // Preload other wallpapers after idle for instant theme switching (common folder is small ~315KB total)
   useEffect(() => {
@@ -47,12 +53,30 @@ export function Wallpaper() {
     });
   }, [wallpaper, hasMounted]);
 
-  // Unified render — solid first paint, then crossfade to wallpaper.
+  // Loaded tracking — don't crossfade until image is actually decoded, else animation skips and pops
+  const isLoaded = wallpaper ? !!loadedMap[wallpaper] : false;
+  // Unified render — solid first paint, then crossfade to wallpaper only after loaded.
   // hasMounted false => server + hydration first paint is solid (no flash of wrong image)
-  // showWallpaper false => still solid, true => wallpaper with smooth scale/blur crossfade
-  const showImage = hasMounted && showWallpaper && !!wallpaper;
+  // showWallpaper false => still solid, true + loaded => wallpaper with smooth scale/blur crossfade
+  const showImage = hasMounted && showWallpaper && !!wallpaper && isLoaded;
+  // Kick off load as soon as showWallpaper true, even before isLoaded
+  const shouldLoad = hasMounted && showWallpaper && !!wallpaper;
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      {/* Hidden loader — fetches full wallpaper at high priority as soon as showWallpaper, so visible crossfade never pops */}
+      {shouldLoad && !isLoaded && (
+        <Image
+          src={wallpaper}
+          alt=""
+          fill
+          priority
+          fetchPriority="high"
+          sizes="100vw"
+          quality={75}
+          onLoad={() => setLoadedMap((prev) => ({ ...prev, [wallpaper]: true }))}
+          style={{ position: "absolute", opacity: 0, pointerEvents: "none" } as React.CSSProperties}
+        />
+      )}
       <AnimatePresence mode="wait" initial={false}>
         {!showImage ? (
           <motion.div
@@ -101,6 +125,7 @@ export function Wallpaper() {
                 fetchPriority="high"
                 sizes="100vw"
                 quality={75}
+                onLoad={() => setLoadedMap((prev) => ({ ...prev, [wallpaper]: true }))}
                 style={{
                   objectFit: "cover",
                   objectPosition: "center",
