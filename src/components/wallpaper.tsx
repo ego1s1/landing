@@ -47,24 +47,32 @@ export function Wallpaper() {
     });
   }, [wallpaper, hasMounted]);
 
-  // First paint — solid blank color for selected theme (via cookie), no wallpaper flash.
-  // Wallpaper fades in after mount (showWallpaper), subsequent switches crossfade.
-  if (!hasMounted || !showWallpaper) {
-    return (
-      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0" style={{ backgroundColor: "var(--th-bg)" }}>
-          <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(var(--th-dot) 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
-        </div>
-      </div>
-    );
-  }
-
-  // No wallpaper for this theme -> just let body bg + dot grid show
-  // We still render a subtle themed wash so layout stays consistent
+  // Unified render — solid first paint, then crossfade to wallpaper.
+  // hasMounted false => server + hydration first paint is solid (no flash of wrong image)
+  // showWallpaper false => still solid, true => wallpaper with smooth scale/blur crossfade
+  const showImage = hasMounted && showWallpaper && !!wallpaper;
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       <AnimatePresence mode="wait" initial={false}>
-        {wallpaper && showWallpaper ? (
+        {!showImage ? (
+          <motion.div
+            key="solid"
+            initial={{ opacity: hasMounted ? 0 : 1 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: hasMounted ? 0.7 : 0, ease: [0.4, 0, 0.2, 1] }}
+            className="absolute inset-0"
+            style={{ backgroundColor: "var(--th-bg)" }}
+          >
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: "radial-gradient(var(--th-dot) 1px, transparent 1px)",
+                backgroundSize: "24px 24px",
+              }}
+            />
+          </motion.div>
+        ) : (
           <motion.div
             key={wallpaper}
             initial={{ opacity: 0, scale: 1.04, filter: "blur(12px)" }}
@@ -128,24 +136,6 @@ export function Wallpaper() {
               className="absolute inset-0"
               style={{
                 background: `radial-gradient(ellipse at center, transparent 65%, color-mix(in srgb, var(--th-bg) 35%, transparent) 100%)`,
-              }}
-            />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="solid"
-            initial={{ opacity: 0, scale: 1.02 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.02 }}
-            transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-            className="absolute inset-0"
-            style={{ backgroundColor: "var(--th-bg)" }}
-          >
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: "radial-gradient(var(--th-dot) 1px, transparent 1px)",
-                backgroundSize: "24px 24px",
               }}
             />
           </motion.div>

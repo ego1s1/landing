@@ -20,6 +20,7 @@ import { Suspense } from "react";
 import { GitHubContributionsServer } from "@/components/github-contributions-server";
 import { GitHubContributionsSkeleton } from "@/components/github-contributions";
 import { Wallpaper } from "@/components/wallpaper";
+import { PageFade } from "@/components/page-fade";
 
 export const metadata: Metadata = {
   title: `Landing | ${SITE_CONFIG.title}`,
@@ -57,7 +58,8 @@ export default function Home() {
       <Wallpaper />
       <WindowProvider>
         <LeftDock />
-        <Container>
+        <PageFade>
+          <Container>
           <section id="home" className="w-full scroll-mt-32">
             <Hero
               contributionsSlot={
@@ -183,6 +185,7 @@ export default function Home() {
           {/* Bad Apple — ASCII cinema, starts on unminimise (below colorscheme) */}
           <BadAppleWindow />
         </Container>
+        </PageFade>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
