@@ -95,9 +95,9 @@ export default function RootLayout({
           <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         </head>
         <body
-          className={`${mono.variable} antialiased bg-[var(--th-bg)] text-[var(--th-text)] selection:bg-[var(--th-border-subtle)] selection:text-[var(--th-cyan)]`}
+          className={`${mono.variable} antialiased bg-transparent text-[var(--th-text)] selection:bg-[var(--th-border-subtle)] selection:text-[var(--th-cyan)]`}
         >
-          <div className="relative z-10 min-h-screen bg-[var(--th-bg)]">
+          <div className="relative z-10 min-h-screen bg-transparent">
             {children}
             <Footer />
           </div>

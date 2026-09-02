@@ -21,6 +21,7 @@ export interface Theme {
   id: string;
   name: string;
   colors: ThemeColors;
+  wallpaper?: string; // public path, e.g. /wallpapers/gruvbox.jpg
 }
 
 export const THEMES: Theme[] = [
@@ -111,6 +112,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#3c3836",
       shadow: "#1d2021",
     },
+    wallpaper: "/wallpapers/gruvbox.jpg",
   },
   {
     id: "dracula",

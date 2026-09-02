@@ -132,9 +132,7 @@ html {
 }
 
 body {
-  background-color: var(--th-bg);
-  background-image: radial-gradient(var(--th-dot) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-color: transparent;
   color: var(--th-text);
   font-family: 'Iosevka Nerd Font', 'Iosevka_Nerd_Font', 'Iosevka', monospace !important;
   margin: 0;

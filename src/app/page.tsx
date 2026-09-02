@@ -14,10 +14,13 @@ import { WindowProvider } from "@/components/window-context";
 import { LeftDock } from "@/components/left-dock";
 import { ThemeProvider } from "@/components/theme-context";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { BadAppleWindow } from "@/components/bad-apple-window";
 import { SITE_CONFIG } from "@/lib/site";
 import { Suspense } from "react";
 import { GitHubContributionsServer } from "@/components/github-contributions-server";
 import { GitHubContributionsSkeleton } from "@/components/github-contributions";
+import { ScrollProgress } from "@/components/scroll-progress";
+import { Wallpaper } from "@/components/wallpaper";
 
 export const metadata: Metadata = {
   title: `Landing | ${SITE_CONFIG.title}`,
@@ -52,7 +55,9 @@ const jsonLd: WithContext<WebPage> = {
 export default function Home() {
   return (
     <ThemeProvider>
+      <Wallpaper />
       <WindowProvider>
+        <ScrollProgress />
         <LeftDock />
         <Container>
           <section id="home" className="w-full scroll-mt-32">
@@ -175,8 +180,10 @@ export default function Home() {
             </p>
           </Card>
 
-          {/* Theme Switcher — at very bottom */}
           <ThemeSwitcher />
+
+          {/* Bad Apple — ASCII cinema, starts on unminimise (below colorscheme) */}
+          <BadAppleWindow />
         </Container>
         <script
           type="application/ld+json"
