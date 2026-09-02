@@ -3,7 +3,8 @@ import { Metadata } from "next";
 import { Hero } from "@/components/hero";
 import type { WebPage, WithContext } from "schema-dts";
 import { Info } from "lucide-react";
-import { SpotifyWindow } from "@/components/spotify-window";
+import { SpotifyWindowSkeleton } from "@/components/spotify-window";
+import { SpotifyWindowServer } from "@/components/spotify-window-server";
 import { TechStack } from "@/components/tech-stack";
 import { ProjectShowcase } from "@/components/project-showcase";
 import AboutMeSection from "@/components/about-me-section";
@@ -14,6 +15,9 @@ import { LeftDock } from "@/components/left-dock";
 import { ThemeProvider } from "@/components/theme-context";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { SITE_CONFIG } from "@/lib/site";
+import { Suspense } from "react";
+import { GitHubContributionsServer } from "@/components/github-contributions-server";
+import { GitHubContributionsSkeleton } from "@/components/github-contributions";
 
 export const metadata: Metadata = {
   title: `Landing | ${SITE_CONFIG.title}`,
@@ -52,7 +56,13 @@ export default function Home() {
         <LeftDock />
         <Container>
           <section id="home" className="w-full scroll-mt-32">
-            <Hero />
+            <Hero
+              contributionsSlot={
+                <Suspense fallback={<GitHubContributionsSkeleton />}>
+                  <GitHubContributionsServer />
+                </Suspense>
+              }
+            />
           </section>
 
           <section id="about" className="w-full scroll-mt-32">
@@ -71,8 +81,10 @@ export default function Home() {
             <ProjectShowcase />
           </section>
 
-          {/* Spotify — last played, replaces cowsay */}
-          <SpotifyWindow />
+          {/* Spotify — last played, now SSR cached 60s + Suspense skeleton on first visit */}
+          <Suspense fallback={<SpotifyWindowSkeleton />}>
+            <SpotifyWindowServer />
+          </Suspense>
 
           <Card
             id="about-site"

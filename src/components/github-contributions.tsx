@@ -3,17 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { SITE_CONFIG } from "@/lib/site";
 import { GH_CACHE_TTL_MS, GH_CACHE_STALE_MS, GH_CONTRIB_WEEKS } from "@/lib/constants";
-
-interface ContributionDay {
-  date: string;
-  count: number;
-  level: number;
-}
-
-interface ContributionsData {
-  total: Record<string, number> | number;
-  contributions: ContributionDay[];
-}
+import type { ContributionsData, ContributionDay } from "@/lib/github";
 
 const CACHE_KEY = `gh-contribs-${SITE_CONFIG.githubUsername}`;
 
@@ -51,10 +41,60 @@ function generateMock(): ContributionDay[] {
   return days;
 }
 
-export function GitHubContributions() {
-  const [days, setDays] = useState<ContributionDay[] | null>(null);
-  const [total, setTotal] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
+function getTotalValue(data: ContributionsData): number {
+  return typeof data.total === "number"
+    ? data.total
+    : Object.values(data.total as Record<string, number>).reduce((a, b) => a + b, 0);
+}
+
+// Server-renderable skeleton — used as Suspense fallback on first visit before JS/hydration
+export function GitHubContributionsSkeleton() {
+  return (
+    <div className="flex flex-col h-full overflow-hidden">
+      <div className="flex items-center justify-between px-1.5 py-1 text-[11px] font-mono shrink-0">
+        <span className="flex items-center gap-1 text-[var(--th-text)] font-semibold truncate">
+          <span className="text-[var(--th-green)] text-[12px]">▣</span>
+          <span className="truncate bg-[var(--th-surface-alt)] rounded h-3 w-24 animate-pulse" aria-hidden />
+          <span className="hidden sm:inline text-[var(--th-text-dim)] font-normal">· 1y</span>
+        </span>
+        <span className="text-[10px] text-[var(--th-text-dim)] shrink-0 ml-2">@{SITE_CONFIG.githubUsername} ↗</span>
+      </div>
+      <div className="flex-1 flex items-center px-1 py-1 overflow-hidden">
+        <div className="flex gap-1 w-max opacity-60 animate-pulse" aria-hidden>
+          {Array.from({ length: 52 }).map((_, wi) => (
+            <div key={wi} className="flex flex-col gap-1">
+              {Array.from({ length: 7 }).map((_, i) => (
+                <div key={i} className="size-2 rounded-[1px] bg-[var(--th-surface-alt)] border border-[var(--th-border-subtle)]/20" />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex items-center justify-between px-1.5 py-1 text-[10px] font-mono text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15 shrink-0">
+        <span className="flex items-center gap-1 text-[9px]">
+          Less
+          <span className="flex items-center gap-0.5 ml-1">
+            <span className={`size-2 rounded-[1px] ${levelClass(0)}`} />
+            <span className={`size-2 rounded-[1px] ${levelClass(1)}`} />
+            <span className={`size-2 rounded-[1px] ${levelClass(2)}`} />
+            <span className={`size-2 rounded-[1px] ${levelClass(3)}`} />
+            <span className={`size-2 rounded-[1px] ${levelClass(4)}`} />
+          </span>
+          <span className="ml-0.5">More</span>
+        </span>
+        <span className="text-[9px] hidden sm:inline">scroll →</span>
+      </div>
+    </div>
+  );
+}
+
+export function GitHubContributions({ initialData }: { initialData?: ContributionsData | null }) {
+  const initialDays = initialData?.contributions ? initialData.contributions.slice(-GH_CONTRIB_WEEKS * 7).slice(0, 400) : null;
+  const initialTotal = initialData ? getTotalValue(initialData) : null;
+
+  const [days, setDays] = useState<ContributionDay[] | null>(initialDays);
+  const [total, setTotal] = useState<number | null>(initialTotal);
+  const [loading, setLoading] = useState(!initialDays);
 
   const load = useCallback(async () => {
     // 1. Try cache first for instant paint
@@ -65,17 +105,24 @@ export function GitHubContributions() {
         if (Date.now() - parsed.ts < GH_CACHE_TTL_MS && parsed.data?.contributions?.length) {
           const lastWeeks = parsed.data.contributions.slice(-GH_CONTRIB_WEEKS * 7);
           setDays(lastWeeks);
-          const t = typeof parsed.data.total === "number" ? parsed.data.total : Object.values(parsed.data.total as Record<string, number>).reduce((a, b) => a + b, 0);
-          setTotal(t);
+          setTotal(getTotalValue(parsed.data));
           setLoading(false);
           if (Date.now() - parsed.ts < GH_CACHE_STALE_MS) return;
         }
+      } else if (initialData) {
+        // Seed cache from SSR initialData so next visits don't need a fetch
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ data: initialData, ts: Date.now() }));
+        } catch {}
+        // If we have fresh SSR data, skip immediate re-fetch for 1h (client-side stale-while-revalidate)
+        // CDN still shields upstream, but this saves even the CDN hit on repeated navigations
+        return;
       }
     } catch {
       // ignore cache parse errors
     }
 
-    // 2. Fetch fresh via same-origin proxy (ISR cached, zod-validated), fallback to direct + mock
+    // 2. Fetch fresh via same-origin proxy (CDN cached 6h, never hits upstream directly)
     try {
       const res = await fetch(`/api/contributions`, {
         headers: { Accept: "application/json" },
@@ -88,22 +135,25 @@ export function GitHubContributions() {
       if (!contribs?.length) throw new Error("empty");
       const lastWeeks = contribs.slice(-GH_CONTRIB_WEEKS * 7);
       setDays(lastWeeks);
-      const t = typeof data.total === "number" ? data.total : Object.values(data.total as Record<string, number>).reduce((a, b) => a + b, 0);
-      setTotal(t);
+      setTotal(getTotalValue(data));
       try {
         localStorage.setItem(CACHE_KEY, JSON.stringify({ data, ts: Date.now() }));
       } catch {
         // QuotaExceededError — ignore, cache is best-effort
       }
     } catch {
-      // Fallback to mock for offline / API down — keeps UI cozy and fast
-      const mock = generateMock();
-      setDays(mock);
-      setTotal(mock.reduce((a, d) => a + d.count, 0));
+      // Fallback: keep SSR data if we have it, else mock for offline / API down
+      setDays((prev) => {
+        if (prev?.length) return prev;
+        const mock = generateMock();
+        // defer total update to next tick to avoid setState during setState
+        setTimeout(() => setTotal(mock.reduce((a, d) => a + d.count, 0)), 0);
+        return mock;
+      });
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [initialData]);
 
   useEffect(() => {
     load();

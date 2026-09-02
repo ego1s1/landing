@@ -4,14 +4,13 @@ import { GitHub } from "./logos/github";
 import { LinkedIn } from "./logos/linkedin";
 import { Gmail } from "./logos/gmail";
 import { Button } from "@/components/ui/button";
-import { GitHubContributions } from "@/components/github-contributions";
 import Image from "next/image";
 import { useWindowContext } from "@/components/window-context";
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { SITE_CONFIG } from "@/lib/site";
 
-export function Hero() {
+export function Hero({ contributionsSlot }: { contributionsSlot?: React.ReactNode }) {
   const windowCtx = useWindowContext();
 
   useEffect(() => {
@@ -161,7 +160,7 @@ export function Hero() {
           <div className="bg-[var(--th-surface)]/40 rounded-[4px] p-1.5 font-mono grid grid-cols-1 lg:grid-cols-12 gap-2 items-stretch">
             {/* GitHub contributions — half width, taller to fit more info */}
             <div className="lg:col-span-6 flex flex-col select-none p-1 bg-[var(--th-bg)] rounded-[3px] overflow-hidden h-full min-h-[180px] self-stretch w-full max-w-[420px] mx-auto lg:mx-0 lg:max-w-none border border-[var(--th-border-subtle)]/15">
-              <GitHubContributions />
+              {contributionsSlot ?? null}
             </div>
 
             {/* System info fields — scaled down for balance */}

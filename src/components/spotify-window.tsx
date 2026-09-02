@@ -4,26 +4,46 @@ import { useEffect, useState, useCallback } from "react";
 import { useWindowContext } from "@/components/window-context";
 import { SITE_CONFIG } from "@/lib/site";
 import { cn } from "@/lib/utils";
-
-interface SpotifyTrack {
-  name: string;
-  artist: string;
-  album: string;
-  image: string;
-  url: string;
-  previewUrl?: string | null;
-  playedAt?: string;
-  isPlaying: boolean;
-}
+import type { SpotifyTrack, SpotifyData } from "@/lib/spotify";
 
 const CACHE_KEY = "spotify-last-7";
 const CACHE_TTL = 1000 * 60 * 5; // 5 minutes
 
-export function SpotifyWindow({ className }: { className?: string }) {
+export function SpotifyWindowSkeleton() {
+  return (
+    <div className="w-full bg-[var(--th-surface)] border border-[var(--th-border)] shadow-[3px_3px_0px_var(--th-shadow)] rounded-[4px] overflow-hidden font-mono">
+      <div className="bg-[var(--th-surface-alt)] border-b border-[var(--th-border-subtle)]/20 px-2.5 py-1.5 flex items-center gap-2 text-xs select-none">
+        <span className="flex items-center gap-1.5 mr-1 shrink-0">
+          <span className="size-3 rounded-full bg-[var(--th-red)]/60" />
+          <span className="size-3 rounded-full bg-[var(--th-yellow)]/60" />
+          <span className="size-3 rounded-full bg-[var(--th-green)]/60" />
+        </span>
+        <span className="text-[var(--th-green)] font-bold hidden sm:inline">ncmpcpp</span>
+        <span className="text-[var(--th-text-dim)] hidden sm:inline">·</span>
+        <span className="text-[var(--th-accent)] font-semibold truncate">spotify — last 7 played tracks</span>
+        <span className="ml-auto hidden sm:flex items-center gap-1.5 text-[10px] text-[var(--th-text-dim)] shrink-0">
+          <span className="size-1.5 rounded-full bg-[var(--th-green)]/50" />
+          <span>loading…</span>
+        </span>
+      </div>
+      <div className="bg-[var(--th-bg)] p-6 flex flex-col gap-2 animate-pulse">
+        {Array.from({ length: 7 }).map((_, i) => (
+          <div key={i} className="h-3 w-full bg-[var(--th-surface-alt)]/50 rounded" />
+        ))}
+      </div>
+      <div className="flex items-center gap-1 text-[10px] font-mono text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15 px-2 py-1 bg-[var(--th-surface-alt)]/20">
+        <span className="size-4 rounded bg-[var(--th-surface)] border border-[var(--th-border-subtle)]" />
+        <span>ncmpcpp 0.9.2</span>
+      </div>
+    </div>
+  );
+}
+
+export function SpotifyWindow({ className, initialData }: { className?: string; initialData?: SpotifyData | null }) {
   const windowCtx = useWindowContext();
-  const [tracks, setTracks] = useState<SpotifyTrack[] | null>(null);
-  const [current, setCurrent] = useState<SpotifyTrack | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [tracks, setTracks] = useState<SpotifyTrack[] | null>(initialData?.tracks ?? null);
+  const [current, setCurrent] = useState<SpotifyTrack | null>(initialData?.current ?? null);
+  const [loading, setLoading] = useState(!initialData?.tracks?.length);
   const [needsSetup, setNeedsSetup] = useState(false);
 
   useEffect(() => {
@@ -49,6 +69,11 @@ export function SpotifyWindow({ className }: { className?: string }) {
           setLoading(false);
           if (Date.now() - parsed.ts < 60_000) return;
         }
+      } else if (initialData?.tracks?.length) {
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ tracks: initialData.tracks, current: initialData.current ?? null, ts: Date.now() }));
+        } catch {}
+        return;
       }
     } catch {}
     try {
@@ -96,7 +121,7 @@ export function SpotifyWindow({ className }: { className?: string }) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [initialData]);
 
   useEffect(() => {
     load();
