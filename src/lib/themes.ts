@@ -245,6 +245,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#374145",
       shadow: "#1a2124",
     },
+    wallpaper: "/wallpapers/everforest.png",
   },
 ];
 
