@@ -43,9 +43,20 @@ function applyThemeVars(colors: ThemeColors) {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(
-    () => THEMES.find((t) => t.id === DEFAULT_THEME_ID) ?? THEMES[0]
-  );
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Read persisted theme synchronously on client to avoid mismatch
+    // between themeInitScript (which already applied gruvbox vars) and React state (which would be everforest)
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const found = THEMES.find((t) => t.id === saved);
+          if (found) return found;
+        }
+      } catch {}
+    }
+    return THEMES.find((t) => t.id === DEFAULT_THEME_ID) ?? THEMES[0];
+  });
 
   // On mount, load persisted theme with error handling for private mode / quota
   useEffect(() => {
