@@ -46,6 +46,7 @@ export const THEMES: Theme[] = [
       dotGrid: "#292e42",
       shadow: "#101014",
     },
+    wallpaper: "/wallpapers/tokyonight.png",
   },
   {
     id: "nord",
