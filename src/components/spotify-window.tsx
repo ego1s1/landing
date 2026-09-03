@@ -47,6 +47,31 @@ function SpotifyHeaderRight({ current }: { current: SpotifyTrack | null }) {
   );
 }
 
+function NcmpcppVisualizer({ size = 12 }: { size?: number }) {
+  // ncmpcpp-like single-line ascii visualiser — 5 bars, CSS-only, theme-aware
+  return (
+    <span
+      aria-hidden
+      className="inline-flex items-end gap-px shrink-0 select-none"
+      style={{ height: size, alignItems: "flex-end" }}
+    >
+      {[0.32, 0.78, 0.48, 0.92, 0.55].map((h, i) => (
+        <span
+          key={i}
+          className="w-px bg-[var(--th-cyan)] inline-block"
+          style={{
+            height: `${Math.round(h * size)}px`,
+            minHeight: 2,
+            opacity: 0.95,
+            animation: `ncmpcpp-bar ${380 + i * 90}ms ease-in-out ${i * 55}ms infinite alternate`,
+          }}
+        />
+      ))}
+      <style>{`@keyframes ncmpcpp-bar{0%{transform:scaleY(0.35)}50%{transform:scaleY(1)}100%{transform:scaleY(0.55)}}`}</style>
+    </span>
+  );
+}
+
 export function SpotifyWindow({ className, initialData }: { className?: string; initialData?: SpotifyData | null }) {
   const [tracks, setTracks] = useState<SpotifyTrack[] | null>(initialData?.tracks ?? null);
   const [current, setCurrent] = useState<SpotifyTrack | null>(initialData?.current ?? null);
@@ -191,12 +216,22 @@ export function SpotifyWindow({ className, initialData }: { className?: string; 
 
             <div className="mx-2 sm:mx-3 mb-2 border-t border-[var(--th-border-subtle)]/20 pt-2 flex items-center gap-2 text-[11px] font-mono">
               <span className="text-[var(--th-text-dim)] hidden sm:inline">Playing:</span>
+              {(current?.isPlaying || tracks?.[effectiveIdx]?.isPlaying) && (
+                <span className="hidden sm:inline-flex items-center">
+                  <NcmpcppVisualizer size={11} />
+                </span>
+              )}
               <span className="text-[var(--th-red)]">♥</span>
               <span className="text-[var(--th-yellow)]">❝</span>
               <a href={tracks[effectiveIdx]?.url} target="_blank" rel="noopener noreferrer" className="text-[var(--th-cyan)] hover:underline truncate">
                 {tracks[effectiveIdx]?.name ?? "—"}
               </a>
               <span className="text-[var(--th-yellow)]">❞</span>
+              {(current?.isPlaying || tracks?.[effectiveIdx]?.isPlaying) && (
+                <span className="inline-flex sm:hidden items-center ml-1">
+                  <NcmpcppVisualizer size={10} />
+                </span>
+              )}
               <span className="ml-auto text-[var(--th-text-dim)] font-mono text-[11px]">[0:02/3:02]</span>
             </div>
           </>
