@@ -9,9 +9,11 @@ for (const file of files) {
   const src = join(dir, file);
   const before = statSync(src).size;
   const tmp = src + '.tmp';
-  // Recompress more aggressively: 1280px, quality 45 (since blurred, fine)
+  // Bake in current runtime filter: blur 6px brightness 0.92 saturate 1.02 — keep visual identical, remove runtime cost
   await sharp(src)
     .resize({ width: 1280, withoutEnlargement: true })
+    .blur(6)
+    .modulate({ brightness: 0.92, saturation: 1.02 })
     .webp({ quality: 45, effort: 6, smartSubsample: true })
     .toFile(tmp);
   const after = statSync(tmp).size;
