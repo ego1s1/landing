@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -8,12 +7,6 @@ import "./fonts.css";
 import { Footer } from "@/components/footer";
 import { SITE_CONFIG } from "@/lib/site";
 import { THEMES, DEFAULT_THEME_ID } from "@/lib/themes";
-
-const mono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: {
@@ -121,10 +114,26 @@ export default async function RootLayout({
       >
         <head>
           <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+          {/* Preload the site font so first paint uses Iosevka instead of
+              flashing the fallback (Noto/monospace) then swapping. */}
+          <link
+            rel="preload"
+            href="/fonts/IosevkaNerdFont-Regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/IosevkaNerdFont-Bold.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
           {theme.wallpaper && <link rel="preload" as="image" href={theme.wallpaper} fetchPriority="high" />}
         </head>
         <body
-          className={`${mono.variable} antialiased bg-transparent text-[var(--th-text)] selection:bg-[var(--th-border-subtle)] selection:text-[var(--th-cyan)]`}
+          className="antialiased bg-transparent text-[var(--th-text)] selection:bg-[var(--th-border-subtle)] selection:text-[var(--th-cyan)]"
         >
           <div className="relative z-10 min-h-screen bg-transparent">
             {children}
