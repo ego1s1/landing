@@ -18,6 +18,7 @@ export function Footer({ className }: { className?: string }) {
           <span>•</span>
           <span>EVERFOREST</span>
         </div>
+        <div className="mt-2 text-[10px] text-[var(--th-text-dim)]">心臓を捧げよ</div>
       </div>
     </footer>
   );
