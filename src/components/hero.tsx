@@ -52,7 +52,14 @@ export function Hero({ contributionsSlot }: { contributionsSlot?: React.ReactNod
       {/* Hero identity block — cozy, compact, mobile-optimized */}
       <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pb-3 border-b border-[var(--th-border-subtle)]/10">
         <div className="flex items-center gap-3 sm:gap-4">
-          <div className="size-16 sm:size-20 md:size-24 shrink-0 overflow-hidden rounded-[4px] border border-[var(--th-border-subtle)]/30 bg-[var(--th-bg)] shadow-[2px_2px_0px_var(--th-shadow)]/50">
+          <a
+            href="https://hunterxhunter.fandom.com/wiki/Killua_Zoldyck"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Killua Zoldyck — wiki"
+            aria-label="Open Killua Zoldyck wiki page"
+            className="size-16 sm:size-20 md:size-24 shrink-0 overflow-hidden rounded-[4px] border border-[var(--th-border-subtle)]/30 hover:border-[var(--th-cyan)]/60 bg-[var(--th-bg)] shadow-[2px_2px_0px_var(--th-shadow)]/50 transition-colors cursor-pointer"
+          >
             <Image
               src={SITE_CONFIG.avatar}
               alt={SITE_CONFIG.displayName}
@@ -61,7 +68,7 @@ export function Hero({ contributionsSlot }: { contributionsSlot?: React.ReactNod
               priority
               className="object-cover w-full h-full"
             />
-          </div>
+          </a>
           <div className="flex flex-col justify-center gap-0.5 sm:gap-1">
             <div className="flex items-center gap-2">
               <span className="text-[var(--th-cyan)] font-bold text-sm sm:text-base">❯</span>
