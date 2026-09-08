@@ -26,3 +26,7 @@ export function getAboutMe(): string {
 export function getWorkExperience(): string {
   return loadMarkdown("work-experience.md", "# experience.log\n\ncontent unavailable.");
 }
+
+export function getErwin(): string {
+  return loadMarkdown("erwin.md", "# エルヴィン・スミス\n\ncontent unavailable.");
+}

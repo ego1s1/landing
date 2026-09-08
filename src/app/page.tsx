@@ -9,6 +9,7 @@ import { TechStack } from "@/components/tech-stack";
 import { ProjectShowcase } from "@/components/project-showcase";
 import AboutMeSection from "@/components/about-me-section";
 import WorkExperienceSection from "@/components/work-experience-section";
+import ErwinSection from "@/components/erwin-section";
 import { Card } from "@/components/ui/card";
 import { WindowProvider } from "@/components/window-context";
 import { LeftDock } from "@/components/left-dock";
@@ -178,6 +179,9 @@ export default function Home() {
               <span className="text-[var(--th-cyan)]">❯</span> bun run build · next-view-transitions · rehype-sanitize · zod · sharp
             </p>
           </Card>
+
+          {/* Erwin — above the theme selector */}
+          <ErwinSection />
 
           <ThemeSwitcher />
 
