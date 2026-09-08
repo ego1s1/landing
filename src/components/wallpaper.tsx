@@ -129,7 +129,6 @@ export function Wallpaper() {
                 style={{
                   objectFit: "cover",
                   objectPosition: "center",
-                  filter: "blur(6px) brightness(0.92) saturate(1.02)",
                 }}
               />
             </motion.div>

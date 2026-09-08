@@ -3,9 +3,10 @@ import { Card } from "@/components/ui/card";
 import { getWorkExperience } from "@/lib/content";
 import { NvimWindow } from "@/components/ui/nvim-window";
 
-const workExperienceContent = getWorkExperience();
-
 export default function WorkExperienceSection() {
+  // Read per-render (not module top-level) so local markdown edits
+  // show up on page refresh in dev without a server restart.
+  const workExperienceContent = getWorkExperience();
   return (
     <Card
       id="experience"

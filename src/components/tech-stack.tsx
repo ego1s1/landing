@@ -81,8 +81,8 @@ export function TechStack() {
               <span className="text-[10px] text-[var(--th-text-dim)]/50 hidden sm:inline truncate">{section.prompt}</span>
             </div>
 
-            {/* icon-only — bigger boxes, full-width */}
-            <div className="flex flex-wrap gap-2">
+            {/* icon + label — uses full horizontal space, no blank gap */}
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
               {section.items.map((item) => (
                 <a
                   key={item.name}
@@ -91,16 +91,16 @@ export function TechStack() {
                   rel="noopener noreferrer"
                   aria-label={item.name}
                   title={`${item.name} → ${item.url}`}
-                  className="group relative flex items-center justify-center size-11 sm:size-12 bg-[var(--th-surface)] hover:bg-[var(--th-surface-alt)] border border-[var(--th-border-subtle)]/20 hover:border-[var(--th-cyan)]/40 rounded-[5px] transition-all hover:-translate-y-px hover:shadow-[0_6px_14px_rgba(0,0,0,0.18)]"
+                  className="group flex flex-col items-center justify-center gap-1.5 p-2.5 sm:p-3 bg-[var(--th-surface)] hover:bg-[var(--th-surface-alt)] border border-[var(--th-border-subtle)]/20 hover:border-[var(--th-cyan)]/40 rounded-[5px] transition-all hover:-translate-y-px hover:shadow-[0_6px_14px_rgba(0,0,0,0.18)] min-h-[68px] sm:min-h-[74px]"
                 >
                   <span
-                    className="text-[18px] sm:text-[20px] leading-none transition-transform group-hover:scale-110 group-active:scale-95"
+                    className="text-[18px] sm:text-[20px] leading-none transition-transform group-hover:scale-110 group-active:scale-95 shrink-0"
                     style={{ color: item.color }}
                     aria-hidden
                   >
                     {item.icon}
                   </span>
-                  <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[var(--th-surface-alt)] text-[var(--th-text)] text-[10px] font-medium px-1.5 py-0.5 rounded-[3px] border border-[var(--th-border)] shadow-[0_4px_12px_rgba(0,0,0,0.22)] opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity translate-y-0.5 group-hover:translate-y-0">
+                  <span className="text-[10px] sm:text-[11px] font-medium leading-tight text-center text-[var(--th-text)] group-hover:text-[var(--th-cyan)] line-clamp-2 w-full">
                     {item.name}
                   </span>
                 </a>

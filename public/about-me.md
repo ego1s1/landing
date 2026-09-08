@@ -8,4 +8,4 @@ i love building **fast, minimal CLI tools**, getting lost in **FOSS** rabbit hol
 
 ### outside code
 
-Interests include fitness, guitar and anime. Open to conversations about music and technology.
+outside of coding, i enjoy playing metal on guitar, going to the gym and watching anime
