@@ -15,9 +15,9 @@ export function BadAppleSkeleton() {
           <span className="size-3 rounded-full bg-[var(--th-yellow)]/60" />
           <span className="size-3 rounded-full bg-[var(--th-green)]/60" />
         </span>
-        <span className="text-[var(--th-text-dim)] text-[11px] tracking-wide">∷</span>
+        <span className="text-[var(--th-text-dim)] text-[10px] tracking-wide">∷</span>
       </div>
-      <div className="bg-[var(--th-bg)] p-6 flex items-center justify-center min-h-[280px]">
+      <div className="bg-[var(--th-bg)] p-6 flex items-center justify-center min-h-[258px]">
         <div className="size-2 rounded-full bg-[var(--th-cyan)]/40 animate-pulse" />
       </div>
     </div>
@@ -217,21 +217,21 @@ export function BadAppleWindow({ className }: { className?: string }) {
       headerClickableWhenMinimized
       headerTitle={
         <>
-          <span className="text-[var(--th-text-dim)] hidden sm:inline text-[11px]">∷</span>
+          <span className="text-[var(--th-text-dim)] hidden sm:inline text-[10px]">∷</span>
           <span className="text-[var(--th-text-dim)] hidden sm:inline">·</span>
-          <span className="text-[var(--th-text-dim)] text-[11px] truncate hidden sm:inline">.secret</span>
-          <span className="text-[var(--th-text-dim)]/50 text-[10px] truncate sm:hidden">∷</span>
+          <span className="text-[var(--th-text-dim)] text-[10px] truncate hidden sm:inline">.secret</span>
+          <span className="text-[var(--th-text-dim)]/50 text-[9px] truncate sm:hidden">∷</span>
         </>
       }
       headerRight={
         isMinimized ? (
-          <span className="flex items-center gap-1.5 text-[10px] text-[var(--th-text-dim)]/60">
+          <span className="flex items-center gap-1.5 text-[9px] text-[var(--th-text-dim)]/60">
             <span className="hidden sm:inline">—</span>
             <span className="text-[var(--th-cyan)]/70 hidden sm:inline">click to reveal</span>
             <span className="sm:hidden text-[var(--th-cyan)]/70">○</span>
           </span>
         ) : (
-          <span className="hidden sm:flex items-center gap-1.5 text-[10px] text-[var(--th-text-dim)]/70 shrink-0">
+          <span className="hidden sm:flex items-center gap-1.5 text-[9px] text-[var(--th-text-dim)]/70 shrink-0">
             <span className={`size-1.5 rounded-full ${playing ? "bg-[var(--th-green)] animate-pulse" : "bg-[var(--th-border-subtle)]"}`} />
             <span className="tabular-nums">{playing ? "●" : "○"}</span>
           </span>
@@ -247,16 +247,16 @@ export function BadAppleWindow({ className }: { className?: string }) {
     >
       <div className="bg-[var(--th-bg)] transition-colors duration-400">
         {!frames && !loadError ? (
-          <div className="flex flex-col items-center justify-center min-h-[320px] sm:min-h-[380px] p-6 bg-[var(--th-bg)]">
+          <div className="flex flex-col items-center justify-center min-h-[240px] sm:min-h-[350px] p-6 bg-[var(--th-bg)]">
             <div className="flex flex-col items-center gap-3">
               <span className="size-1.5 rounded-full bg-[var(--th-cyan)]/50 animate-pulse" />
-              <span className="text-[10px] tracking-[0.2em] text-[var(--th-text-dim)]/50">∷</span>
+              <span className="text-[9px] tracking-[0.2em] text-[var(--th-text-dim)]/50">∷</span>
             </div>
           </div>
         ) : loadError ? (
-          <div className="flex flex-col items-center justify-center min-h-[320px] p-6 text-center gap-2 bg-[var(--th-bg)]">
-            <span className="text-[var(--th-red)] text-[11px] font-bold">∷ error</span>
-            <span className="text-[var(--th-text-dim)] text-[10px] font-mono break-all">{loadError}</span>
+          <div className="flex flex-col items-center justify-center min-h-[240px] sm:min-h-[350px] p-6 text-center gap-2 bg-[var(--th-bg)]">
+            <span className="text-[var(--th-red)] text-[10px] font-bold">∷ error</span>
+            <span className="text-[var(--th-text-dim)] text-[9px] font-mono break-all">{loadError}</span>
           </div>
         ) : (
           <div
@@ -281,7 +281,7 @@ export function BadAppleWindow({ className }: { className?: string }) {
 
             {!playing && (
               <div className="absolute inset-0 flex items-center justify-center bg-[var(--th-bg)]/45 backdrop-blur-[0.5px] pointer-events-none transition-colors duration-400">
-                <span className="size-9 sm:size-10 rounded-full bg-[var(--th-surface)] border border-[var(--th-border)] shadow-[2px_2px_0px_var(--th-shadow)] text-[var(--th-cyan)] flex items-center justify-center text-[11px] pl-0.5">
+                <span className="size-9 sm:size-10 rounded-full bg-[var(--th-surface)] border border-[var(--th-border)] shadow-[2px_2px_0px_var(--th-shadow)] text-[var(--th-cyan)] flex items-center justify-center text-[10px] pl-0.5">
                   ▶
                 </span>
               </div>

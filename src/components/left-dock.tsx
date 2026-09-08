@@ -27,7 +27,7 @@ export function LeftDock() {
     <aside
       aria-label="Docked windows"
       className="
-        fixed z-50 select-none font-mono text-[11px] sm:text-xs
+        fixed z-50 select-none font-mono text-[10px] sm:text-xs
         /* Mobile: bottom-right, compact */
         right-2 bottom-2 sm:right-3 sm:bottom-4
         /* Desktop: left-center, original position */
@@ -36,9 +36,9 @@ export function LeftDock() {
         transition-all duration-300 ease-out
       "
     >
-      <div className="bg-[var(--th-surface)] border border-[var(--th-border)] shadow-[4px_4px_0px_var(--th-shadow)] rounded-[4px] p-1.5 sm:p-2 flex flex-col gap-1.5 sm:gap-2 min-w-[110px] max-w-[130px] sm:min-w-[130px] sm:max-w-[160px]">
+      <div className="bg-[var(--th-surface)] border border-[var(--th-border)] shadow-[4px_4px_0px_var(--th-shadow)] rounded-[4px] p-1.5 sm:p-2 flex flex-col gap-1.5 sm:gap-2 min-w-[101px] max-w-[120px] sm:min-w-[120px] sm:max-w-[147px]">
         {/* Dock header */}
-        <div className="flex items-center justify-between gap-1 border-b border-[var(--th-border-subtle)] pb-1.5 px-1 text-[10px] text-[var(--th-text-dim)]">
+        <div className="flex items-center justify-between gap-1 border-b border-[var(--th-border-subtle)] pb-1.5 px-1 text-[9px] text-[var(--th-text-dim)]">
           <span className="text-[var(--th-cyan)] font-bold">DOCK [{closedEntries.length}]</span>
           {closedEntries.length > 1 && (
             <button
@@ -77,14 +77,14 @@ export function LeftDock() {
                   /* Desktop: nudge right on hover */
                   md:active:translate-y-0 md:active:translate-x-[1px]
                   md:hover:translate-x-1
-                  rounded-[4px] px-2 py-1 sm:px-2.5 sm:py-1.5 text-left text-[11px] sm:text-xs cursor-pointer
+                  rounded-[4px] px-2 py-1 sm:px-2.5 sm:py-1.5 text-left text-[10px] sm:text-xs cursor-pointer
                   group transition-all duration-200
                 "
               >
                 <span className="font-['Iosevka_Nerd_Font',monospace] text-sm text-[var(--th-cyan)] group-hover:scale-110 transition-transform duration-150">
                   {meta.icon ?? "󰆍"}
                 </span>
-                <span className="truncate font-semibold text-[11px]">
+                <span className="truncate font-semibold text-[10px]">
                   {meta.shortTitle}
                 </span>
               </button>

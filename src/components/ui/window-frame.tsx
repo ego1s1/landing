@@ -37,12 +37,12 @@ export function WindowFrame({
         </>
       }
       minimizedHint={
-        <span className="text-[10px] text-[var(--th-yellow)] bg-[var(--th-bg)] border border-[var(--th-border-subtle)] px-1.5 py-0.2 rounded-none font-mono">
+        <span className="text-[9px] text-[var(--th-yellow)] bg-[var(--th-bg)] border border-[var(--th-border-subtle)] px-1.5 py-0.2 rounded-none font-mono">
           [MINIMIZED]
         </span>
       }
       className={cn("w-full", className)}
-      contentClassName={cn("p-5 md:p-6", contentClassName)}
+      contentClassName={cn("p-4 sm:p-5 md:p-6", contentClassName)}
     >
       {children}
     </WindowShell>

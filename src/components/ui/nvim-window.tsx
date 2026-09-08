@@ -5,13 +5,13 @@ import { NVIM_FILLER_MIN_LINES } from "@/lib/constants";
 // Vanilla nvim — minimal, no winbar, subtle highlights — scaled +15% with site
 export const nvimMarkdownComponents = {
   h1: ({ children }: { children: React.ReactNode }) => (
-    <h1 className="text-[var(--th-text)] font-bold text-[16px] leading-6 pb-1 mb-1">{children}</h1>
+    <h1 className="text-[var(--th-text)] font-bold text-[15px] leading-6 pb-1 mb-1">{children}</h1>
   ),
   h3: ({ children }: { children: React.ReactNode }) => (
-    <h3 className="text-[var(--th-text)] font-bold text-[15px] mt-2 mb-1">{children}</h3>
+    <h3 className="text-[var(--th-text)] font-bold text-[14px] mt-2 mb-1">{children}</h3>
   ),
   p: ({ children }: { children: React.ReactNode }) => (
-    <p className="text-[var(--th-text-muted)] text-[15px] leading-6 mb-1.5">{children}</p>
+    <p className="text-[var(--th-text-muted)] text-[14px] leading-6 mb-1.5">{children}</p>
   ),
   strong: ({ children }: { children: React.ReactNode }) => (
     <strong className="text-[var(--th-text)] font-bold">{children}</strong>
@@ -35,18 +35,18 @@ export const nvimMarkdownComponents = {
   },
   hr: () => <hr className="border-[var(--th-border-subtle)]/20 my-2" />,
   blockquote: ({ children }: { children: React.ReactNode }) => (
-    <blockquote className="border-l border-[var(--th-border-subtle)] pl-3 py-0.5 text-[var(--th-text-dim)] italic text-[15px] my-1.5">
+    <blockquote className="border-l border-[var(--th-border-subtle)] pl-3 py-0.5 text-[var(--th-text-dim)] italic text-[14px] my-1.5">
       {children}
     </blockquote>
   ),
   code: ({ children }: { children: React.ReactNode }) => (
-    <code className="bg-[var(--th-surface)] text-[var(--th-text)] px-1 py-0.5 rounded text-[13px] border border-[var(--th-border-subtle)]/30">
+    <code className="bg-[var(--th-surface)] text-[var(--th-text)] px-1 py-0.5 rounded text-[12px] border border-[var(--th-border-subtle)]/30">
       {children}
     </code>
   ),
   ul: ({ children }: { children: React.ReactNode }) => <ul className="space-y-1 my-1.5 list-disc list-inside marker:text-[var(--th-text-dim)]">{children}</ul>,
   li: ({ children }: { children: React.ReactNode }) => (
-    <li className="text-[15px] leading-5 text-[var(--th-text-muted)]">{children}</li>
+    <li className="text-[14px] leading-5 text-[var(--th-text-muted)]">{children}</li>
   ),
 };
 
@@ -65,9 +65,9 @@ export function NvimWindow({ content, fileName, cursorLine = 3 }: NvimWindowProp
   return (
     <div className="bg-[var(--th-bg)] overflow-hidden">
       {/* Editor — vanilla, no winbar */}
-      <div className="flex min-h-[140px]">
+      <div className="flex min-h-[129px]">
         {/* Gutter — vanilla absolute numbers, no fancy */}
-        <div className="hidden sm:flex flex-col items-end select-none bg-[var(--th-bg)] border-r border-[var(--th-border-subtle)]/20 px-2 py-2.5 text-[13px] leading-6 font-mono text-[var(--th-text-dim)]/60 min-w-[36px]">
+        <div className="hidden sm:flex flex-col items-end select-none bg-[var(--th-bg)] border-r border-[var(--th-border-subtle)]/20 px-2 py-2.5 text-[12px] leading-6 font-mono text-[var(--th-text-dim)]/60 min-w-[33px]">
           {Array.from({ length: lineCount }).map((_, i) => {
             const n = i + 1;
             const isCursor = n === cursorLine;
@@ -83,7 +83,7 @@ export function NvimWindow({ content, fileName, cursorLine = 3 }: NvimWindowProp
             </span>
           ))}
         </div>
-        <div className="sm:hidden flex flex-col items-end select-none bg-[var(--th-bg)] border-r border-[var(--th-border-subtle)]/20 px-1.5 py-2.5 text-[13px] leading-6 font-mono text-[var(--th-text-dim)]/60 min-w-[26px]">
+        <div className="sm:hidden flex flex-col items-end select-none bg-[var(--th-bg)] border-r border-[var(--th-border-subtle)]/20 px-1.5 py-2.5 text-[12px] leading-6 font-mono text-[var(--th-text-dim)]/60 min-w-[24px]">
           {Array.from({ length: lineCount }).map((_, i) => (
             <span key={i} className="leading-6">
               {i + 1}
@@ -93,7 +93,7 @@ export function NvimWindow({ content, fileName, cursorLine = 3 }: NvimWindowProp
 
         {/* Content — vanilla, no cursorline highlight */}
         <div className="flex-1 py-2.5 px-3 sm:px-4 overflow-hidden">
-          <div className="prose max-w-none font-mono leading-6 text-[15px]">
+          <div className="prose max-w-none font-mono leading-6 text-[14px]">
             <ReactMarkdown
               rehypePlugins={[rehypeSanitize]}
               components={nvimMarkdownComponents as unknown as import("react-markdown").Components}
@@ -105,7 +105,7 @@ export function NvimWindow({ content, fileName, cursorLine = 3 }: NvimWindowProp
       </div>
 
       {/* Statusline — like hero */}
-      <div className="bg-[var(--th-surface-alt)]/80 px-3.5 py-1.5 flex items-center justify-between text-[13px] text-[var(--th-text-dim)]">
+      <div className="bg-[var(--th-surface-alt)]/80 px-3.5 py-1.5 flex items-center justify-between text-[12px] text-[var(--th-text-dim)]">
         <div className="flex items-center gap-3">
           <span className="bg-[var(--th-accent)] text-[var(--th-bg)] px-1.5 font-bold">NORMAL</span>
           <span className="text-[var(--th-cyan)]">{fileName}</span>
@@ -120,7 +120,7 @@ export function NvimWindow({ content, fileName, cursorLine = 3 }: NvimWindowProp
       </div>
 
       {/* Command line — vanilla, less themed */}
-      <div className="bg-[var(--th-bg)] border-t border-[var(--th-border-subtle)]/10 px-2 py-1 flex items-center gap-1.5 text-[13px] font-mono text-[var(--th-text-dim)]">
+      <div className="bg-[var(--th-bg)] border-t border-[var(--th-border-subtle)]/10 px-2 py-1 flex items-center gap-1.5 text-[12px] font-mono text-[var(--th-text-dim)]">
         <span className="text-[var(--th-cyan)]">:</span>
         <span>e</span>
         <span className="text-[var(--th-text-dim)]">{fileName}</span>

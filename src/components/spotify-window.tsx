@@ -20,7 +20,7 @@ export function SpotifyWindowSkeleton() {
         <span className="text-[var(--th-green)] font-bold hidden sm:inline">ncmpcpp</span>
         <span className="text-[var(--th-text-dim)] hidden sm:inline">·</span>
         <span className="text-[var(--th-accent)] font-semibold truncate">spotify — last 7 played tracks</span>
-        <span className="ml-auto hidden sm:flex items-center gap-1.5 text-[10px] text-[var(--th-text-dim)] shrink-0">
+        <span className="ml-auto hidden sm:flex items-center gap-1.5 text-[9px] text-[var(--th-text-dim)] shrink-0">
           <span className="size-1.5 rounded-full bg-[var(--th-green)]/50" />
           <span>loading…</span>
         </span>
@@ -30,7 +30,7 @@ export function SpotifyWindowSkeleton() {
           <div key={i} className="h-3 w-full bg-[var(--th-surface-alt)]/50 rounded" />
         ))}
       </div>
-      <div className="flex items-center gap-1 text-[10px] font-mono text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15 px-2 py-1 bg-[var(--th-surface-alt)]/20">
+      <div className="flex items-center gap-1 text-[9px] font-mono text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15 px-2 py-1 bg-[var(--th-surface-alt)]/20">
         <span className="size-4 rounded bg-[var(--th-surface)] border border-[var(--th-border-subtle)]" />
         <span>ncmpcpp 0.9.2</span>
       </div>
@@ -40,7 +40,7 @@ export function SpotifyWindowSkeleton() {
 
 function SpotifyHeaderRight({ current }: { current: SpotifyTrack | null }) {
   return (
-    <span className="hidden sm:flex items-center gap-1.5 text-[10px] text-[var(--th-text-dim)] shrink-0">
+    <span className="hidden sm:flex items-center gap-1.5 text-[9px] text-[var(--th-text-dim)] shrink-0">
       <span className="size-1.5 rounded-full bg-[var(--th-green)] animate-pulse" />
       <span>{current?.isPlaying ? "playing" : "paused"}</span>
     </span>
@@ -187,11 +187,11 @@ export function SpotifyWindow({ className, initialData }: { className?: string; 
         ) : tracks ? (
           <>
             <div className="px-2 sm:px-4 pt-3 pb-2">
-              <div className="flex items-center justify-center gap-8 text-[11px] tracking-widest text-[var(--th-text)]/80 border-b border-[var(--th-border-subtle)]/30 pb-1.5 mb-1 font-bold">
+              <div className="flex items-center justify-center gap-8 text-[10px] tracking-widest text-[var(--th-text)]/80 border-b border-[var(--th-border-subtle)]/30 pb-1.5 mb-1 font-bold">
                 <span>Title</span>
                 <span>Artist</span>
               </div>
-              <div className="space-y-0.5 text-[12px] sm:text-[13px] leading-5 font-mono">
+              <div className="space-y-0.5 text-[11px] sm:text-[12px] leading-5 font-mono">
                 {tracks.map((t, idx) => {
                   const isActive = idx === effectiveIdx;
                   return (
@@ -214,7 +214,7 @@ export function SpotifyWindow({ className, initialData }: { className?: string; 
               </div>
             </div>
 
-            <div className="mx-2 sm:mx-3 mb-2 border-t border-[var(--th-border-subtle)]/20 pt-2 flex items-center gap-2 text-[11px] font-mono">
+            <div className="mx-2 sm:mx-3 mb-2 border-t border-[var(--th-border-subtle)]/20 pt-2 flex items-center gap-2 text-[10px] font-mono">
               <span className="text-[var(--th-text-dim)] hidden sm:inline">Playing:</span>
               {(current?.isPlaying || tracks?.[effectiveIdx]?.isPlaying) && (
                 <span className="hidden sm:inline-flex items-center">
@@ -232,13 +232,13 @@ export function SpotifyWindow({ className, initialData }: { className?: string; 
                   <NcmpcppVisualizer size={10} />
                 </span>
               )}
-              <span className="ml-auto text-[var(--th-text-dim)] font-mono text-[11px]">[0:02/3:02]</span>
+              <span className="ml-auto text-[var(--th-text-dim)] font-mono text-[10px]">[0:02/3:02]</span>
             </div>
           </>
         ) : null}
 
         {needsSetup && (
-          <div className="mx-2 mb-2 p-2 bg-[var(--th-surface)] border border-[var(--th-border-subtle)]/30 rounded text-[11px] leading-4 text-[var(--th-text-muted)]">
+          <div className="mx-2 mb-2 p-2 bg-[var(--th-surface)] border border-[var(--th-border-subtle)]/30 rounded text-[10px] leading-4 text-[var(--th-text-muted)]">
             <p className="font-bold text-[var(--th-yellow)] mb-1">Setup required — showing mock</p>
             <p className="hidden sm:block">
               Add <code className="bg-[var(--th-bg)] px-1 rounded text-[var(--th-cyan)]">SPOTIFY_CLIENT_ID</code> /{" "}
@@ -252,7 +252,7 @@ export function SpotifyWindow({ className, initialData }: { className?: string; 
           </div>
         )}
 
-        <div className="flex items-center gap-1 text-[10px] font-mono text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15 px-2 py-1 bg-[var(--th-surface-alt)]/20">
+        <div className="flex items-center gap-1 text-[9px] font-mono text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15 px-2 py-1 bg-[var(--th-surface-alt)]/20">
           <button
             type="button"
             onClick={handleRefresh}
@@ -265,8 +265,8 @@ export function SpotifyWindow({ className, initialData }: { className?: string; 
           <span className="hidden sm:inline">ncmpcpp 0.9.2</span>
           <span className="hidden sm:inline text-[var(--th-border-subtle)]">│</span>
           <span className="hidden sm:inline">7 tracks</span>
-          <span className="ml-auto text-[9px] hidden sm:inline">q: quit</span>
-          <span className="ml-auto sm:hidden text-[9px]">spotify</span>
+          <span className="ml-auto text-[8px] hidden sm:inline">q: quit</span>
+          <span className="ml-auto sm:hidden text-[8px]">spotify</span>
         </div>
       </div>
     </WindowShell>
