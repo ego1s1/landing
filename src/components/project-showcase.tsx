@@ -90,14 +90,14 @@ export function ProjectShowcase() {
       contentClassName="!p-0 font-mono overflow-hidden"
     >
       <div className="bg-[var(--th-bg)] overflow-hidden">
-        <div className="flex items-center gap-2 bg-[var(--th-surface)] px-3 py-1.5 text-[11px] font-mono select-none">
+        <div className="flex items-center gap-2 bg-[var(--th-surface)] px-3 py-1.5 text-[10px] font-mono select-none">
           <span className="text-[var(--th-text-dim)]">total {projects.length}</span>
           <span className="hidden sm:inline text-[var(--th-border-subtle)]">·</span>
           <span className="hidden sm:inline text-[var(--th-text-dim)]">drwxr-xr-x</span>
-          <span className="ml-auto text-[10px] text-[var(--th-text-dim)] hidden sm:inline">click ▸ to expand</span>
+          <span className="ml-auto text-[9px] text-[var(--th-text-dim)] hidden sm:inline">click ▸ to expand</span>
         </div>
 
-        <div className="hidden md:flex items-center gap-3 px-3 py-1 bg-[var(--th-surface-alt)]/50 border-y border-[var(--th-border-subtle)]/20 text-[10px] font-bold tracking-widest text-[var(--th-text-dim)]">
+        <div className="hidden md:flex items-center gap-3 px-3 py-1 bg-[var(--th-surface-alt)]/50 border-y border-[var(--th-border-subtle)]/20 text-[9px] font-bold tracking-widest text-[var(--th-text-dim)]">
           <span className="w-5 text-center">›</span>
           <span className="w-6 text-center">ICON</span>
           <span className="w-[120px]">NAME</span>
@@ -121,13 +121,13 @@ export function ProjectShowcase() {
                     aria-label={isExpanded ? "Collapse" : "Expand"}
                     aria-expanded={isExpanded}
                     onClick={() => setExpanded(isExpanded ? null : project.name)}
-                    className="size-5 flex items-center justify-center rounded bg-[var(--th-surface)] border border-[var(--th-border-subtle)] text-[var(--th-cyan)] hover:text-[var(--th-text)] hover:border-[var(--th-accent)] hover:bg-[var(--th-surface-alt)] transition-colors shrink-0 cursor-pointer"
+                    className="size-6 sm:size-5 flex items-center justify-center rounded bg-[var(--th-surface)] border border-[var(--th-border-subtle)] text-[var(--th-cyan)] hover:text-[var(--th-text)] hover:border-[var(--th-accent)] hover:bg-[var(--th-surface-alt)] transition-colors shrink-0 cursor-pointer"
                   >
                     {isExpanded ? <ChevronDown className="size-3" /> : <ChevronRight className="size-3" />}
                   </button>
 
                   <span
-                    className="text-[16px] sm:text-lg shrink-0 w-6 text-center leading-none"
+                    className="text-[15px] sm:text-lg shrink-0 w-6 text-center leading-none"
                     style={{ color: project.color }}
                     aria-hidden
                   >
@@ -140,29 +140,29 @@ export function ProjectShowcase() {
                     rel="noopener noreferrer"
                     className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-3 sm:truncate"
                   >
-                    <span className="font-bold text-[13px] sm:text-sm leading-none truncate" style={{ color: project.color }}>
+                    <span className="font-bold text-[12px] sm:text-sm leading-none truncate" style={{ color: project.color }}>
                       {project.name}
                     </span>
                     {project.event && (
-                      <span className="inline-flex sm:hidden text-[10px] text-[var(--th-yellow)] bg-[var(--th-bg)] border border-[var(--th-border-subtle)]/50 px-1 py-0 rounded leading-none w-fit">
+                      <span className="inline-flex sm:hidden text-[9px] text-[var(--th-yellow)] bg-[var(--th-bg)] border border-[var(--th-border-subtle)]/50 px-1 py-0 rounded leading-none w-fit">
                         {project.event}
                       </span>
                     )}
                     <span className="hidden sm:block truncate text-xs leading-5 text-[var(--th-text-muted)] group-hover:text-[var(--th-text)] flex-1">
                       {project.description}
                     </span>
-                    <span className="sm:hidden text-[11px] leading-4 text-[var(--th-text-muted)] line-clamp-2">
+                    <span className="sm:hidden text-[10px] leading-4 text-[var(--th-text-muted)] line-clamp-2">
                       {project.description}
                     </span>
                   </a>
 
                   {project.event && (
-                    <span className="hidden lg:inline-flex text-[10px] text-[var(--th-yellow)] bg-[var(--th-bg)] border border-[var(--th-border-subtle)]/40 px-1.5 py-0.5 rounded truncate max-w-[140px] shrink-0">
+                    <span className="hidden lg:inline-flex text-[9px] text-[var(--th-yellow)] bg-[var(--th-bg)] border border-[var(--th-border-subtle)]/40 px-1.5 py-0.5 rounded truncate max-w-[129px] shrink-0">
                       {project.event}
                     </span>
                   )}
 
-                  <span className="hidden sm:flex items-center gap-1 w-20 shrink-0 justify-end text-[11px] text-[var(--th-text-dim)]">
+                  <span className="hidden sm:flex items-center gap-1 w-20 shrink-0 justify-end text-[10px] text-[var(--th-text-dim)]">
                     <LangDot color={project.color} />
                     <span className="truncate">{project.lang}</span>
                   </span>
@@ -191,7 +191,7 @@ export function ProjectShowcase() {
                         {project.stack.map((tech) => (
                           <span
                             key={tech}
-                            className="text-[10px] bg-[var(--th-surface)] text-[var(--th-text-dim)] border border-[var(--th-border-subtle)]/20 px-1.5 py-0.5 rounded"
+                            className="text-[9px] bg-[var(--th-surface)] text-[var(--th-text-dim)] border border-[var(--th-border-subtle)]/20 px-1.5 py-0.5 rounded"
                           >
                             {tech}
                           </span>
@@ -205,12 +205,12 @@ export function ProjectShowcase() {
           })}
         </div>
 
-        <div className="flex items-center gap-2 bg-[var(--th-surface)] px-3 py-1.5 text-[11px] font-mono border-t border-[var(--th-border-subtle)]/20">
+        <div className="flex items-center gap-2 bg-[var(--th-surface)] px-3 py-1.5 text-[10px] font-mono border-t border-[var(--th-border-subtle)]/20">
           <span className="text-[var(--th-green)]">✓</span>
           <span className="text-[var(--th-text-dim)]">4 projects</span>
           <span className="text-[var(--th-border-subtle)]">·</span>
           <span className="text-[var(--th-text-dim)] hidden sm:inline">press</span>
-          <span className="bg-[var(--th-surface-alt)] border border-[var(--th-border-subtle)] px-1 py-0 rounded text-[10px] text-[var(--th-cyan)]">↵</span>
+          <span className="bg-[var(--th-surface-alt)] border border-[var(--th-border-subtle)] px-1 py-0 rounded text-[9px] text-[var(--th-cyan)]">↵</span>
           <span className="text-[var(--th-text-dim)] hidden sm:inline">to open</span>
           <span className="ml-auto text-[var(--th-text-dim)] hidden md:inline"> main · telescope.nvim</span>
         </div>

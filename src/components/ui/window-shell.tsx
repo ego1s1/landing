@@ -113,7 +113,7 @@ export function WindowShell({
           {headerTitle ?? <span className="font-semibold text-[var(--th-accent)] tracking-wide truncate">{title}</span>}
           {isMinimized && minimizedHint}
         </div>
-        <div className="flex items-center gap-2 text-[10px] text-[var(--th-text-dim)] shrink-0">
+        <div className="flex items-center gap-2 text-[9px] text-[var(--th-text-dim)] shrink-0">
           {headerRight ??
             (isMinimized ? (
               <button type="button" onClick={() => windowCtx.restoreWindow(id)} className="text-[var(--th-cyan)] hover:underline cursor-pointer font-bold">

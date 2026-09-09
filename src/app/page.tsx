@@ -60,7 +60,7 @@ export default function Home() {
         <LeftDock />
         <PageFade>
           <Container>
-          <section id="home" className="w-full scroll-mt-32">
+          <section id="home" className="w-full scroll-mt-20 sm:scroll-mt-28">
             <Hero
               contributionsSlot={
                 <Suspense fallback={<GitHubContributionsSkeleton />}>
@@ -70,19 +70,19 @@ export default function Home() {
             />
           </section>
 
-          <section id="about" className="w-full scroll-mt-32">
+          <section id="about" className="w-full scroll-mt-20 sm:scroll-mt-28">
             <AboutMeSection />
           </section>
 
-          <section id="experience" className="w-full scroll-mt-32">
+          <section id="experience" className="w-full scroll-mt-20 sm:scroll-mt-28">
             <WorkExperienceSection />
           </section>
 
-          <section id="stack" className="w-full scroll-mt-32">
+          <section id="stack" className="w-full scroll-mt-20 sm:scroll-mt-28">
             <TechStack />
           </section>
 
-          <section id="projects" className="w-full scroll-mt-32">
+          <section id="projects" className="w-full scroll-mt-20 sm:scroll-mt-28">
             <ProjectShowcase />
           </section>
 
@@ -174,7 +174,7 @@ export default function Home() {
               </a>
               .
             </p>
-            <p className="text-[11px] text-[var(--th-text-dim)]">
+            <p className="text-[10px] text-[var(--th-text-dim)]">
               <span className="text-[var(--th-cyan)]">❯</span> bun run build · next-view-transitions · rehype-sanitize · zod · sharp
             </p>
           </Card>

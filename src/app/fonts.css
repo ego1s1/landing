@@ -1,47 +1,47 @@
 @font-face {
   font-family: 'Iosevka Nerd Font';
-  src: url('/fonts/IosevkaNerdFont-Regular.ttf') format('truetype');
+  src: url('/fonts/IosevkaNerdFont-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
   font-family: 'Iosevka Nerd Font';
-  src: url('/fonts/IosevkaNerdFont-Bold.ttf') format('truetype');
+  src: url('/fonts/IosevkaNerdFont-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
   font-family: 'Iosevka_Nerd_Font';
-  src: url('/fonts/IosevkaNerdFont-Regular.ttf') format('truetype');
+  src: url('/fonts/IosevkaNerdFont-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
   font-family: 'Iosevka_Nerd_Font';
-  src: url('/fonts/IosevkaNerdFont-Bold.ttf') format('truetype');
+  src: url('/fonts/IosevkaNerdFont-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
   font-family: 'JetBrainsMono Nerd Font';
-  src: url('/fonts/IosevkaNerdFont-Regular.ttf') format('truetype');
+  src: url('/fonts/IosevkaNerdFont-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
   font-family: 'JetBrainsMono Nerd Font';
-  src: url('/fonts/IosevkaNerdFont-Bold.ttf') format('truetype');
+  src: url('/fonts/IosevkaNerdFont-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }

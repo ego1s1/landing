@@ -37,7 +37,7 @@ export function ThemeSwitcher() {
         </span>
         <span className="flex items-center gap-2">
           <ThemeSwatch colors={theme.colors} />
-          <span className="text-[var(--th-text-dim,#565f89)] text-[10px] font-bold ml-1">
+          <span className="text-[var(--th-text-dim,#565f89)] text-[9px] font-bold ml-1">
             {expanded ? "[-]" : "[+]"}
           </span>
         </span>

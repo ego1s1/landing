@@ -51,13 +51,13 @@ function getTotalValue(data: ContributionsData): number {
 export function GitHubContributionsSkeleton() {
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      <div className="flex items-center justify-between px-1.5 py-1 text-[11px] font-mono shrink-0">
+      <div className="flex items-center justify-between px-1.5 py-1 text-[10px] font-mono shrink-0">
         <span className="flex items-center gap-1 text-[var(--th-text)] font-semibold truncate">
-          <span className="text-[var(--th-green)] text-[12px]">▣</span>
+          <span className="text-[var(--th-green)] text-[11px]">▣</span>
           <span className="truncate bg-[var(--th-surface-alt)] rounded h-3 w-24 animate-pulse" aria-hidden />
           <span className="hidden sm:inline text-[var(--th-text-dim)] font-normal">· 1y</span>
         </span>
-        <span className="text-[10px] text-[var(--th-text-dim)] shrink-0 ml-2">@{SITE_CONFIG.githubUsername} ↗</span>
+        <span className="text-[9px] text-[var(--th-text-dim)] shrink-0 ml-2">@{SITE_CONFIG.githubUsername} ↗</span>
       </div>
       <div className="flex-1 flex items-center px-1 py-1 overflow-hidden">
         <div className="flex gap-1 w-max opacity-60 animate-pulse" aria-hidden>
@@ -70,8 +70,8 @@ export function GitHubContributionsSkeleton() {
           ))}
         </div>
       </div>
-      <div className="flex items-center justify-between px-1.5 py-1 text-[10px] font-mono text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15 shrink-0">
-        <span className="flex items-center gap-1 text-[9px]">
+      <div className="flex items-center justify-between px-1.5 py-1 text-[9px] font-mono text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15 shrink-0">
+        <span className="flex items-center gap-1 text-[8px]">
           Less
           <span className="flex items-center gap-0.5 ml-1">
             <span className={`size-2 rounded-[1px] ${levelClass(0)}`} />
@@ -82,7 +82,7 @@ export function GitHubContributionsSkeleton() {
           </span>
           <span className="ml-0.5">More</span>
         </span>
-        <span className="text-[9px] hidden sm:inline">scroll →</span>
+        <span className="text-[8px] hidden sm:inline">scroll →</span>
       </div>
     </div>
   );
@@ -173,9 +173,9 @@ export function GitHubContributions({ initialData }: { initialData?: Contributio
   return (
     <div className="flex flex-col h-full overflow-hidden">
       {/* Header — compact */}
-      <div className="flex items-center justify-between px-1.5 py-1 text-[11px] font-mono shrink-0">
+      <div className="flex items-center justify-between px-1.5 py-1 text-[10px] font-mono shrink-0">
         <span className="flex items-center gap-1 text-[var(--th-text)] font-semibold truncate">
-          <span className="text-[var(--th-green)] text-[12px]">▣</span>
+          <span className="text-[var(--th-green)] text-[11px]">▣</span>
           <span className="truncate">{totalLabel}</span>
           <span className="hidden sm:inline text-[var(--th-text-dim)] font-normal">· 1y</span>
         </span>
@@ -183,7 +183,7 @@ export function GitHubContributions({ initialData }: { initialData?: Contributio
           href={SITE_CONFIG.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[10px] text-[var(--th-text-dim)] hover:text-[var(--th-cyan)] underline decoration-dotted underline-offset-2 shrink-0 ml-2"
+          className="text-[9px] text-[var(--th-text-dim)] hover:text-[var(--th-cyan)] underline decoration-dotted underline-offset-2 shrink-0 ml-2"
         >
           @{SITE_CONFIG.githubUsername} ↗
         </a>
@@ -223,8 +223,8 @@ export function GitHubContributions({ initialData }: { initialData?: Contributio
       </div>
 
       {/* Footer — legend, no cached text */}
-      <div className="flex items-center justify-between px-1.5 py-1 text-[10px] font-mono text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15 shrink-0">
-        <span className="flex items-center gap-1 text-[9px]">
+      <div className="flex items-center justify-between px-1.5 py-1 text-[9px] font-mono text-[var(--th-text-dim)] border-t border-[var(--th-border-subtle)]/15 shrink-0">
+        <span className="flex items-center gap-1 text-[8px]">
           Less
           <span className="flex items-center gap-0.5 ml-1">
             <span className={`size-2 rounded-[1px] ${levelClass(0)}`} />
@@ -235,7 +235,7 @@ export function GitHubContributions({ initialData }: { initialData?: Contributio
           </span>
           <span className="ml-0.5">More</span>
         </span>
-        <span className="text-[9px] hidden sm:inline">scroll →</span>
+        <span className="text-[8px] hidden sm:inline">scroll →</span>
       </div>
     </div>
   );

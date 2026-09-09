@@ -65,20 +65,20 @@ export function TechStack() {
     >
       {/* header — single line, no clutter */}
       <div className="bg-[var(--th-surface)] border-b border-[var(--th-border-subtle)]/12 px-3 py-2 flex items-center justify-between">
-        <span className="flex items-center gap-2 text-[10px] tracking-wide">
+        <span className="flex items-center gap-2 text-[9px] tracking-wide">
           <span className="bg-[var(--th-green)] text-[var(--th-bg)] px-1 py-0.5 font-bold leading-none">STACK</span>
           <span className="text-[var(--th-text-dim)] hidden sm:inline">ls -- {sections.reduce((a, s) => a + s.items.length, 0)} entries</span>
         </span>
-        <span className="text-[10px] text-[var(--th-text-dim)]/60 hidden sm:inline">hover • click → docs</span>
+        <span className="text-[9px] text-[var(--th-text-dim)]/60 hidden sm:inline">hover • click → docs</span>
       </div>
 
       <div className="p-3 sm:p-4 space-y-4">
         {sections.map((section) => (
           <div key={section.title} className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-bold tracking-[0.14em] text-[var(--th-cyan)]/90">{section.title}</span>
+              <span className="text-[10px] font-bold tracking-[0.14em] text-[var(--th-cyan)]/90">{section.title}</span>
               <span className="h-px flex-1 bg-[var(--th-border-subtle)]/15 hidden sm:block" />
-              <span className="text-[10px] text-[var(--th-text-dim)]/50 hidden sm:inline truncate">{section.prompt}</span>
+              <span className="text-[9px] text-[var(--th-text-dim)]/50 hidden sm:inline truncate">{section.prompt}</span>
             </div>
 
             {/* icon + label — uses full horizontal space, no blank gap */}
@@ -91,16 +91,16 @@ export function TechStack() {
                   rel="noopener noreferrer"
                   aria-label={item.name}
                   title={`${item.name} → ${item.url}`}
-                  className="group flex flex-col items-center justify-center gap-1.5 p-2.5 sm:p-3 bg-[var(--th-surface)] hover:bg-[var(--th-surface-alt)] border border-[var(--th-border-subtle)]/20 hover:border-[var(--th-cyan)]/40 rounded-[5px] transition-all hover:-translate-y-px hover:shadow-[0_6px_14px_rgba(0,0,0,0.18)] min-h-[68px] sm:min-h-[74px]"
+                  className="group flex flex-col items-center justify-center gap-1.5 p-2.5 sm:p-3 bg-[var(--th-surface)] hover:bg-[var(--th-surface-alt)] border border-[var(--th-border-subtle)]/20 hover:border-[var(--th-cyan)]/40 rounded-[5px] transition-all hover:-translate-y-px hover:shadow-[0_6px_14px_rgba(0,0,0,0.18)] min-h-[63px] sm:min-h-[68px]"
                 >
                   <span
-                    className="text-[18px] sm:text-[20px] leading-none transition-transform group-hover:scale-110 group-active:scale-95 shrink-0"
+                    className="text-[17px] sm:text-[18px] leading-none transition-transform group-hover:scale-110 group-active:scale-95 shrink-0"
                     style={{ color: item.color }}
                     aria-hidden
                   >
                     {item.icon}
                   </span>
-                  <span className="text-[10px] sm:text-[11px] font-medium leading-tight text-center text-[var(--th-text)] group-hover:text-[var(--th-cyan)] line-clamp-2 w-full">
+                  <span className="text-[9px] sm:text-[10px] font-medium leading-tight text-center text-[var(--th-text)] group-hover:text-[var(--th-cyan)] line-clamp-2 w-full">
                     {item.name}
                   </span>
                 </a>
@@ -110,7 +110,7 @@ export function TechStack() {
         ))}
       </div>
 
-      <div className="bg-[var(--th-surface)]/60 px-3 py-1.5 flex items-center justify-between text-[10px] text-[var(--th-text-dim)]/60 border-t border-[var(--th-border-subtle)]/10">
+      <div className="bg-[var(--th-surface)]/60 px-3 py-1.5 flex items-center justify-between text-[9px] text-[var(--th-text-dim)]/60 border-t border-[var(--th-border-subtle)]/10">
         <span className="hidden sm:inline">— {sections.reduce((a, s) => a + s.items.length, 0)} entries • icons only • hover for name</span>
         <span className="sm:hidden">— {sections.reduce((a, s) => a + s.items.length, 0)} icons</span>
         <span className="text-[var(--th-text-dim)]/40 hidden sm:inline">∷ ls</span>

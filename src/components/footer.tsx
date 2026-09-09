@@ -11,13 +11,14 @@ export function Footer({ className }: { className?: string }) {
           <span className="text-[var(--th-cyan)]">user@{SITE_CONFIG.username}:~$</span>
           <span>Built with ❤️ by {SITE_CONFIG.displayName}</span>
         </div>
-        <div className="mt-2 text-[10px] text-[var(--th-text-dim)] flex items-center justify-center gap-3">
+        <div className="mt-2 text-[9px] text-[var(--th-text-dim)] flex items-center justify-center gap-3">
           <span>PROCESS: EXIT 0</span>
           <span>•</span>
           <span>TTY: /dev/pts/0</span>
           <span>•</span>
           <span>EVERFOREST</span>
         </div>
+        <div className="mt-2 text-[9px] text-[var(--th-text-dim)]">心臓を捧げよ</div>
       </div>
     </footer>
   );
